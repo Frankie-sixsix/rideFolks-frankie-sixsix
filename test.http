@@ -1,0 +1,23 @@
+### route pour enregister un utilisateur
+// Demander à l'equipe comment les donées du form seront envoyé, form data ou json ? 
+POST http://localhost:3000/user
+content-type: application/json
+
+{
+    "last_name": "Loukil",
+    "first_name": "Frankie",
+    "mail": "frankie@oclock.io",
+    "location": "Lorgues",
+    "password": "motdepasse", 
+    "profile_picture": "https://fr.web.img6.acsta.net/r_1280_720/newsv7/20/12/07/17/58/1442788.jpg"
+
+}
+
+### Route pour voir touts les utilisateurs 
+
+GET http://localhost:3000/user
+
+
+### Route pour voir un utilisateur 
+
+GET http://localhost:3000/user/4
