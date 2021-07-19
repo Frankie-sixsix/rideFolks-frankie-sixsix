@@ -12,11 +12,13 @@ class Place {
         
         // Update
         if(this.id){
+
+            // console.log(this.id);
            
             const sqlQuerry = {
                 text: `
                     UPDATE "place" 
-                    SET address = $1,
+                    SET address = $1
                     WHERE id = $2
                     `,
                 values: [

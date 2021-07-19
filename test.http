@@ -60,5 +60,6 @@ POST http://localhost:3000/user/10/place
 content-type: application/json
 
 {
-    "address": "48.856614, 2.3522219"
+    "address": "6.856614, 6.3522219",
+    "id": 5
 }
