@@ -23,10 +23,25 @@ const userController = {
 
     findOne: async (req,res)=>{
 
-        const id = req.params.id;
+        const {id} = req.params;
         const user = await User.findOne(id);
         res.json(user);
-    }
+    },
+
+    // Methode pour supprimer un utilisateur 
+    // ---- A modifier: Message de reponse quand un utilisateur a bien été supprimé
+    deleteOne: async (req,res)=>{
+        const {id} = req.params;
+        const user = await User.findOne(id);
+            if(user === null){
+                res.json("Utilisateur introuvable");
+            }
+            else {
+                await User.deleteOne(id);
+                res.json("Utilisateur suppprimé");
+            }
+
+}
 }
 
 module.exports = userController;

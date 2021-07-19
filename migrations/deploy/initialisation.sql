@@ -13,7 +13,7 @@ CREATE TABLE "user" (
     last_name VARCHAR(50) NOT NULL, 
     first_name VARCHAR(50) NOT NULL,
     mail VARCHAR(50) NOT NULL,  
-    "location" TEXT NOT NULL, -- Changer le TEXT EN POINT APRES LE TEST 
+    "location" POINT NOT NULL, -- Changer le TEXT EN POINT APRES LE TEST 
     "language" TEXT[],
     "description" TEXT,
     "password" TEXT NOT NULL,
