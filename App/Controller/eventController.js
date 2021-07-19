@@ -26,10 +26,23 @@ const eventController = {
         const {id} = req.params;
         const event = await Event.findOne(id);
             if(event === null){
-                return res.json("Utilisateur introuvable");
+                return res.json("Evenement introuvable");
             }
         res.json(event);
-    }
+    },
+
+    deleteOne: async (req,res)=>{
+        const {id} = req.params;
+        const event = await Event.findOne(id);
+            if(event === null){
+                res.json("Evenement introuvable");
+            }
+            else {
+                await Event.deleteOne(id);
+                res.json("Evenement suppprimé");
+            }
+
+}
 
 }
 

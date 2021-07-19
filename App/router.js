@@ -17,6 +17,8 @@ router.delete('/user/:id', userController.deleteOne);
 router.get('/events', eventController.findAll);
 router.get('/event/:id', eventController.findOne);
 router.post('/event', eventController.addEvent);
+router.delete('/event/:id', eventController.deleteOne);
+
 
 
 

@@ -88,6 +88,22 @@ class Event {
     }
     }
 
+    static async deleteOne(id) {
+
+        try {
+            // Requete protégé
+            const sqlQuerry = {
+                text: 'DELETE FROM "event" WHERE id= $1',
+                values: [id]
+            }
+
+            await client.query(sqlQuerry);
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 }
 
 module.exports = Event;

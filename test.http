@@ -48,3 +48,6 @@ GET http://localhost:3000/events
 
 ### Route pour voir un evenement 
 GET http://localhost:3000/event/4
+
+### Route pour supprimer un event 
+DELETE http://localhost:3000/event/20
