@@ -43,11 +43,35 @@ class User {
         if(this.id){
            
             //TODO methode pour la update, faire un SET column1 = value1 etc.. WHERE id = this.id (En faisant la technique pour se proteger des injectrions sql)
+            // const sqlQuerry = {
+            //     text: 'SELECT * FROM "user" WHERE id=$1',
+            //     values: [this.id]
+
+            // }
             const sqlQuerry = {
-                text: 'SELECT * FROM "user" WHERE id=$1',
-                values: [this.id]
+                text: `UPDATE "user" 
+                    SET last_name = $1,
+                    first_name = $2,
+                    mail = $3,
+                    location = $4,
+                    language = $5,
+                    description = $6,
+                    password = $7,
+                    profile_picture = $8
+                    WHERE id = $9
+                    `,
+                values: [this.last_name,
+                    this.first_name,
+                    this.mail,
+                    this.location,
+                    this.language,
+                    this.description,
+                    this.password,
+                    this.profile_picture,
+                    this.id]
             }
-            const user = await client.query(sqlQuerry);
+            await client.query(sqlQuerry);
+            console.log('Utilisateur modifié');
 
         
         }
@@ -89,6 +113,8 @@ class User {
             console.log(error);
         }
     }
+
+
 }
 
 module.exports = User;

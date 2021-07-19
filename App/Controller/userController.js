@@ -8,7 +8,7 @@ const userController = {
         console.log(req.body);
         try {
             await user.save();
-            res.json(user);
+            res.json('Utilisateur crée'); // Voir avec l'equipe pour savoir quoi dire en reponse au front
         } catch (error){
             res.json(error.message);
         }

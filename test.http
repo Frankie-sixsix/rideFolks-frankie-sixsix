@@ -5,11 +5,13 @@ content-type: application/json
 
 {
     "last_name": "33",
-    "first_name": "Frankie",
+    "first_name": "User 01",
     "mail": "frankie@oclock.io",
     "location": " 48.866669, 2.33333",
-    "password": "motdepasse", 
-    "profile_picture": "https://fr.web.img6.acsta.net/r_1280_720/newsv7/20/12/07/17/58/1442788.jpg"
+    "password": "motdepasse tres secret", 
+    "profile_picture": "https://fr.web.img6.acsta.net/r_1280_720/newsv7/20/12/07/17/58/1442788.jpg",
+    "id": 10
+
 
 }
 
