@@ -3,6 +3,7 @@ const router = Router();
 const mainController = require('./Controller/mainController');
 const userController = require('./Controller/userController');
 const eventController = require('./Controller/eventController');
+const placeController = require('./Controller/placeController');
 
 
 router.get('/', mainController.test);
@@ -18,6 +19,12 @@ router.get('/events', eventController.findAll);
 router.get('/event/:id', eventController.findOne);
 router.post('/event', eventController.addEvent);
 router.delete('/event/:id', eventController.deleteOne);
+
+// Route place
+router.post('/user/:id/place/', placeController.addPlace);
+
+
+
 
 
 

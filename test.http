@@ -50,4 +50,15 @@ GET http://localhost:3000/events
 GET http://localhost:3000/event/4
 
 ### Route pour supprimer un event 
-DELETE http://localhost:3000/event/20
+DELETE http://localhost:3000/event/4
+
+
+### Route place
+
+### Route pour ajouter un lieu 
+POST http://localhost:3000/user/10/place
+content-type: application/json
+
+{
+    "address": "48.856614, 2.3522219"
+}

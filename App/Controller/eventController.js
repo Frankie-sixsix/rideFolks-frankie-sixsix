@@ -31,6 +31,7 @@ const eventController = {
         res.json(event);
     },
 
+    // Supprimer un evenement
     deleteOne: async (req,res)=>{
         const {id} = req.params;
         const event = await Event.findOne(id);

@@ -36,18 +36,12 @@ class Event {
         }
     }
 
-    // Methode pour mettre à jour un utilisateur, et si il n'existe pas alors on le sauvegarde en bdd
+    // Methode pour mettre à jour un evenement, et si il n'existe pas alors on le sauvegarde en bdd
     async save() {
         
         // Update
         if(this.id){
            
-            //TODO methode pour la update, faire un SET column1 = value1 etc.. WHERE id = this.id (En faisant la technique pour se proteger des injectrions sql)
-            // const sqlQuerry = {
-            //     text: 'SELECT * FROM "user" WHERE id=$1',
-            //     values: [this.id]
-
-            // }
             const sqlQuerry = {
                 text: `UPDATE "user" 
                     SET location = $1,
@@ -88,6 +82,7 @@ class Event {
     }
     }
 
+    // Methode pour supprimer un evenement
     static async deleteOne(id) {
 
         try {
