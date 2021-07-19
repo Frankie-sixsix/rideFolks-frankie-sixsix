@@ -12,4 +12,5 @@ Puis continuer en faisant les meme methodes que user pour Event, place, et group
 
 Lundi 19/07
 
-Voir les POINT sur sql, pour voir comment rentrer e, base de données des coordonnées 
+Voir les POINT sur sql, pour voir comment rentrer e, base de données des coordonnées,
+Faire la route pour ajouter un ami a sa liste d'amis, pour que le front puisse coder le bouton pour ajouter des amies 

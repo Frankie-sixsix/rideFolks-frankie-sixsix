@@ -5,7 +5,7 @@ const userController = {
     addUser: async (req,res)=>{
     
         const user = new User(req.body);
-        console.log(req.body);
+        // console.log(req.body);
         try {
             await user.save();
             res.json('Utilisateur crée'); // Voir avec l'equipe pour savoir quoi dire en reponse au front
@@ -25,6 +25,9 @@ const userController = {
 
         const {id} = req.params;
         const user = await User.findOne(id);
+            if(user === null){
+                return res.json("Utilisateur introuvable");
+            }
         res.json(user);
     },
 

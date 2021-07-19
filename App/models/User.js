@@ -60,7 +60,8 @@ class User {
                     profile_picture = $8
                     WHERE id = $9
                     `,
-                values: [this.last_name,
+                values: [
+                    this.last_name,
                     this.first_name,
                     this.mail,
                     this.location,
