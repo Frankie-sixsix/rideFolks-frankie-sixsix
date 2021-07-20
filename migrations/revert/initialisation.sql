@@ -16,8 +16,6 @@ DROP TABLE user_participate_event;
 
 DROP TABLE event_has_mode;
 
-DROP TABLE user_create_event;
-
 DROP TABLE event_has_discipline;
 
 DROP TABLE "message";
