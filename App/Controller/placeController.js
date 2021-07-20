@@ -18,6 +18,23 @@ const placeController = {
 
     },
 
+    // Voir notes persos pour problematique :
+    // - Pour rechercher un lieu deja existant et l'ajouter au profil? 
+    // - Si un utilisateur supprime un lieu est ce que le lieu doit etre supprimé de la table "place" ou suelmeent le lien dans la table "user_has_place"
+    
+    deletePlace: async (req,res)=>{
+
+        const {idPlace} = req.params;
+        const place = await Place.findOne(idPlace);
+            if(place === null){
+                res.json("Lieu introuvable");
+            }
+            else {
+                await Place.deleteOne(idPlace);
+                res.json("Lieu suppprimé");
+            }
+    }
+
 }
 
 module.exports = placeController;

@@ -9,8 +9,8 @@ content-type: application/json
     "mail": "frankie@oclock.io",
     "location": " 48.866669, 2.33333",
     "password": "motdepasse tres secret", 
-    "profile_picture": "https://fr.web.img6.acsta.net/r_1280_720/newsv7/20/12/07/17/58/1442788.jpg",
-    "id": 10
+    "profile_picture": "https://fr.web.img6.acsta.net/r_1280_720/newsv7/20/12/07/17/58/1442788.jpg"
+    
 
 
 }
@@ -56,10 +56,13 @@ DELETE http://localhost:3000/event/4
 ### Route place
 
 ### Route pour ajouter un lieu 
-POST http://localhost:3000/user/10/place
+POST http://localhost:3000/user/1/place
 content-type: application/json
 
 {
-    "address": "6.856614, 6.3522219",
-    "id": 5
+    "address": "6.856614, 6.3522219"
+    
 }
+
+### Route pour supprimer un lieu 
+DELETE http://localhost:3000/user/1/place/3

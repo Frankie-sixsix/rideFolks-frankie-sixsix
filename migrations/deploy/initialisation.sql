@@ -138,7 +138,7 @@ CREATE TABLE user_has_discipline (
 
 CREATE TABLE user_has_place (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    place_id INT REFERENCES place(id),
+    place_id INT REFERENCES place(id) ON DELETE CASCADE,
     "user_id" INT REFERENCES "user"(id)
 );
 

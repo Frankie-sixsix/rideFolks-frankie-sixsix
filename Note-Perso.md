@@ -1,4 +1,4 @@
-## Note s
+## Notes
 
 Dimanche 18/07
 
@@ -14,3 +14,9 @@ Lundi 19/07
 
 Voir les POINT sur sql, pour voir comment rentrer e, base de données des coordonnées,
 Faire la route pour ajouter un ami a sa liste d'amis, pour que le front puisse coder le bouton pour ajouter des amies 
+
+Problematique: 
+
+Question: Est ce que si un utilisateur rentre un lieu visité on doit recherché si ce lieux existe en bdd et du coup donner l'id a la liste de lieu visité par l'user ? 
+
+Est ce que si un utilisateur supprime un lieu il est supprimé aussi de la bdd ou seulement lutilisateur n'est plus relié a ce lieux ? 

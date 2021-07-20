@@ -8,20 +8,21 @@ const placeController = require('./Controller/placeController');
 
 router.get('/', mainController.test);
 
-// Route user 
-router.get('/users', userController.findAll);
-router.get('/user/:id', userController.findOne);
-router.post('/user', userController.addUser);
-router.delete('/user/:id', userController.deleteOne);
+// Route user (reste à voir si je dois séparer la route post en une route post et une route update /!\)
+router.get('/users', userController.findAll); // Recuperation de touts les utilisateurs 
+router.post('/user', userController.addUser); // Création d'un utilisateur grâce a un form / UPDATE
+router.get('/user/:id', userController.findOne); // Recuperation d'un utilisateur grâce a son id 
+router.delete('/user/:id', userController.deleteOne); // Suppression d'un utilisateur 
 
 // Route event
-router.get('/events', eventController.findAll);
-router.get('/event/:id', eventController.findOne);
-router.post('/event', eventController.addEvent);
-router.delete('/event/:id', eventController.deleteOne);
+router.get('/events', eventController.findAll); // Recuperation de touts les evenements 
+router.get('/event/:id', eventController.findOne); // Recuperation d'un evenement grâce a son id 
+router.post('/event', eventController.addEvent); // Création d'un evenement / UPDATE
+router.delete('/event/:id', eventController.deleteOne); // Suppression d'un evenement 
 
 // Route place
-router.post('/user/:id/place/', placeController.addPlace);
+router.post('/user/:id/place', placeController.addPlace); // Création et ajout d'un lieux visité au profil de l'utilisateur / UPDATE
+router.delete('/user/:id/place/:idPlace', placeController.deletePlace);
 
 
 

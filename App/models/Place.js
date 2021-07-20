@@ -57,14 +57,38 @@ class Place {
     }
     }
 
-    async addPLace(id) {
-        //2eme requete pour faire une entrée dans user has place
-        const sqlQuerry1 = {
-            text: 'INSERT INTO "user_has_place(place_id,user_id) VALUES ($1,$2)',
-            values: [this.id, this.owner_id]
+    static async deleteOne(idPlace) {
+
+        try {
+            
+            const sqlQuerry = {
+                text: 'DELETE FROM place WHERE id= $1',
+                values: [idPlace]
+            }
+
+            await client.query(sqlQuerry);
+            
+        } catch (error) {
+            console.log(error);
         }
     }
 
+    static async findOne(id) {
+        try {
+            const sqlQuerry = {
+                text: 'SELECT * FROM "place" WHERE id=$1',
+                values: [id]
+            }
+            const {rows} = await client.query(sqlQuerry);
+            if (rows[0]) {
+                return new Place(rows[0]);
+            }
+            return null;
+
+        } catch (error){
+            console.log(error);
+        }
+    }
 }
 
 module.exports = Place;
