@@ -4,6 +4,7 @@ const mainController = require('./Controller/mainController');
 const userController = require('./Controller/userController');
 const eventController = require('./Controller/eventController');
 const placeController = require('./Controller/placeController');
+const networkController = require('./Controller/networkController');
 
 
 router.get('/', mainController.test);
@@ -17,18 +18,18 @@ router.delete('/user/:id', userController.deleteOne); // Suppression d'un utilis
 // Route event
 router.get('/events', eventController.findAll); // Recuperation de touts les evenements 
 router.get('/event/:id', eventController.findOne); // Recuperation d'un evenement grâce a son id 
-router.post('/user/:id/event', eventController.addEvent); // Création d'un evenement / UPDATE A RETRAVAILLER
+router.post('/user/:id/event', eventController.addEvent); // Création d'un evenement / UPDATE
 router.delete('/event/:id', eventController.deleteOne); // Suppression d'un evenement 
+
+router.post('/user/:id/event/:idEvent', eventController.participate); // Route pour participer à un evenement 
 
 // Route place
 router.post('/user/:id/place', placeController.addPlace); // Création et ajout d'un lieux visité au profil de l'utilisateur / UPDATE
 router.delete('/user/:id/place/:idPlace', placeController.deletePlace);
 
 
-
-
-
-
+// Route network
+router.post('/user/:id/user/:idFriend', networkController.addFriend);
 
 
 

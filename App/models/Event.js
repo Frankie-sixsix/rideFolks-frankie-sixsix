@@ -99,6 +99,20 @@ class Event {
         }
     }
 
+    static async participate(id,idEvent) {
+
+        try {
+            const sqlQuerry = {
+                text:'INSERT INTO "user_participate_event" (event_id,user_id) VALUES ($1,$2)',
+                values: [idEvent, id]
+            }
+            await client.query(sqlQuerry);
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 }
 
 module.exports = Event;

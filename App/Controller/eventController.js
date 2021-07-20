@@ -5,11 +5,12 @@ const eventController = {
     // Ajouter un evenement 
     addEvent: async (req,res)=>{
         const {id} = req.params;
-        console.log(id);
         const event = new Event(req.body);
-        console.log(req.body);
+
         try {
             await event.save(id);
+            await Event.participate(id, event.id);
+            
             res.json("Evenement crée");
         } catch (error){
             res.json(error.message);
@@ -45,7 +46,14 @@ const eventController = {
                 res.json("Evenement suppprimé");
             }
 
-}
+    },
+
+    // Participer à un evenement
+    participate: async (req,res)=>{
+        const {id,idEvent} = req.params;
+        await Event.participate(id,idEvent);
+        res.json("C'est ok");
+    }
 
 }
 

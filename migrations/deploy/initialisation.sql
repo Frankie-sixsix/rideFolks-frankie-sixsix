@@ -94,13 +94,13 @@ CREATE TABLE event_has_discipline (
 );
 
 
--- Table user_create_event
+-- Table user_create_event ()
 
-CREATE TABLE user_create_event (
-    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    event_id INT REFERENCES "event"(id),
-    "user_id" INT REFERENCES "user"(id)
-);
+-- CREATE TABLE user_create_event (
+--     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+--     event_id INT REFERENCES "event"(id),
+--     "user_id" INT REFERENCES "user"(id)
+-- );
 
 -- Table event_has_mode
 

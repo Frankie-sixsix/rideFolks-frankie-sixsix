@@ -57,6 +57,7 @@ class Place {
     }
     }
 
+    // Passer en non static ! /!\
     static async deleteOne(idPlace) {
 
         try {

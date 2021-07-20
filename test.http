@@ -1,11 +1,11 @@
 ### route pour enregister un utilisateur
 // Demander à l'equipe comment les données du form seront envoyé, form data ou json ? 
-POST http://localhost:3000/user
+POST http://localhost:5000/user
 content-type: application/json
 
 {
     "last_name": "33",
-    "first_name": "User 01",
+    "first_name": "User 01 - Rue",
     "mail": "frankie@oclock.io",
     "location": " 48.866669, 2.33333",
     "password": "motdepasse tres secret", 
@@ -35,7 +35,7 @@ DELETE http://localhost:3000/user/3
 ### Route event 
 
 ### Route pour créer un event 
-POST http://localhost:3000/user/1/event
+POST http://localhost:3000/user/4/event
 content-type: application/json
 
 {
@@ -47,10 +47,13 @@ content-type: application/json
 GET http://localhost:3000/events
 
 ### Route pour voir un evenement 
-GET http://localhost:3000/event/2
+GET http://localhost:3000/event/7
 
 ### Route pour supprimer un event 
 DELETE http://localhost:3000/event/2
+
+### Route pour ajouter un utilisateur a un evenement 
+POST http://localhost:3000/user/5/event/7
 
 
 ### Route place
@@ -66,3 +69,12 @@ content-type: application/json
 
 ### Route pour supprimer un lieu 
 DELETE http://localhost:3000/user/1/place/1
+
+
+
+
+### Route network
+
+### Route pour ajouter un utilisateur en ami 
+
+POST http://localhost:3000/user/1/user/5
