@@ -20,3 +20,10 @@ Problematique:
 Question: Est ce que si un utilisateur rentre un lieu visité on doit recherché si ce lieux existe en bdd et du coup donner l'id a la liste de lieu visité par l'user ? 
 
 Est ce que si un utilisateur supprime un lieu il est supprimé aussi de la bdd ou seulement lutilisateur n'est plus relié a ce lieux ? 
+
+Mardi 
+....
+
+Mercredi 
+
+Configuer pg admin pour pouvoir se connecter a l'api de heroku, puis regler le probleme de gitignore 
