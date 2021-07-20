@@ -17,7 +17,7 @@ router.delete('/user/:id', userController.deleteOne); // Suppression d'un utilis
 // Route event
 router.get('/events', eventController.findAll); // Recuperation de touts les evenements 
 router.get('/event/:id', eventController.findOne); // Recuperation d'un evenement grâce a son id 
-router.post('/event', eventController.addEvent); // Création d'un evenement / UPDATE
+router.post('/user/:id/event', eventController.addEvent); // Création d'un evenement / UPDATE A RETRAVAILLER
 router.delete('/event/:id', eventController.deleteOne); // Suppression d'un evenement 
 
 // Route place

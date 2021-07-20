@@ -17,17 +17,17 @@ content-type: application/json
 
 ### Route pour voir touts les utilisateurs 
 
-GET http://localhost:3000/user
+GET http://localhost:3000/users
 
 
 ### Route pour voir un utilisateur 
 
-GET http://localhost:3000/user/100
+GET http://localhost:3000/user/1
 
 
 ### Route pour supprimer un utilisateur 
 
-DELETE http://localhost:3000/user/9
+DELETE http://localhost:3000/user/3
 
 
 ###############################################
@@ -35,22 +35,22 @@ DELETE http://localhost:3000/user/9
 ### Route event 
 
 ### Route pour créer un event 
-POST http://localhost:3000/event
+POST http://localhost:3000/user/1/event
 content-type: application/json
 
 {
-    "location": "48.856614, 2.3522219",
-    "owner_id": 10
+    "location": "48.856614, 2.3522219"
+   
 }
 
 ### Routes pour voir touts les events
 GET http://localhost:3000/events
 
 ### Route pour voir un evenement 
-GET http://localhost:3000/event/4
+GET http://localhost:3000/event/2
 
 ### Route pour supprimer un event 
-DELETE http://localhost:3000/event/4
+DELETE http://localhost:3000/event/2
 
 
 ### Route place
@@ -65,4 +65,4 @@ content-type: application/json
 }
 
 ### Route pour supprimer un lieu 
-DELETE http://localhost:3000/user/1/place/3
+DELETE http://localhost:3000/user/1/place/1

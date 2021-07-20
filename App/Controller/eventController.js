@@ -4,10 +4,12 @@ const eventController = {
 
     // Ajouter un evenement 
     addEvent: async (req,res)=>{
+        const {id} = req.params;
+        console.log(id);
         const event = new Event(req.body);
         console.log(req.body);
         try {
-            await event.save();
+            await event.save(id);
             res.json("Evenement crée");
         } catch (error){
             res.json(error.message);

@@ -37,7 +37,7 @@ class Event {
     }
 
     // Methode pour mettre à jour un evenement, et si il n'existe pas alors on le sauvegarde en bdd
-    async save() {
+    async save(id) {
         
         // Update
         if(this.id){
@@ -69,7 +69,7 @@ class Event {
                         this.location,
                         this.date,
                         this.start_time,
-                        this.owner_id
+                        id
                     ]
                 }
 
