@@ -17,7 +17,6 @@ const userController = {
     findAll: async (_,res)=>{
 
         const users = await User.findAll();
-        console.log(users);
         res.json(users);
     },
 

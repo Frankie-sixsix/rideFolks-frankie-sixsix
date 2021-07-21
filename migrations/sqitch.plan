@@ -2,4 +2,3 @@
 %project=rideFolks
 
 initialisation 2021-07-16T09:55:25Z Frankie <frankielkl33@hotmail.fr> # Initialisation des tables
-privilege 2021-07-20T14:20:13Z Frankie <frankielkl33@hotmail.fr> # Ajout de privilege pour pouvoir se connecter à la bdd avec pgadmin
