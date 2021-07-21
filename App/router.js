@@ -29,7 +29,10 @@ router.delete('/user/:id/place/:idPlace', placeController.deletePlace);
 
 
 // Route network
-router.post('/user/:id/user/:idFriend', networkController.addFriend);
+router.post('/user/:id/user/:idFriend', networkController.addFriend); // Ajouter un ami 
+router.delete('/user/:id/user/:idFriend', networkController.deleteFriend); // Supprimer un ami 
+
+
 
 
 
