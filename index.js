@@ -3,13 +3,14 @@ const express = require('express');
 const cors = require('cors');
 
 
-app.use(cors());
 const router = require('./App/router');
 
 const io = require("socket.io");
 
 
 const app = express();
+
+app.use(cors());
 
 const port = process.env.PORT || 3000;
 
