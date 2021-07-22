@@ -34,6 +34,11 @@ router.delete('/user/:id/user/:idFriend', networkController.deleteFriend); // Su
 router.get('/user/:id/friend', networkController.showFriendList); // Supprimer un ami 
 
 
+// Route test socket.io
+router.get('/socket', (req,res)=>{
+    res.sendFile(__dirname + '/static/index.html');
+})
+
 
 
 

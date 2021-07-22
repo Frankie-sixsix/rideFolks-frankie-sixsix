@@ -51,3 +51,5 @@ requete liste amis:
 SELECT "user".* FROM "user" 
 join "network" ON network.friend_user_id = "user".id
 Where network.source_id = 1;
+
+heroku: git push heroku nomBranch:main (pour push sur heroku branch main)
