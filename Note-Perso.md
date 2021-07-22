@@ -51,3 +51,6 @@ requete liste amis:
 SELECT "user".* FROM "user" 
 join "network" ON network.friend_user_id = "user".id
 Where network.source_id = 1;
+
+
+Verifier la methode save, pour les insert (language etc) 
