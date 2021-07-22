@@ -39,7 +39,8 @@ class User {
 
     // Methode pour mettre à jour un utilisateur, et si il n'existe pas alors on le sauvegarde en bdd
     async save() {
-        
+        try {
+             
         if(this.id){
            
             const sqlQuerry = {
@@ -71,7 +72,7 @@ class User {
         
         }
         else {
-            try {
+            
                 const sqlQuerry = {
                     text: 'INSERT INTO "user"(last_name,first_name,mail,location,password,profile_picture) VALUES($1,$2,$3,$4,$5,$6) RETURNING id',
                     values: [
