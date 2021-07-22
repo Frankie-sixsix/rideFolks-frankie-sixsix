@@ -40,7 +40,7 @@ class User {
     // Methode pour mettre à jour un utilisateur, et si il n'existe pas alors on le sauvegarde en bdd
     async save() {
         try {
-             
+
         if(this.id){
            
             const sqlQuerry = {
@@ -87,10 +87,11 @@ class User {
 
                 const {rows} = await client.query(sqlQuerry);
                 this.id = rows[0].id;
-        } catch (error) {
+        } 
+        
+    }catch (error) {
             console.log(error);
             throw new Error(error.details);
-        }
     }
     }
 
