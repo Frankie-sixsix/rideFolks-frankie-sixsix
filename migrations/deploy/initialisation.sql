@@ -17,7 +17,7 @@ CREATE TABLE "user" (
     "language" TEXT[],
     "description" TEXT,
     "password" TEXT NOT NULL,
-    profile_picture TEXT NOT NULL,
+    profile_picture TEXT,
     "availability" BOOLEAN NOT NULL DEFAULT FALSE 
 
 );
