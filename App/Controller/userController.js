@@ -6,6 +6,8 @@ const userController = {
     
         const user = new User(req.body);
         // console.log(req.body);
+        await user.save();
+        res.json("Utilisateur crée");
        
     },
 

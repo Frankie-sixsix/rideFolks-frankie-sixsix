@@ -16,13 +16,6 @@ INSERT INTO "user"(
  'https://64.media.tumblr.com/f97561c1c9f1ee197de6c71f902de89c/8872ee4a69c0b70b-ba/s640x960/b44b4365ab36070a4ca9c4de182cb57a6bf4c8c2.jpg' ),
 
 ('Snowden',
- 'Edward', 
- 'cia@oclock.nsa',
- '0.0002, 2.0000',
- 'Pegasus',
- 'https://img.huffingtonpost.com/asset/5e70ef3e2600000f34b66d0d.png?cache=xdmr7WhLOp&ops=1778_1000' ),
-
- ('Shakur',
  'Tupac', 
  'makaveli@oclock.io',
  '0.0002, 2.0000',
