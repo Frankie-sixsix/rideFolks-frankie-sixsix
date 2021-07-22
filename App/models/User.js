@@ -91,7 +91,7 @@ class User {
         
     }catch (error) {
             console.log(error);
-            throw new Error(error.details);
+            // throw new Error(error.details);
     }
     }
 
