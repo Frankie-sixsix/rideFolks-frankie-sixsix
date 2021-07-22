@@ -73,7 +73,26 @@ class Network {
 
      
 
-}
+    }
+
+    static async showFriendList(id) {
+        try {
+            const sqlQuerry = {
+                // text:'SELECT friend_user_id FROM "network" WHERE source_id = $1',
+                text: `
+                SELECT "user".* FROM "user" 
+                join "network" ON network.friend_user_id = "user".id
+                Where network.source_id = $1`,
+                values: [id]
+            }
+            const {rows} = await client.query(sqlQuerry);
+            return rows.map(row=> new Network(row));
+
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
     
 }
 

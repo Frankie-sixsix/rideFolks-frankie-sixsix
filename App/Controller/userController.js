@@ -6,12 +6,7 @@ const userController = {
     
         const user = new User(req.body);
         // console.log(req.body);
-        try {
-            await user.save();
-            res.json('Utilisateur crée'); // Voir avec l'equipe pour savoir quoi dire en reponse au front
-        } catch (error){
-            res.json(error.message);
-        }
+       
     },
 
     findAll: async (_,res)=>{

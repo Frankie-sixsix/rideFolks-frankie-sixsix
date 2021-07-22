@@ -43,3 +43,11 @@ Configurer la route pour supprimer un event, car seul le créateur de l'vent (ow
 - Si l'id de la peronne voulant supprimé l'event n'est pas le meme que le owner_id de l'event alors mettre un message comme quoi il n'a pas les droits 
 
 Changer le message de retour sur la route pour ajouter un utilisateur à event, voir avec les front quoi mettre + message de la route pour ajouter un utilisateur en ami aussi 
+
+Rajouter socket.io aux dependences cotées back sur google doc
+
+requete liste amis:
+-Rechercher les user dans la table user qui on le meme id que le friernd_user_id de la table "network" QUAND la source_id = 1
+SELECT "user".* FROM "user" 
+join "network" ON network.friend_user_id = "user".id
+Where network.source_id = 1;

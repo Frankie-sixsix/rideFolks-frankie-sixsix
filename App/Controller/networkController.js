@@ -33,6 +33,13 @@ const networkController = {
             res.json("Cette utilisateur n'est pas dans votre liste d'ami");
         }
         
+    },
+
+    showFriendList: async (req,res)=>{
+        
+        const {id} = req.params;
+        const friend = await Network.showFriendList(id);
+        res.json(friend);
     }
 
 }
