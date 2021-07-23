@@ -111,7 +111,38 @@ class User {
         }
     }
 
+    static async verifyEmail(email) {
+        try {
+            const sqlQuerry = {
+                text: 'SELECT * FROM "user" WHERE mail = $1',
+                values:[email]
+            }
+            const {rows} = await client.query(sqlQuerry);
+            if (rows[0]){
+                return {};
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
-}
+    static async password (email) {
+        try {
+            const sqlQuerry = {
+                text: 'SELECT password FROM "user" WHERE mail = $1',
+                values:[email]
+            }
+            const {rows} = await client.query(sqlQuerry);
+            if (rows[0]){
+                return rows[0];
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    }
+
+
+
 
 module.exports = User;
