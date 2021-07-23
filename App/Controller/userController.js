@@ -8,14 +8,14 @@ const userController = {
 
         const user = new User(req.body);
 
-        console.log("user:",user);
-        console.log("mailo",user.mail);
-        console.log("Password baby" , user.password);
+        // console.log("user:",user);
+        // console.log("mailo",user.mail);
+        // console.log("Password baby" , user.password);
         const mail = await User.verifyEmail(user.mail);
 
         if(mail === undefined){
             const cryptedPassword = bcrypt.hashSync(user.password,10);
-            console.log(cryptedPassword);
+            // console.log(cryptedPassword);
             user.password = cryptedPassword;
             user.save();
             res.json("Inscription réussi");
@@ -30,14 +30,30 @@ const userController = {
     // Innactif pour l'instant
     verifyPass: async (req,res)=>{
 
-        console.log(req.body.password);
+        // console.log(req.body.password);
+        // console.log(req.body.mail);
 
-        const pass = await User.password(req.body.mail);
-        console.log(pass.password);
+        const verifyEmail = await User.verifyEmail(req.body.mail);
+        console.log("ee",verifyEmail);
+        if(verifyEmail !== "undefined") {
+            const pass = await User.password(req.body.mail);
+            console.log(pass);
+                if(pass !== "undefined"){
+                    console.log(pass.password,"oo");
+                    const isPasswordvalid = bcrypt.compareSync(req.body.password, pass.password);
+                    console.log(isPasswordvalid);
+                        if(!isPasswordvalid){
+                            return res.json("Mot de passe incorect");
+                        } else {
+                            res.json("Connection..ok !");
+                        }
+                }
+         }
+        else {
+            res.json('Email incorrect');
+        }
 
 
-        const isPasswordvalid = bcrypt.compareSync(req.body.password, pass.password);
-        console.log(isPasswordvalid);
     },
 
     findAll: async (_,res)=>{

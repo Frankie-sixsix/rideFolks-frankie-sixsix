@@ -42,6 +42,9 @@ router.get('/socket', (req,res)=>{
 // Route test pour verifié password
 router.post('/verify', userController.verifyPass);
 
+router.post('/login', userController.verifyPass);
+
+
 
 
 
