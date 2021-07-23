@@ -52,5 +52,4 @@ SELECT "user".* FROM "user"
 join "network" ON network.friend_user_id = "user".id
 Where network.source_id = 1;
 
-
-Verifier la methode save, pour les insert (language etc) 
+heroku: git push heroku nomBranch:main (pour push sur heroku branch main)

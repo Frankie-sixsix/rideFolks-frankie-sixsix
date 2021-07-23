@@ -7,15 +7,24 @@ const userController = {
     
 
         const user = new User(req.body);
-        // console.log(req.body);
-        try {
-            await user.save();
-            res.json("Utilisateur crée");
 
-        } catch (error) {
-            console.log(error);
+        console.log("user:",user);
+        console.log("mailo",user.mail);
+        console.log("Password baby" , user.password);
+        const mail = await User.verifyEmail(user.mail);
+        // const cryptedPassword = bcrypt.hashSync(user.password,10);
+        // console.log(cryptedPassword);
+        if(mail === undefined){
+            const cryptedPassword = bcrypt.hashSync(user.password,10);
+            console.log(cryptedPassword);
+            user.password = cryptedPassword;
+            user.save();
+            res.json("Inscription réussi");
+
+        } else {
+            res.json("L'email est deja utilisé");
         }
-        
+        console.log(mail);
        
     },
 
