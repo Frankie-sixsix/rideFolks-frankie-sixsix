@@ -129,10 +129,10 @@ class User {
         }
     }
 
-    static async password (email) {
+    static async getPassword (email) {
         try {
             const sqlQuerry = {
-                text: 'SELECT password FROM "user" WHERE mail = $1',
+                text: 'SELECT password, last_name, first_name FROM "user" WHERE mail = $1',
                 values:[email]
             }
             const {rows} = await client.query(sqlQuerry);
