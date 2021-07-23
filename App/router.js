@@ -39,6 +39,8 @@ router.get('/socket', (req,res)=>{
     res.sendFile(__dirname + '/static/index.html');
 })
 
+// Route test pour verifié password
+router.post('/verify', userController.verifyPass);
 
 
 
