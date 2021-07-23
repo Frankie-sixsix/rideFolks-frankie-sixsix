@@ -12,8 +12,7 @@ const userController = {
         console.log("mailo",user.mail);
         console.log("Password baby" , user.password);
         const mail = await User.verifyEmail(user.mail);
-        // const cryptedPassword = bcrypt.hashSync(user.password,10);
-        // console.log(cryptedPassword);
+
         if(mail === undefined){
             const cryptedPassword = bcrypt.hashSync(user.password,10);
             console.log(cryptedPassword);
@@ -24,17 +23,15 @@ const userController = {
         } else {
             res.json("L'email est deja utilisé");
         }
-        console.log(mail);
+      
        
     },
 
+    // Innactif pour l'instant
     verifyPass: async (req,res)=>{
 
         console.log(req.body.password);
 
-        const cryptedPassword = bcrypt.hashSync(req.body.password,10);
-
-        console.log('ok');
         const pass = await User.password(req.body.mail);
         console.log(pass.password);
 
@@ -56,6 +53,7 @@ const userController = {
             if(user === null){
                 return res.json("Utilisateur introuvable");
             }
+       
         res.json(user);
     },
 

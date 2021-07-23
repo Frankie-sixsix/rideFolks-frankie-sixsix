@@ -1,8 +1,10 @@
 const client = require('../database');
+const UserFront = require('./UserFront');
 
 class User {
     
         // Boucle qui sers a crée un objet (le this) avec les meme proprietées qu'il recoit (du form)
+        // Pour enregistrer en base de données 
         constructor(obj={}) {
             for (const propName in obj){
                 this[propName] = obj[propName];
@@ -13,7 +15,8 @@ class User {
     static async findAll() {
         try {
             const {rows} = await client.query('SELECT * FROM "user"');
-            return rows.map(row => new User(row));
+            return rows.map(row => new UserFront(row));
+
         } catch (error) {
             console.log(error);
         }
@@ -28,9 +31,9 @@ class User {
             }
             const {rows} = await client.query(sqlQuerry);
             if (rows[0]) {
-                return new User(rows[0]);
+                return new UserFront(rows[0]);                
             }
-            return null;
+            
 
         } catch (error){
             console.log(error);
