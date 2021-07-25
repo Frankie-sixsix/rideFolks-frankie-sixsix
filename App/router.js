@@ -5,6 +5,7 @@ const userController = require('./Controller/userController');
 const eventController = require('./Controller/eventController');
 const placeController = require('./Controller/placeController');
 const networkController = require('./Controller/networkController');
+const security = require('../Middlewares/security');
 
 
 router.get('/', mainController.test);
@@ -39,13 +40,9 @@ router.get('/socket', (req,res)=>{
     res.sendFile(__dirname + '/static/index.html');
 })
 
-// Route test pour verifié password
-// router.post('/verify', userController.verifyPass);
+// Route pour se logger
 
-router.post('/login', userController.authentifiacation);
-
-
-
+router.post('/login',userController.authentifiacation);
 
 
 module.exports = router;

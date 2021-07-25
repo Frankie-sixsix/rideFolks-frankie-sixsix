@@ -132,8 +132,26 @@ class User {
     static async getPassword (email) {
         try {
             const sqlQuerry = {
-                text: 'SELECT password, last_name, first_name FROM "user" WHERE mail = $1',
+                text: 'SELECT password, id, last_name, first_name FROM "user" WHERE mail = $1',
                 values:[email]
+            }
+            const {rows} = await client.query(sqlQuerry);
+            if (rows[0]){
+                return rows[0];
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    static async getMessages(id) {
+        try {
+            const sqlQuerry = {
+                text: `
+                SELECT content, conversation_id, date FROM "message"
+                JOIN "user" ON message.sender_id = "user".id 
+                WHERE "user".id = $1`,
+                values: [id]
             }
             const {rows} = await client.query(sqlQuerry);
             if (rows[0]){

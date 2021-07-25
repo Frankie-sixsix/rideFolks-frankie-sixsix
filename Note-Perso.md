@@ -53,3 +53,8 @@ join "network" ON network.friend_user_id = "user".id
 Where network.source_id = 1;
 
 heroku: git push heroku nomBranch:main (pour push sur heroku branch main)
+
+Mise en place jWT 
+ressource: https://medium.com/@sbesnier1901/s%C3%A9curiser-une-api-avec-node-js-et-jwt-15e14d9df109
+
+Dimanche: Mise en place du middleware security.js, qui verifie le token dans le header de la requete, si il a ete modifié ou manquant l'accées a certeines routes est refusé et si il est bon alors ou lui crée un nouveau

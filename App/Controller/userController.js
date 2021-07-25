@@ -38,12 +38,13 @@ const userController = {
         // console.log(req.body.mail);
 
         const verifyEmail = await User.verifyEmail(req.body.mail);
-        // console.log("ee", verifyEmail);
-        if (verifyEmail !== "undefined") {
-            const pass = await User.getPassword(req.body.mail);
-            // console.log(pass);
+        // console.log("verifyEmail", verifyEmail);
 
-            if (pass !== "undefined") {
+            if(verifyEmail){
+            const pass = await User.getPassword(req.body.mail);
+            // console.log("pass",pass);
+
+            if (pass) {
                 // console.log(pass.password, "oo");
                 const isPasswordvalid = bcrypt.compareSync(req.body.password, pass.password);
                 // console.log(isPasswordvalid);
@@ -55,7 +56,9 @@ const userController = {
                     // res.json("Connection..ok !");
                     const expireIn = 24 * 60 * 60;
                     const token    = jwt.sign({
-                        user: pass.last_name
+                        last_name: pass.last_name,
+                        first_name: pass.first_name,
+                        id: pass.id
                     },
                     SECRET_KEY,
                     {
@@ -106,6 +109,12 @@ const userController = {
             res.json("Utilisateur suppprimé");
         }
 
+    },
+
+    getMessages: async (req,res)=>{
+
+        const {id} = req.params
+        // TODO : faire une class message pour presener les messages un par un comme UserFront
     }
 }
 
