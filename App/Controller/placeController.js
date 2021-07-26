@@ -4,7 +4,7 @@ const placeController = {
 
     addPlace: async (req,res)=>{
     
-        const {id} = req.params;
+        const {id} = req.decoded;
         // console.log(id);
 
         const place = new Place(req.body);
@@ -25,12 +25,14 @@ const placeController = {
     deletePlace: async (req,res)=>{
 
         const {idPlace} = req.params;
+        const {id} = req.decoded;
+
         const place = await Place.findOne(idPlace);
             if(place === null){
                 res.json("Lieu introuvable");
             }
             else {
-                await Place.deleteOne(idPlace);
+                await Place.deleteOne(idPlace,id);
                 res.json("Lieu suppprimé");
             }
     }

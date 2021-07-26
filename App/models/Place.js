@@ -58,7 +58,7 @@ class Place {
     }
 
     // Passer en non static ! /!\
-    static async deleteOne(idPlace) {
+    static async deleteOne(idPlace,id) {
 
         try {
             
@@ -67,7 +67,15 @@ class Place {
                 values: [idPlace]
             }
 
+            const sqlQuerry2 = {
+                text: 'DELETE FROM user_has_place WHERE place_id= $1 AND "user_id"=$2',
+                values: [idPlace,id]
+            }
+
+
             await client.query(sqlQuerry);
+            await client.query(sqlQuerry2);
+
             
         } catch (error) {
             console.log(error);

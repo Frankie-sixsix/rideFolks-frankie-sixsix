@@ -4,7 +4,9 @@ const networkController = {
     
     addFriend: async (req,res)=>{
 
-        const {id,idFriend} = req.params;
+        const {idFriend} = req.params;
+        const {id} = req.decoded;
+        // console.log("id55",id);
         // Je verifie si les deux utilisateur sont amies garce à la methode 
         const friend = await Network.verifyfriendship(id,idFriend);
         // Si friend n'est pas "null" ca veut dire que les deux utilisateurs sont amies
@@ -20,7 +22,8 @@ const networkController = {
 
     deleteFriend: async (req,res)=>{
 
-        const {id, idFriend} = req.params;
+        const {idFriend} = req.params;
+        const {id} = req.decoded;
         // Je verifie si les deux utilisateur sont amies garce à la methode 
         const friend = await Network.verifyfriendship(id,idFriend);
         // Si friend n'est pas "null" ca veut dire que les deux utilisateurs sont amies
@@ -37,7 +40,7 @@ const networkController = {
 
     showFriendList: async (req,res)=>{
         
-        const {id} = req.params;
+        const {id} = req.decoded;
         const friend = await Network.showFriendList(id);
         res.json(friend);
     }
