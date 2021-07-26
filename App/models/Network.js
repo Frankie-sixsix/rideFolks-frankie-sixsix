@@ -1,4 +1,6 @@
 const client = require('../database');
+const NetworkFront = require('./NetworkFront');
+const NetWorkFront = require('./NetworkFront');
 
 class Network {
 
@@ -86,7 +88,7 @@ class Network {
                 values: [id]
             }
             const {rows} = await client.query(sqlQuerry);
-            return rows.map(row=> new Network(row));
+            return rows.map(row=> new NetworkFront(row));
 
 
         } catch (error) {

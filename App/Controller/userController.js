@@ -1,5 +1,6 @@
 require('dotenv').config();
 const User = require('../models/User');
+const Network = require('../models/Network');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -126,6 +127,11 @@ const userController = {
         const {id} = req.decoded;
         // console.log(id,"idd");
         const user = await User.findOne(id);
+        const friend = await Network.showFriendList(id);
+        user.friend = {friend}
+        // console.log(user);
+        // user.friend = 'ok';
+        // console.log("userFriend",user.friend);
         res.json(user);
 
     }
