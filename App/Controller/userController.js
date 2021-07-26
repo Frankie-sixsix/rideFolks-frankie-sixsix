@@ -15,9 +15,9 @@ const userController = {
         // console.log("user:",user);
         // console.log("mailo",user.mail);
         // console.log("Password baby" , user.password);
-        const mail = await User.verifyEmail(user.mail);
+        const email = await User.verifyEmail(user.email);
 
-        if (mail === undefined) {
+        if (email === undefined) {
             const cryptedPassword = bcrypt.hashSync(user.password, 10);
             // console.log(cryptedPassword);
             user.password = cryptedPassword;
@@ -35,15 +35,15 @@ const userController = {
     authentifiacation: async (req, res) => {
 
         // console.log(req.body.password);
-        // console.log(req.body.mail);
+        // console.log(req.body.email);
         const SECRET_KEY = process.env.SECRET_KEY;
         
 
-        const verifyEmail = await User.verifyEmail(req.body.mail);
+        const verifyEmail = await User.verifyEmail(req.body.email);
         // console.log("verifyEmail", verifyEmail);
 
             if(verifyEmail){
-            const pass = await User.getPassword(req.body.mail);
+            const pass = await User.getPassword(req.body.email);
             // console.log("pass",pass);
 
             if (pass) {

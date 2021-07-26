@@ -3,7 +3,7 @@ BEGIN;
 INSERT INTO "user"(
 	last_name,
 	first_name,
-	mail,
+	email,
 	"location",
 	"password",
 	profile_picture)
@@ -29,7 +29,7 @@ INSERT INTO "user"(
  'oxy',
  'https://www.refinery29.com/images/8606512.jpg?format=webp&width=1090&height=1308&quality=85&crop=5%3A6' ),
 
-('Snowden',
+('Shakur',
  'Tupac', 
  'makaveli@oclock.io',
  '0.0002, 2.0000',
@@ -48,6 +48,13 @@ INSERT INTO "user"(
  'offWhite@oclock.io',
  '3.693, 6.9369',
  'OFF WHITE BRU',
- 'https://media.artsper.com/artwork/1031682_1_m.jpg');
+ 'https://media.artsper.com/artwork/1031682_1_m.jpg'),
+
+ ('Snowden',
+ 'Edward', 
+ 'watch@nsa.io',
+ '0.0002, 2.0000',
+ 'BigBrotherIsWatchingYou',
+ 'https://ih1.redbubble.net/image.92037585.6035/flat,750x1000,075,f.u2.jpg' );
 
 COMMIT;
