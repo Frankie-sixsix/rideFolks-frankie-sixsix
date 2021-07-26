@@ -36,6 +36,6 @@ const placeController = {
             }
     }
 
-}tt
+}
 
 module.exports = placeController;

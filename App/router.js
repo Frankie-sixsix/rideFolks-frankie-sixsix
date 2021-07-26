@@ -15,6 +15,7 @@ router.get('/users', userController.findAll); // Recuperation de touts les utili
 router.post('/user', userController.addUser); // Création d'un utilisateur grâce a un form / UPDATE
 router.get('/user/:id', userController.findOne); // Recuperation d'un utilisateur grâce a son id 
 router.delete('/user/:id', security.checkjWT,userController.deleteOne); // Suppression d'un utilisateur (jWT)
+router.get('/profil', security.checkjWT, userController.getProfile);
 
 // Route event
 router.get('/events', eventController.findAll); // Recuperation de touts les evenements 

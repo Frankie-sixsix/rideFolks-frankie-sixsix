@@ -119,6 +119,15 @@ const userController = {
 
         const {id} = req.params
         // TODO : faire une class message pour presener les messages un par un comme UserFront
+    },
+
+    getProfile: async (req,res)=>{
+
+        const {id} = req.decoded;
+        // console.log(id,"idd");
+        const user = await User.findOne(id);
+        res.json(user);
+
     }
 }
 

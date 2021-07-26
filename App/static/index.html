@@ -7,9 +7,20 @@
 </head>
 <body>
     Test socket
-    <script src="/socket.io/socket.io.js/"></script>
-    <script>
-        io();
-    </script>
+
+    <label for="name">Name (4 to 8 characters):</label>
+
+    <input type="text" id="name" name="name" required
+       minlength="4" maxlength="8" size="10">
+       <input type="submit">
+
+
+
+
+       <script src="/socket.io/socket.io.js"></script>
+       <script>
+         const  socket = io();
+       </script>
+       
 </body>
 </html>
