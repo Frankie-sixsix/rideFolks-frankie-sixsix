@@ -2,7 +2,7 @@ const client = require('../database');
 
 class UserFront {
 
-    // Boucle pour afficher un utlisateur en front sans son id, password et mail
+    // Boucle pour afficher un utlisateur en front sans son id, password et email
     constructor(obj={}) {
         for (const propName in obj){
             // this.id=obj.id,
