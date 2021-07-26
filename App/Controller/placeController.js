@@ -4,7 +4,7 @@ const placeController = {
 
     addPlace: async (req,res)=>{
     
-        const {id} = req.decoded;
+        const {id} = req.params;
         // console.log(id);
 
         const place = new Place(req.body);
@@ -25,18 +25,17 @@ const placeController = {
     deletePlace: async (req,res)=>{
 
         const {idPlace} = req.params;
-        const {id} = req.decoded;
-
+        const {id} = req.decoded
         const place = await Place.findOne(idPlace);
             if(place === null){
                 res.json("Lieu introuvable");
             }
             else {
-                await Place.deleteOne(idPlace,id);
+                await Place.deleteOne(idPlace);
                 res.json("Lieu suppprimé");
             }
     }
 
-}
+}tt
 
 module.exports = placeController;
