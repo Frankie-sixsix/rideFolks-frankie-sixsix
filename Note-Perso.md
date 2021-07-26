@@ -58,3 +58,12 @@ Mise en place jWT
 ressource: https://medium.com/@sbesnier1901/s%C3%A9curiser-une-api-avec-node-js-et-jwt-15e14d9df109
 
 Dimanche: Mise en place du middleware security.js, qui verifie le token dans le header de la requete, si il a ete modifié ou manquant l'accées a certeines routes est refusé et si il est bon alors ou lui crée un nouveau
+
+{
+	
+    "first_name": "Rue - 02",
+    "mail": "dmt@oclock.io",
+    "location": " 66.66667, 2.33333",
+    "password": "oxy", 
+    "profile_picture": "https://fr.web.img6.acsta.net/r_1280_720/newsv7/20/12/07/17/58/1442788.jpg""
+}

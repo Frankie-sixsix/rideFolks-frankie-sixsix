@@ -2,3 +2,4 @@
 %project=rideFolks
 
 initialisation 2021-07-16T09:55:25Z Frankie <frankielkl33@hotmail.fr> # Initialisation des tables
+CheckEventsDate 2021-07-25T11:42:16Z Frankie <frankielkl33@hotmail.fr> # Ajout d'un CHECK pour que la date de l'event ne soit pas inferieur à la date de création
