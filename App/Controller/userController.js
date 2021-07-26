@@ -3,7 +3,7 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const SECRET_KEY = process.env.SECRET_KEY;
+
 
 const userController = {
 
@@ -15,9 +15,9 @@ const userController = {
         // console.log("user:",user);
         // console.log("mailo",user.mail);
         // console.log("Password baby" , user.password);
-        const mail = await User.verifyEmail(user.mail);
+        const email = await User.verifyEmail(user.email);
 
-        if (mail === undefined) {
+        if (email === undefined) {
             const cryptedPassword = bcrypt.hashSync(user.password, 10);
             // console.log(cryptedPassword);
             user.password = cryptedPassword;
@@ -35,13 +35,15 @@ const userController = {
     authentifiacation: async (req, res) => {
 
         // console.log(req.body.password);
-        // console.log(req.body.mail);
+        // console.log(req.body.email);
+        const SECRET_KEY = process.env.SECRET_KEY;
+        
 
-        const verifyEmail = await User.verifyEmail(req.body.mail);
+        const verifyEmail = await User.verifyEmail(req.body.email);
         // console.log("verifyEmail", verifyEmail);
 
             if(verifyEmail){
-            const pass = await User.getPassword(req.body.mail);
+            const pass = await User.getPassword(req.body.email);
             // console.log("pass",pass);
 
             if (pass) {
@@ -55,7 +57,7 @@ const userController = {
 
                     // res.json("Connection..ok !");
                     const expireIn = 24 * 60 * 60;
-                    const token    = jwt.sign({
+                    let token    = jwt.sign({
                         last_name: pass.last_name,
                         first_name: pass.first_name,
                         id: pass.id
@@ -64,6 +66,8 @@ const userController = {
                     {
                         expiresIn: expireIn
                     });
+
+                    console.log("token",token);
 
                     res.header('Authorization', 'Bearer ' + token);
 

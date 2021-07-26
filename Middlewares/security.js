@@ -5,7 +5,7 @@ const SECRET_KEY = process.env.SECRET_KEY;
 const security = {
 
     checkjWT: async (req,res,next)=> {
-        const token = req.headers['x-access-token'] || req.headers['authorization'];
+        let token = req.headers['x-access-token'] || req.headers['authorization'];
         if (!!token && token.startsWith('Bearer ')) {
             token = token.slice(7, token.length);
         }
@@ -17,6 +17,7 @@ const security = {
                     return res.status(401).json('token_not_valid');
                 } else {
                     req.decoded = decoded;
+                    console.log("d",decoded);
     
                     const expiresIn = 24 * 60 * 60;
                     const newToken  = jwt.sign({
@@ -28,6 +29,8 @@ const security = {
                     {
                         expiresIn: expiresIn
                     });
+
+                    
     
                     res.header('Authorization', 'Bearer ' + newToken);
                     next();

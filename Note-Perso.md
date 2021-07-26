@@ -67,3 +67,6 @@ Dimanche: Mise en place du middleware security.js, qui verifie le token dans le 
     "password": "oxy", 
     "profile_picture": "https://fr.web.img6.acsta.net/r_1280_720/newsv7/20/12/07/17/58/1442788.jpg""
 }
+
+
+Le .env ne marche pas sur heroku , il faut passer par les config vars sur heroku.com

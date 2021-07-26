@@ -50,7 +50,7 @@ class User {
                 text: `UPDATE "user" 
                     SET last_name = $1,
                     first_name = $2,
-                    mail = $3,
+                    email = $3,
                     location = $4,
                     language = $5,
                     description = $6,
@@ -61,7 +61,7 @@ class User {
                 values: [
                     this.last_name,
                     this.first_name,
-                    this.mail,
+                    this.email,
                     this.location,
                     this.language,
                     this.description,
@@ -77,11 +77,11 @@ class User {
         else {
             
                 const sqlQuerry = {
-                    text: 'INSERT INTO "user"(last_name,first_name,mail,location,password,profile_picture) VALUES($1,$2,$3,$4,$5,$6) RETURNING id',
+                    text: 'INSERT INTO "user"(last_name,first_name,email,location,password,profile_picture) VALUES($1,$2,$3,$4,$5,$6) RETURNING id',
                     values: [
                         this.last_name,
                         this.first_name,
-                        this.mail,
+                        this.email,
                         this.location,
                         this.password,
                         this.profile_picture   
@@ -117,7 +117,7 @@ class User {
     static async verifyEmail(email) {
         try {
             const sqlQuerry = {
-                text: 'SELECT * FROM "user" WHERE mail = $1',
+                text: 'SELECT * FROM "user" WHERE email = $1',
                 values:[email]
             }
             const {rows} = await client.query(sqlQuerry);
@@ -132,7 +132,7 @@ class User {
     static async getPassword (email) {
         try {
             const sqlQuerry = {
-                text: 'SELECT password, id, last_name, first_name FROM "user" WHERE mail = $1',
+                text: 'SELECT password, id, last_name, first_name FROM "user" WHERE email = $1',
                 values:[email]
             }
             const {rows} = await client.query(sqlQuerry);

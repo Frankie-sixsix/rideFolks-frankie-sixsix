@@ -14,25 +14,25 @@ router.get('/', mainController.test);
 router.get('/users', userController.findAll); // Recuperation de touts les utilisateurs 
 router.post('/user', userController.addUser); // Création d'un utilisateur grâce a un form / UPDATE
 router.get('/user/:id', userController.findOne); // Recuperation d'un utilisateur grâce a son id 
-router.delete('/user/:id', userController.deleteOne); // Suppression d'un utilisateur 
+router.delete('/user/:id', security.checkjWT,userController.deleteOne); // Suppression d'un utilisateur (jWT)
 
 // Route event
 router.get('/events', eventController.findAll); // Recuperation de touts les evenements 
 router.get('/event/:id', eventController.findOne); // Recuperation d'un evenement grâce a son id 
-router.post('/user/:id/event', eventController.addEvent); // Création d'un evenement / UPDATE
-router.delete('/event/:id', eventController.deleteOne); // Suppression d'un evenement 
+router.post('/user/:id/event', security.checkjWT, eventController.addEvent); // Création d'un evenement / UPDATE (jWT)
+router.delete('/event/:id', eventController.deleteOne); // Suppression d'un evenement (jWT)
 
-router.post('/user/:id/event/:idEvent', eventController.participate); // Route pour participer à un evenement 
+router.post('/user/:id/event/:idEvent', security.checkjWT,  eventController.participate); // Route pour participer à un evenement (jWT)
 
 // Route place
-router.post('/user/:id/place', placeController.addPlace); // Création et ajout d'un lieux visité au profil de l'utilisateur / UPDATE
-router.delete('/user/:id/place/:idPlace', placeController.deletePlace);
+router.post('/user/:id/place', placeController.addPlace); // Création et ajout d'un lieux visité au profil de l'utilisateur / UPDATE (jWT)
+router.delete('/user/:id/place/:idPlace', security.checkjWT,  placeController.deletePlace); // (jWT)
 
 
 // Route network
-router.post('/user/:id/user/:idFriend', networkController.addFriend); // Ajouter un ami 
-router.delete('/user/:id/user/:idFriend', networkController.deleteFriend); // Supprimer un ami 
-router.get('/user/:id/friend', networkController.showFriendList); // Supprimer un ami 
+router.post('/user/:id/user/:idFriend', security.checkjWT,  networkController.addFriend); // Ajouter un ami (jWT)
+router.delete('/user/:id/user/:idFriend', security.checkjWT,  networkController.deleteFriend); // Supprimer un ami (jWT)
+router.get('/user/:id/friend', security.checkjWT,  networkController.showFriendList); // Supprimer un ami (jWT)
 
 
 // Route test socket.io
