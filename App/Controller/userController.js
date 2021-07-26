@@ -3,7 +3,7 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const SECRET_KEY = process.env.SECRET_KEY;
+
 
 const userController = {
 
@@ -36,6 +36,8 @@ const userController = {
 
         // console.log(req.body.password);
         // console.log(req.body.mail);
+        const SECRET_KEY = process.env.SECRET_KEY;
+        console.log(SECRET_KEY);
 
         const verifyEmail = await User.verifyEmail(req.body.mail);
         // console.log("verifyEmail", verifyEmail);
