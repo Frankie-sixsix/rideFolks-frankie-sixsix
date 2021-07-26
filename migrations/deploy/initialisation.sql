@@ -12,7 +12,7 @@ CREATE TABLE "user" (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     last_name VARCHAR(50) NOT NULL, 
     first_name VARCHAR(50) NOT NULL,
-    mail VARCHAR(50) NOT NULL,  
+    email VARCHAR(50) NOT NULL,  
     "location" POINT NOT NULL, -- Changer le TEXT EN POINT APRES LE TEST 
     "language" TEXT[],
     "description" TEXT,

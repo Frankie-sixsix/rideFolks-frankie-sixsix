@@ -67,6 +67,8 @@ const userController = {
                         expiresIn: expireIn
                     });
 
+                    console.log("token",token);
+
                     res.header('Authorization', 'Bearer ' + token);
 
                     return res.status(200).json('auth_ok');

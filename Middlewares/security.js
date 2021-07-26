@@ -28,6 +28,8 @@ const security = {
                     {
                         expiresIn: expiresIn
                     });
+
+                    
     
                     res.header('Authorization', 'Bearer ' + newToken);
                     next();
