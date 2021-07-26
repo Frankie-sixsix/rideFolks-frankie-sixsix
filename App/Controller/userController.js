@@ -37,7 +37,7 @@ const userController = {
         // console.log(req.body.password);
         // console.log(req.body.mail);
         const SECRET_KEY = process.env.SECRET_KEY;
-        console.log(SECRET_KEY);
+        
 
         const verifyEmail = await User.verifyEmail(req.body.mail);
         // console.log("verifyEmail", verifyEmail);
@@ -57,7 +57,7 @@ const userController = {
 
                     // res.json("Connection..ok !");
                     const expireIn = 24 * 60 * 60;
-                    const token    = jwt.sign({
+                    let token    = jwt.sign({
                         last_name: pass.last_name,
                         first_name: pass.first_name,
                         id: pass.id
@@ -92,7 +92,7 @@ const userController = {
         const { id } = req.params;
         const user = await User.findOne(id);
         if (user === null) {
-            return res.json("Utilisateur introuvable");
+            return res.json("Utilisateur introuvable", SECRET_KEY);
         }
 
         res.json(user);
