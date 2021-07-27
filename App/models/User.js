@@ -168,6 +168,35 @@ class User {
     
     }
 
+    static async showEventsList(id){
+
+        try {
+
+            // Events ou l'user participe 
+
+            // const sqlQuerry = {
+            //     text: `SELECT "location", date, start_time FROM "event"
+            //     JOIN "user_participate_event" ON event_id = "event".id
+            //     WHERE user_id = $1`,
+            //     values: [id]
+            // }
+
+            // Event que l'user à crée
+            const sqlQuerry = {
+                text: `SELECT "location", date, start_time FROM "event"
+                WHERE owner_id = $1`,
+                values: [id]
+            }
+            
+            const {rows} = await client.query(sqlQuerry);
+            return rows;
+
+        } catch (error){
+
+            console.log(error);
+        }
+    }
+
 }
 
 

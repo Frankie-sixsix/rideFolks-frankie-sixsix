@@ -128,7 +128,10 @@ const userController = {
         // console.log(id,"idd");
         const user = await User.findOne(id);
         const friend = await Network.showFriendList(id);
-        user.friend = {friend}
+        const events = await User.showEventsList(id);
+        console.log(events);
+        user.friend = friend;
+        user.event = events;
         // console.log(user);
         // user.friend = 'ok';
         // console.log("userFriend",user.friend);
