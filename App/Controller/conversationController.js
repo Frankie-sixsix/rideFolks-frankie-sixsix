@@ -20,8 +20,26 @@ const convController = {
         } catch (error){
             console.log(error);
         }
-    }
+    },
 
+    findAll: async(req,res)=>{
+
+        const {id} = req.decoded;
+
+        // console.log("id in controller:", id);
+
+        const conversations = await Conversation.findAll(id);
+
+        // const date1 = conv[0];
+        // console.log("date1a",date1);
+      
+
+
+        res.json(conversations);
+
+    },
+
+    
 }
 
 module.exports = convController;

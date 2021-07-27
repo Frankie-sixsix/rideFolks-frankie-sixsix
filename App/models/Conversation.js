@@ -30,6 +30,30 @@ class Conversation {
         }
     }
 
+    static async findAll(id) {
+
+        // console.log("id",id);
+
+        try {
+            const sqlQuerry = {
+                text: `SELECT date, name FROM "conversation"
+                JOIN "user_has_conversation" ON conversation.id = conversation_id 
+                WHERE user_id = $1`,
+                values: [id]
+            }
+            // Select les dtaes from conversations where id = conversation_id de user_has_conversation where user_id = 1
+
+            const {rows} = await client.query(sqlQuerry);
+            // console.log('rowsss', rows);
+
+            return rows;
+
+        } catch (error) {
+            console.log(error);
+        }
+       
+    }
+
 }
 
 module.exports = Conversation;

@@ -38,7 +38,8 @@ router.get('/user/:id/friend', security.checkjWT,  networkController.showFriendL
 
 // Route conversation
 
-router.post('/user/conversation', security.checkjWT, conversationController.createConv);
+router.post('/user/conversation', security.checkjWT, conversationController.createConv); // Route pour créer une conversation (jWT)
+router.get('/user/:id/conversations', security.checkjWT, conversationController.findAll);
 
 
 // Route test socket.io
