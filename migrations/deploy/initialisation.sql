@@ -59,7 +59,7 @@ CREATE TABLE place (
 
 CREATE TABLE "conversation" (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "date" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    "date" TIMESTAMPTZ NOT NULL DEFAULT NOW(), -- Changer le TIMESTAMPTS en DATE simplement /!\
     "name" VARCHAR(30),
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );

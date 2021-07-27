@@ -5,6 +5,7 @@ const userController = require('./Controller/userController');
 const eventController = require('./Controller/eventController');
 const placeController = require('./Controller/placeController');
 const networkController = require('./Controller/networkController');
+const conversationController = require('./Controller/conversationController');
 const security = require('../Middlewares/security');
 
 
@@ -34,6 +35,10 @@ router.delete('/user/:id/place/:idPlace', security.checkjWT,  placeController.de
 router.post('/user/:id/user/:idFriend', security.checkjWT,  networkController.addFriend); // Ajouter un ami (jWT)
 router.delete('/user/:id/user/:idFriend', security.checkjWT,  networkController.deleteFriend); // Supprimer un ami (jWT)
 router.get('/user/:id/friend', security.checkjWT,  networkController.showFriendList); // Supprimer un ami (jWT)
+
+// Route conversation
+
+router.post('/user/conversation', security.checkjWT, conversationController.createConv);
 
 
 // Route test socket.io
