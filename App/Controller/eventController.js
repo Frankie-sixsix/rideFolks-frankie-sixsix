@@ -11,7 +11,7 @@ const eventController = {
             await event.save(id);
             await Event.participate(id, event.id);
             
-            res.json("Evenement crée");
+            res.json("OK");
         } catch (error){
             res.json(error.message);
         }

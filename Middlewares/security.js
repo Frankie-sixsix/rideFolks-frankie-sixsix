@@ -6,6 +6,7 @@ const security = {
 
     checkjWT: async (req,res,next)=> {
         let token = req.headers['x-access-token'] || req.headers['authorization'];
+        console.log("tt",token);
         if (!!token && token.startsWith('Bearer ')) {
             token = token.slice(7, token.length);
         }
@@ -17,7 +18,7 @@ const security = {
                     return res.status(401).json('token_not_valid');
                 } else {
                     req.decoded = decoded;
-                    console.log("d",decoded);
+                    console.log("Token decoded: ",decoded);
     
                     const expiresIn = 24 * 60 * 60;
                     const newToken  = jwt.sign({

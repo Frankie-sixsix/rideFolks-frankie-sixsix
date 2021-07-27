@@ -70,9 +70,9 @@ const userController = {
 
                     console.log("token",token);
 
-                    res.header('Authorization', 'Bearer ' + token);
+                    res.header('Authorization', 'Bearer' + token);
 
-                    return res.status(200).json('auth_ok');
+                    return res.status(200).json(token);
                     // TODO : Faire le jwt ici
                 }
             }
@@ -132,6 +132,7 @@ const userController = {
         // console.log(user);
         // user.friend = 'ok';
         // console.log("userFriend",user.friend);
+        // TODO : afficher ses modes et ses disciplines dans user
         res.json(user);
 
     }

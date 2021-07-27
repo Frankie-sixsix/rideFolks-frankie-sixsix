@@ -1,5 +1,6 @@
 const client = require('../database');
 
+
 class Event {
 
     constructor(obj={}) {
@@ -39,31 +40,32 @@ class Event {
     // Methode pour mettre à jour un evenement, et si il n'existe pas alors on le sauvegarde en bdd
     async save(id) {
         
-        // Update
-        if(this.id){
-           
-            const sqlQuerry = {
-                text: `UPDATE "user" 
-                    SET location = $1,
-                    date = $2,
-                    start_time = $3
-                    WHERE id = $4
-                    `,
-                values: [
-                    this.location,
-                    this.date,
-                    this.start_time,
-                    this.id ]
-            }
-            await client.query(sqlQuerry);
-            console.log('Utilisateur modifié');
-
         
-        }
+            // Update
+            if(this.id){
+                
+            
+                    const sqlQuerryUpdateEvent = {
+                        text: `UPDATE "event" 
+                            SET location = $1,
+                            date = $2,
+                            start_time = $3
+                            WHERE id = $4
+                            `,
+                        values: [
+                            this.location,
+                            this.date,
+                            this.start_time,
+                            this.id ]
+                    }
+                    return await client.query(sqlQuerryUpdateEvent)
+            }
+        
+       
         // Save
         else {
             try {
-                const sqlQuerry = {
+                const sqlQuerryCreateEvent = {
                     text: 'INSERT INTO "event"(location,date,start_time,owner_id) VALUES($1,$2,$3,$4) RETURNING id',
                     values: [
                         this.location,
@@ -73,7 +75,9 @@ class Event {
                     ]
                 }
 
-                const {rows} = await client.query(sqlQuerry);
+                
+
+                const {rows} = await client.query(sqlQuerryCreateEvent);
                 this.id = rows[0].id;
         } catch (error) {
             console.log(error);
@@ -81,6 +85,8 @@ class Event {
         }
     }
     }
+    
+    
 
     // Methode pour supprimer un evenement
     static async deleteOne(id) {

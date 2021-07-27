@@ -70,3 +70,57 @@ Dimanche: Mise en place du middleware security.js, qui verifie le token dans le 
 
 
 Le .env ne marche pas sur heroku , il faut passer par les config vars sur heroku.com
+
+
+Methode pour ajouter mode a evenement grace aux forms ? 
+ if(this.mode){
+
+            
+
+                    
+                    
+                    // Requete pour trouver l'id du mode grace à son label
+                    const sqlQuerryIdMode = {
+                        text: 'SELECT id FROM "mode" WHERE "label"= $1',
+                        values: [this.mode]
+                    }
+                    const mode_id = await client.query(sqlQuerryIdMode);
+
+                    // Requete pour changer le mode l'event (en changeant l'id du mode)
+                    const sqlQuerryUpdateEventMode = {
+                        text: 'UPDATE "event_has_mode" WHERE "event_id"=$1 SET mode_id=$2',
+                        values: [id,mode_id]
+                    }
+
+
+                    await client.query(sqlQuerryUpdateEventMode);
+                }
+
+                // Si l'utilisateur update la disicipline
+                if(this.disicipline){
+
+                    const sqlQuerryDisciplineId = {
+                        text:'SELECT id FROM "discipline WHERE "name" = $1',
+                        values: [this.disicipline]
+                    }
+
+                    const disicipline_id = await client.query(sqlQuerryDisciplineId);
+
+                    const sqlQuerryUpdateDiscipline = {
+                        text: 'UPDATE "event_has_discipline" WHERE "event_id"=$1 SET "discipline_id =$2',
+                        values: [id,disicipline_id]
+                    }
+
+                    await client.query(sqlQuerryUpdateDiscipline);
+
+
+                }
+
+
+                await client.query(sqlQuerryUpdateEvent);
+                console.log('Event modifié');
+
+           
+
+            
+            }
