@@ -39,6 +39,47 @@ const convController = {
 
     },
 
+    quitConv: async(req,res)=>{
+
+        const {id} = req.decoded;
+        const convId = req.params.id;
+
+        // console.log(id, convId);
+
+        const verified = await Conversation.verifConv(id,convId);
+
+        if(verified){
+            await Conversation.quitConv(id,convId);
+    
+            res.json("Vous avez quitté la conversation");
+        } 
+        else {
+            res.json('Vous ne faites pas partie de cette conversation');
+        }
+
+
+
+    },
+
+    participateConv: async(req,res)=>{
+        
+        const {id} = req.decoded;
+        const convId = req.params.id;
+
+        const verified = await Conversation.verifConv(id,convId);
+
+        if(!verified){
+            await Conversation.participate(id,convId);
+    
+            res.json("Vous avez rejoint la conversation");
+        } 
+        else {
+            res.json('Vous faites deja partie de la conversation');
+        }
+        
+    
+    }
+
     
 }
 
