@@ -44,37 +44,6 @@ class User {
     async save() {
         try {
 
-        if(this.id){
-           
-            const sqlQuerry = {
-                text: `UPDATE "user" 
-                    SET last_name = $1,
-                    first_name = $2,
-                    email = $3,
-                    location = $4,
-                    language = $5,
-                    description = $6,
-                    password = $7,
-                    profile_picture = $8
-                    WHERE id = $9
-                    `,
-                values: [
-                    this.last_name,
-                    this.first_name,
-                    this.email,
-                    this.location,
-                    this.language,
-                    this.description,
-                    this.password,
-                    this.profile_picture,
-                    this.id]
-            }
-            await client.query(sqlQuerry);
-            console.log('Utilisateur modifié');
-
-        
-        }
-        else {
             
                 const sqlQuerry = {
                     text: 'INSERT INTO "user"(last_name,first_name,email,location,password,profile_picture) VALUES($1,$2,$3,$4,$5,$6) RETURNING id',
@@ -90,7 +59,7 @@ class User {
 
                 const {rows} = await client.query(sqlQuerry);
                 this.id = rows[0].id;
-        } 
+        
         
     }catch (error) {
             console.log(error);
@@ -161,7 +130,45 @@ class User {
             console.log(error);
         }
     }
+
+    async update(id){
+
+        
+
+        try {
+
+        
+           
+            const sqlQuerry = {
+                text: `UPDATE "user" 
+                    SET last_name = $1,
+                    first_name = $2,
+                    location = $3,
+                    language = $4,
+                    description = $5,
+                    profile_picture = $6
+                    WHERE id = $7
+                    `,
+                values: [
+                    this.last_name,
+                    this.first_name,
+                    this.location,
+                    this.language,
+                    this.description,
+                    this.profile_picture,
+                    id]
+            }
+            await client.query(sqlQuerry);
+            console.log('Utilisateur modifié');
+
+    
+        } catch (error){
+            console.log(error);
+        }
+    
     }
+
+}
 
 
 

@@ -26,7 +26,7 @@ const convController = {
 
         const {id} = req.decoded;
 
-        // console.log("id in controller:", id);
+        console.log("id in controller:", id);
 
         const conversations = await Conversation.findAll(id);
 

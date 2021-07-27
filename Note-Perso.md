@@ -127,3 +127,62 @@ Methode pour ajouter mode a evenement grace aux forms ?
 
 
 Afficher le dernier messages de la conversation pour la route user/conversations
+
+methode save dans userController 
+  // Methode pour mettre à jour un utilisateur, et si il n'existe pas alors on le sauvegarde en bdd
+    async save() {
+        try {
+
+        if(this.id){
+           
+            const sqlQuerry = {
+                text: `UPDATE "user" 
+                    SET last_name = $1,
+                    first_name = $2,
+                    email = $3,
+                    location = $4,
+                    language = $5,
+                    description = $6,
+                    password = $7,
+                    profile_picture = $8
+                    WHERE id = $9
+                    `,
+                values: [
+                    this.last_name,
+                    this.first_name,
+                    this.email,
+                    this.location,
+                    this.language,
+                    this.description,
+                    this.password,
+                    this.profile_picture,
+                    this.id]
+            }
+            await client.query(sqlQuerry);
+            console.log('Utilisateur modifié');
+
+        
+        }
+        else {
+            
+                const sqlQuerry = {
+                    text: 'INSERT INTO "user"(last_name,first_name,email,location,password,profile_picture) VALUES($1,$2,$3,$4,$5,$6) RETURNING id',
+                    values: [
+                        this.last_name,
+                        this.first_name,
+                        this.email,
+                        this.location,
+                        this.password,
+                        this.profile_picture   
+                    ]
+                }
+
+                const {rows} = await client.query(sqlQuerry);
+                this.id = rows[0].id;
+        } 
+        
+    }catch (error) {
+            console.log(error);
+            // throw new Error(error.details);
+    }
+    }

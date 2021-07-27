@@ -135,6 +135,22 @@ const userController = {
         // TODO : afficher ses modes et ses disciplines dans user
         res.json(user);
 
+    },
+
+    updateUser: async(req,res)=>{
+
+        const user = new User(req.body);
+        const {id} = req.decoded;
+        // console.log("yey", id);
+
+        try {
+            await user.update(id);
+            res.json('Utilisateur modifié');
+
+        } catch (error){
+            console.log(error);
+        }
+
     }
 }
 

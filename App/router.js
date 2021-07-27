@@ -13,7 +13,8 @@ router.get('/', mainController.test);
 
 // Route user (reste à voir si je dois séparer la route post en une route post et une route update /!\)
 router.get('/users', userController.findAll); // Recuperation de touts les utilisateurs 
-router.post('/user', userController.addUser); // Création d'un utilisateur grâce a un form / UPDATE
+router.post('/user', userController.addUser); // Création d'un utilisateur grâce a un form 
+router.patch('/user', security.checkjWT, userController.updateUser); // UPDATE
 router.get('/user/:id', userController.findOne); // Recuperation d'un utilisateur grâce a son id 
 router.delete('/user/:id', security.checkjWT,userController.deleteOne); // Suppression d'un utilisateur (jWT)
 router.get('/profil', security.checkjWT, userController.getProfile);
@@ -39,7 +40,6 @@ router.get('/user/:id/friend', security.checkjWT,  networkController.showFriendL
 // Route conversation
 
 router.post('/user/conversation', security.checkjWT, conversationController.createConv); // Route pour créer une conversation (jWT)
-router.get('/user/:id/conversations', security.checkjWT, conversationController.findAll); // Route pour afficher toutes les conversations d'un utilisateur 
 router.delete('/user/conversation/:id',security.checkjWT, conversationController.quitConv); // Route pour quitter une conversation
 router.get('/user/particpate/conversation/:id', security.checkjWT, conversationController.participateConv); // Route pour participer a une conversation
 
@@ -53,5 +53,6 @@ router.get('/socket', (req,res)=>{
 
 router.post('/login',userController.authentifiacation);
 
+router.get('/user/conv', security.checkjWT, conversationController.findAll); // Route pour afficher toutes les conversations d'un utilisateur 
 
 module.exports = router;
