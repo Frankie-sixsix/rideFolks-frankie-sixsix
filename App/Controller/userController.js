@@ -34,18 +34,18 @@ const userController = {
 
     },
 
-    
+
     authentifiacation: async (req, res) => {
 
         // console.log(req.body.password);
         // console.log(req.body.email);
         const SECRET_KEY = process.env.SECRET_KEY;
-        
+
 
         const verifyEmail = await User.verifyEmail(req.body.email);
         // console.log("verifyEmail", verifyEmail);
 
-            if(verifyEmail){
+        if (verifyEmail) {
             const pass = await User.getPassword(req.body.email);
             // console.log("pass",pass);
 
@@ -60,17 +60,17 @@ const userController = {
 
                     // res.json("Connection..ok !");
                     const expireIn = 24 * 60 * 60;
-                    let token    = jwt.sign({
+                    let token = jwt.sign({
                         last_name: pass.last_name,
                         first_name: pass.first_name,
                         id: pass.id
                     },
-                    SECRET_KEY,
-                    {
-                        expiresIn: expireIn
-                    });
+                        SECRET_KEY,
+                        {
+                            expiresIn: expireIn
+                        });
 
-                    console.log("token",token);
+                    console.log("token", token);
 
                     res.header('Authorization', 'Bearer' + token);
 
@@ -95,12 +95,36 @@ const userController = {
     findOne: async (req, res) => {
 
         const { id } = req.params;
+
         const user = await User.findOne(id);
-        if (user === null) {
+        // console.log(user);
+        if (user === undefined) {
             return res.json("Utilisateur introuvable");
         }
+        else {
+            const friend = await Network.showFriendList(id);
+            const event = await User.showEventsList(id);
+            const mode = await Mode.getMode(id);
+            const discipline = await Discipline.getDiscipline(id);
+            const disciplines = [];
+            for (const d of discipline) {
+                disciplines.push(d.name);
+            }
 
-        res.json(user);
+            const modes = [];
+
+            for (const m of mode) {
+
+                modes.push(m.label);
+            }
+
+            user.friend = friend;
+            user.event = event;
+            user.mode = modes;
+            user.discipline = disciplines;
+
+            res.json(user);
+        }
     },
 
     // Methode pour supprimer un utilisateur 
@@ -118,15 +142,15 @@ const userController = {
 
     },
 
-    getMessages: async (req,res)=>{
+    getMessages: async (req, res) => {
 
-        const {id} = req.params
+        const { id } = req.params
         // TODO : faire une class message pour presener les messages un par un comme UserFront
     },
 
-    getProfile: async (req,res)=>{
+    getProfile: async (req, res) => {
 
-        const {id} = req.decoded;
+        const { id } = req.decoded;
         // console.log(id,"idd");
         const user = await User.findOne(id);
         const friend = await Network.showFriendList(id);
@@ -134,18 +158,18 @@ const userController = {
         const mode = await Mode.getMode(id);
         const discipline = await Discipline.getDiscipline(id);
         const disciplines = [];
-            for(const d of discipline){
-                disciplines.push(d.name);
-            }
+        for (const d of discipline) {
+            disciplines.push(d.name);
+        }
         // console.log(disciplines);
         const modes = [];
         // console.log(event);
         // console.log(mode[0].label);
-            for(const m of mode){
-                // console.log("yy",m.label);
-                modes.push(m.label);
-            }
-            // console.log("mm",modes);
+        for (const m of mode) {
+            // console.log("yy",m.label);
+            modes.push(m.label);
+        }
+        // console.log("mm",modes);
         user.friend = friend;
         user.event = event;
         user.mode = modes;
@@ -158,17 +182,17 @@ const userController = {
 
     },
 
-    updateUser: async(req,res)=>{
+    updateUser: async (req, res) => {
 
         const user = new User(req.body);
-        const {id} = req.decoded;
+        const { id } = req.decoded;
         // console.log("yey", id);
 
         try {
             await user.update(id);
             res.json('Utilisateur modifié');
 
-        } catch (error){
+        } catch (error) {
             console.log(error);
         }
 

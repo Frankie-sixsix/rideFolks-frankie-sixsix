@@ -7,7 +7,8 @@ class NetworkFront  {
             this.last_name = obj.last_name,
             this.first_name = obj.first_name,
             this.location = obj.location,
-            this.profile_picture = obj.profile_picture;
+            this.profile_picture = obj.profile_picture,
+            this.id = obj.id;
         }
     }
 
