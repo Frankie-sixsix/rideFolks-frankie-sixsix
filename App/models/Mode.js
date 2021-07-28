@@ -50,10 +50,12 @@ class Mode {
                 values: [userId, modeId]
             }
             const { rows } = await client.query(sqlQuerry);
+            // console.log(rows[0], "rh");
             if (rows[0]) {
                 return true;
             }
             else {
+                // console.log("no");
                 return false;
             }
 

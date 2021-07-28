@@ -15,13 +15,14 @@ const modeController = {
             res.json("This mode does not exist");
         }
         else {
-            const verifMode = Mode.verifMode(id, modeId);
-            if (verifMode) {
-                res.json('This mode is already in your profile');
-            }
-            else {
+            const verifMode = await Mode.verifMode(id, modeId);
+            // console.log(verifMode,"hh");
+            if (!verifMode) {
                 await Mode.save(id, modeId);
                 res.json('Added mode');
+            }
+            else {
+                res.json('This mode is already in your profile');
             }
 
         }
