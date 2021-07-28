@@ -78,6 +78,22 @@ class Mode {
         }
     }
 
+    static async getMode(userId){
+
+        try {
+            const sqlQuerry = {
+                text:`SELECT "label" FROM "mode"
+                JOIN "user_has_mode" ON "user_has_mode".mode_id = "mode".id
+                WHERE user_id = $1`,
+                values: [userId]
+            }
+            const {rows} = await client.query(sqlQuerry);
+            return rows;
+        } catch (error){
+            console.log(error);
+        }
+    }
+
 }
 
 module.exports = Mode;

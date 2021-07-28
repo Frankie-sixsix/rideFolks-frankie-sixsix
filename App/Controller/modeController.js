@@ -27,18 +27,6 @@ const modeController = {
 
         }
 
-        // console.log("Mode = ", mode)
-        // if (!mode) {
-        //     // console.log("nulll soryy");
-        //     res.json("This mode does not exist");
-        // }
-        // else {
-        // }
-
-
-
-
-
     },
 
     deleteMode: async (req,res)=>{
@@ -55,7 +43,8 @@ const modeController = {
             else {
                 res.json('This mode is not part of your profile');
             }
-    }
+    },
+
 
 }
 

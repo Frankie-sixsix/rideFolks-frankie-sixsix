@@ -1,6 +1,7 @@
 require('dotenv').config();
 const User = require('../models/User');
 const Network = require('../models/Network');
+const Mode = require('../models/Mode');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -128,11 +129,19 @@ const userController = {
         // console.log(id,"idd");
         const user = await User.findOne(id);
         const friend = await Network.showFriendList(id);
-        const events = await User.showEventsList(id);
-        console.log(events);
+        const event = await User.showEventsList(id);
+        const mode = await Mode.getMode(id);
+        const modes = [];
+        // console.log(event);
+        // console.log(mode[0].label);
+            for(const m of mode){
+                console.log("yy",m.label);
+                modes.push(m.label);
+            }
+            // console.log("mm",modes);
         user.friend = friend;
-        user.event = events;
-        // user.mode = mode 
+        user.event = event;
+        user.mode = modes;
         // console.log(user);
         // user.friend = 'ok';
         // console.log("userFriend",user.friend);
