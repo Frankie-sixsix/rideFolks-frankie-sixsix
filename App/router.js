@@ -7,6 +7,7 @@ const placeController = require('./Controller/placeController');
 const networkController = require('./Controller/networkController');
 const conversationController = require('./Controller/conversationController');
 const modeController = require('./Controller/modeController');
+const disciplineController = require('./Controller/disciplineController');
 const security = require('../Middlewares/security');
 
 
@@ -16,8 +17,13 @@ router.get('/', mainController.test);
 router.get('/users', userController.findAll); // Recuperation de touts les utilisateurs 
 router.post('/user', userController.addUser); // Création d'un utilisateur grâce a un form 
 router.patch('/user', security.checkjWT, userController.updateUser); // UPDATE
+
 router.post('/user/mode', security.checkjWT, modeController.addMode); // Ajout d'un mode au profil utilisateur 
+router.post('/user/discipline', security.checkjWT, disciplineController.addDiscipline); // Ajout d'une discipline au profil utilisateur 
+
 router.delete('/user/mode', security.checkjWT, modeController.deleteMode); // Suppression d'un mode au profil utilisateur 
+router.delete('/user/discipline', security.checkjWT, disciplineController.deleteDiscipline); // Suppression d'une discipline au profil utilisateur 
+
 router.get('/user/:id', userController.findOne); // Recuperation d'un utilisateur grâce a son id 
 router.delete('/user/:id', security.checkjWT,userController.deleteOne); // Suppression d'un utilisateur (jWT)
 router.get('/profil', security.checkjWT, userController.getProfile);
