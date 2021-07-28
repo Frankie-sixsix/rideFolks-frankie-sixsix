@@ -186,3 +186,10 @@ methode save dans userController
             // throw new Error(error.details);
     }
     }
+
+
+    Faire un emethode pour ajouter un mode et une discipline pour le profil 
+        un truc du genre :
+        on reucpere le label 
+
+        Separer la methode pour recupere lid du mode et en faire une methode a par 

@@ -132,6 +132,7 @@ const userController = {
         console.log(events);
         user.friend = friend;
         user.event = events;
+        // user.mode = mode 
         // console.log(user);
         // user.friend = 'ok';
         // console.log("userFriend",user.friend);
