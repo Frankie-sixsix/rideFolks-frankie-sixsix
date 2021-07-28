@@ -5,9 +5,9 @@ BEGIN;
 -- Ajout des modes 
 
 INSERT INTO "discipline"(name) VALUES 
-('downhill'),
-('enduro'),
-('crossCountry');
+('Downhill'),
+('Enduro'),
+('CrossCountry');
 
 INSERT INTO "mode"(label) VALUES
 ('I like it chill'),
