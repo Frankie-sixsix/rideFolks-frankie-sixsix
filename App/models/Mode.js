@@ -62,6 +62,20 @@ class Mode {
         }
     }
 
+    static async deleteMode(userId,modeId){
+
+        try {
+            const sqlQuerry = {
+                text:'DELETE FROM "user_has_mode" WHERE "user_id"= $1 AND "mode_id" = $2',
+                values: [userId,modeId]
+            }
+            await client.query(sqlQuerry);
+
+        } catch (error){
+            console.log(error);
+        }
+    }
+
 }
 
 module.exports = Mode;

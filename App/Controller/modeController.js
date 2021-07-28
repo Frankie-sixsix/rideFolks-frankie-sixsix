@@ -27,17 +27,33 @@ const modeController = {
         }
 
         // console.log("Mode = ", mode)
-        if (!mode) {
-            // console.log("nulll soryy");
-            res.json("This mode does not exist");
-        }
-        else {
-        }
+        // if (!mode) {
+        //     // console.log("nulll soryy");
+        //     res.json("This mode does not exist");
+        // }
+        // else {
+        // }
 
 
 
 
 
+    },
+
+    deleteMode: async (req,res)=>{
+
+        const { id } = req.decoded;
+        const { label } = req.body;
+
+        const modeId = await Mode.getModeId(label);
+        const verifMode = await Mode.verifMode(id,modeId);
+            if(verifMode){
+                await Mode.deleteMode(id,modeId);
+                res.json('Mode deleted from your profile');
+            }
+            else {
+                res.json('This mode is not part of your profile');
+            }
     }
 
 }
