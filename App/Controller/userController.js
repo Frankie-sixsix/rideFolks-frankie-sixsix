@@ -3,6 +3,7 @@ const User = require('../models/User');
 const Network = require('../models/Network');
 const Mode = require('../models/Mode');
 const Discipline = require('../models/Discipline');
+const Place = require('../models/Place');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -24,7 +25,7 @@ const userController = {
             const cryptedPassword = bcrypt.hashSync(user.password, 10);
             // console.log(cryptedPassword);
             user.password = cryptedPassword;
-            user.save();
+            await user.save(); // Regarder pour le await ?
             res.json("Inscription réussi");
 
         } else {
@@ -118,10 +119,18 @@ const userController = {
                 modes.push(m.label);
             }
 
+            const place = await Place.getPlace(id);
+            const places =[];
+                for(const p of place){
+                    places.push(p.address);
+                }
+          
+
             user.friend = friend;
             user.event = event;
             user.mode = modes;
             user.discipline = disciplines;
+            user.place = places;
 
             res.json(user);
         }
@@ -155,25 +164,41 @@ const userController = {
         const user = await User.findOne(id);
         const friend = await Network.showFriendList(id);
         const event = await User.showEventsList(id);
+
+
         const mode = await Mode.getMode(id);
+        const modes = [];
+        for (const m of mode) {
+            // console.log("yy",m.label);
+            modes.push(m.label);
+        }
+
         const discipline = await Discipline.getDiscipline(id);
         const disciplines = [];
         for (const d of discipline) {
             disciplines.push(d.name);
         }
+
+        const place = await Place.getPlace(id);
+        const places =[];
+            for(const p of place){
+                places.push(p.address);
+            }
+      
+      
+
+        
         // console.log(disciplines);
-        const modes = [];
+        
         // console.log(event);
         // console.log(mode[0].label);
-        for (const m of mode) {
-            // console.log("yy",m.label);
-            modes.push(m.label);
-        }
+        
         // console.log("mm",modes);
         user.friend = friend;
         user.event = event;
         user.mode = modes;
         user.discipline = disciplines;
+        user.place = places;
         // console.log(user);
         // user.friend = 'ok';
         // console.log("userFriend",user.friend);

@@ -4,11 +4,15 @@ const placeController = {
 
     addPlace: async (req,res)=>{
     
-        const {id} = req.params;
-        // console.log(id);
+        const {id} = req.decoded;
+        const {address} = req.body;
+        console.log(address,"ll");
+        console.log(id,"ll");
+
+        // Mettre en place un control si un lieu est deja ajouté (verif..)
 
         const place = new Place(req.body);
-        // console.log(req.body);
+        console.log("rr",req.body);
         try {
             await place.save(id);
             res.json('Lieu ajouté'); 
@@ -25,7 +29,7 @@ const placeController = {
     deletePlace: async (req,res)=>{
 
         const {idPlace} = req.params;
-        const {id} = req.decoded
+        const {id} = req.decoded;
         const place = await Place.findOne(idPlace);
             if(place === null){
                 res.json("Lieu introuvable");

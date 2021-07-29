@@ -89,7 +89,7 @@ class Conversation {
 
             const {rows} = await client.query(sqlQuerry);
                 if(!rows[0]){
-                    return null;
+                    return false;  // Passer en false 
                 }
                 else {
                     return rows;
@@ -110,6 +110,26 @@ class Conversation {
             await client.query(sqlQuerry);
 
         } catch (error) {
+            console.log(error);
+        }
+    }
+
+    static async checkIfConvExist(idConv){
+
+        try {
+            const sqlQuerry = {
+                text:'SELECT * FROM "conversation" WHERE id = $1',
+                values: [idConv]
+
+            }
+            const {rows} = await client.query(sqlQuerry);
+                if(rows[0]){
+                    return true;
+                } else {
+                    return false;
+                }
+
+        } catch (error){
             console.log(error);
         }
     }

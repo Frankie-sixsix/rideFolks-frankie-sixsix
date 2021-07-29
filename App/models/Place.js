@@ -98,6 +98,22 @@ class Place {
             console.log(error);
         }
     }
+
+    static async getPlace(userId){
+
+        try {
+            const sqlQuerry = {
+                text:`SELECT "address" FROM "place"
+                JOIN "user_has_place" ON "user_has_place".place_id = "place".id
+                WHERE user_id = $1`,
+                values: [userId]
+            }
+            const {rows} = await client.query(sqlQuerry);
+            return rows;
+        } catch (error){
+            console.log(error);
+        }
+    }
 }
 
 module.exports = Place;
