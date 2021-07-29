@@ -78,6 +78,28 @@ const convController = {
         }
         
     
+    },
+
+    getMessagesFromConv: async (req,res)=>{
+
+        const {id} = req.decoded;
+        const {idConv} = req.params;
+
+        const existConv = await Conversation.checkIfConvExist(idConv);
+            if(!existConv){
+                return res.json("This conversation does not exist")
+            }
+        
+        const verifIfUserIsInConv = await Conversation.verifConv(id,idConv);
+            if(!verifIfUserIsInConv){
+                return res.json("You are not part of this conversation");
+            }
+        
+
+        const conv = await Conversation.getMessagesFromConversation(idConv);
+        // console.log(conv);
+        res.json(conv);
+
     }
 
     

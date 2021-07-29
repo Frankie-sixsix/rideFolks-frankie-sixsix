@@ -134,6 +134,24 @@ class Conversation {
         }
     }
 
+    static async getMessagesFromConversation(idConv){
+
+        try {
+            const sqlQuerry = {
+                text:`
+                SELECT "content", last_name, first_name, date, "user".id FROM "message"
+                JOIN "user" ON "message".sender_id = "user".id
+                WHERE conversation_id = $1 ORDER BY date`,
+                values: [idConv]
+            }
+
+             const {rows} = await client.query(sqlQuerry);
+             return rows;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 }
 
 module.exports = Conversation;

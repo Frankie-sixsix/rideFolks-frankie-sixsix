@@ -20,6 +20,8 @@ router.get('/users', userController.findAll); // Recuperation de touts les utili
 router.post('/user', userController.addUser); // Création d'un utilisateur grâce a un form 
 router.patch('/user', security.checkjWT, userController.updateUser); // UPDATE
 router.post('/user/message/conversation/:idConv', security.checkjWT,messageController.createMessage); // Creation d'un message (jWT)
+router.get('/user/conversation/:idConv', security.checkjWT,conversationController.getMessagesFromConv); // Recuperation des messages d'une conversation (jWT)
+
 
 
 router.post('/user/mode', security.checkjWT, modeController.addMode); // Ajout d'un mode au profil utilisateur 
