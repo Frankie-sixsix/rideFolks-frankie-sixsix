@@ -24,10 +24,24 @@ const server = app.listen(port, () => {
 
 const io = new Server(server);
 
-io.on('connection', (socket)=>{
-    socket.on('identity', name => socket.name = name);
-
-    socket.on('message', phrase =>{
-        io.emit('response', `${socket.name} à dit : ${phrase}`);
-    })
+let id = 0;
+io.on('connection', (ws) => {
+  console.log('>> socket.io - connected');
+  ws.on('send_message_from_client', (message) => {
+    console.log("J'ai recu le message : send_message_from_client", message);
+    // eslint-disable-next-line no-plusplus
+    message.id = ++id;
+    io.emit('send_message_from_server', message);
+  });
 });
+
+
+
+
+// io.on('connection', (socket)=>{
+//     socket.on('identity', name => socket.name = name);
+
+//     socket.on('message', phrase =>{
+//         io.emit('response', `${socket.name} à dit : ${phrase}`);
+//     })
+// });
