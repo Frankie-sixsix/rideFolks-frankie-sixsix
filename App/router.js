@@ -61,7 +61,7 @@ router.get('/user/particpate/conversation/:id', security.checkjWT, conversationC
 
 
 // Route test socket.io
-router.post('/socket', security.checkjWT,socketController.test);
+// router.post('/socket', security.checkjWT,socketController.test);
 
 // router.post('/socket', security.checkjWT, (req,res)=>{
 //     const {id} = req.decoded;
@@ -74,5 +74,7 @@ router.post('/socket', security.checkjWT,socketController.test);
 router.post('/login',userController.authentifiacation);
 
 router.get('/user/conv', security.checkjWT, conversationController.findAll); // Route pour afficher toutes les conversations d'un utilisateur 
+
+// router.post('/user/talk/conversation/:idConv', security.checkjWT, socketController.test);
 
 module.exports = router;

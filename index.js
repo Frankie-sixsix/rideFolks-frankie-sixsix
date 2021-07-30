@@ -18,22 +18,22 @@ app.use(express.json());
 
 app.use(router);
 
-const server = app.listen(port, () => {
+app.listen(port, () => {
     console.log(`Server started on http://localhost:${port}`);
 });
 
-const io = new Server(server);
+// const io = new Server(server);
 
-let id = 0;
-io.on('connection', (ws) => {
-  console.log('>> socket.io - connected');
-  ws.on('send_message_from_client', (message) => {
-    console.log("J'ai recu le message : send_message_from_client", message);
-    // eslint-disable-next-line no-plusplus
-    message.id = ++id;
-    io.emit('send_message_from_server', message);
-  });
-});
+// let id = 0;
+// io.on('connection', (ws) => {
+//   console.log('>> socket.io - connected');
+//   ws.on('send_message_from_client', (message) => {
+//     console.log("J'ai recu le message : send_message_from_client", message);
+//     // eslint-disable-next-line no-plusplus
+//     message.id = ++id;
+//     io.emit('send_message_from_server', message);
+//   });
+// });
 
 
 
