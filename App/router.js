@@ -11,6 +11,8 @@ const disciplineController = require('./Controller/disciplineController');
 const messageController = require('./Controller/messageController');
 const security = require('../Middlewares/security');
 
+const socketController = require('./Controller/socketController');
+
 
 router.get('/', mainController.test);
 // Route place
@@ -59,9 +61,13 @@ router.get('/user/particpate/conversation/:id', security.checkjWT, conversationC
 
 
 // Route test socket.io
-router.get('/socket', (req,res)=>{
-    res.sendFile(__dirname + '/static/index.html');
-})
+router.post('/socket', security.checkjWT,socketController.test);
+
+// router.post('/socket', security.checkjWT, (req,res)=>{
+//     const {id} = req.decoded;
+//     console.log(id,"socket");
+//     res.sendFile(__dirname + '/static/index.html');
+// })
 
 // Route pour se logger
 
