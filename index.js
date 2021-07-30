@@ -8,7 +8,7 @@ const app = express();
 // Require socket.io
 const { Server } = require("socket.io");
 
-app.use(express.static('./App/static'));
+// app.use(express.static('./App/static'));
 
 
 app.use(cors());

@@ -1,14 +1,16 @@
 const {Router} = require('express');
 const router = Router();
-const mainController = require('./Controller/mainController');
-const userController = require('./Controller/userController');
-const eventController = require('./Controller/eventController');
-const placeController = require('./Controller/placeController');
-const networkController = require('./Controller/networkController');
-const conversationController = require('./Controller/conversationController');
-const modeController = require('./Controller/modeController');
-const disciplineController = require('./Controller/disciplineController');
-const messageController = require('./Controller/messageController');
+const {
+    mainController,
+    userController,
+    eventController,
+    placeController,
+    networkController,
+    conversationController,
+    modeController,
+    disciplineController,
+    messageController,
+} = require('./Controller/index');
 const security = require('../Middlewares/security');
 
 
