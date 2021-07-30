@@ -6,9 +6,9 @@ const router = require('./App/router');
 const app = express();
 
 // Require socket.io
-// const { Server } = require("socket.io");
+const { Server } = require("socket.io");
 
-// app.use(express.static('./App/static'));
+app.use(express.static('./App/static'));
 
 
 app.use(cors());
@@ -18,22 +18,28 @@ app.use(express.json());
 
 app.use(router);
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`Server started on http://localhost:${port}`);
 });
 
-// const io = new Server(server);
+
+
+
+// Reglage socket.io
+
+
+const io = new Server(server);
 
 // let id = 0;
-// io.on('connection', (ws) => {
-//   console.log('>> socket.io - connected');
-//   ws.on('send_message_from_client', (message) => {
-//     console.log("J'ai recu le message : send_message_from_client", message);
-//     // eslint-disable-next-line no-plusplus
-//     message.id = ++id;
-//     io.emit('send_message_from_server', message);
-//   });
-// });
+io.on('connection', (ws) => {
+  console.log('>> socket.io - connected');
+  ws.on('send_message_from_client', (message) => {
+    console.log("J'ai recu le message : send_message_from_client", message);
+    // eslint-disable-next-line no-plusplus
+    // message.id = ++id;
+    io.emit('send_message_from_server', message);
+  });
+});
 
 
 

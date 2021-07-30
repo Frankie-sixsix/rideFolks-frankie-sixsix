@@ -1,41 +1,51 @@
 const {Router} = require('express');
 const router = Router();
-const mainController = require('./Controller/mainController');
-const userController = require('./Controller/userController');
-const eventController = require('./Controller/eventController');
-const placeController = require('./Controller/placeController');
-const networkController = require('./Controller/networkController');
-const conversationController = require('./Controller/conversationController');
-const modeController = require('./Controller/modeController');
-const disciplineController = require('./Controller/disciplineController');
-const messageController = require('./Controller/messageController');
+const {
+    mainController,
+    userController,
+    eventController,
+    placeController,
+    networkController,
+    conversationController,
+    modeController,
+    disciplineController,
+    messageController,
+    socketController
+} = require('./Controller/index');
 const security = require('../Middlewares/security');
 
-const socketController = require('./Controller/socketController');
 
 
 router.get('/', mainController.test);
 // Route place
 
-// Route user (reste à voir si je dois séparer la route post en une route post et une route update /!\)
-router.get('/users', userController.findAll); // Recuperation de touts les utilisateurs 
+// Route user 
 router.post('/user', userController.addUser); // Création d'un utilisateur grâce a un form 
-router.patch('/user', security.checkjWT, userController.updateUser); // UPDATE
+router.get('/users', userController.findAll); // Recuperation de touts les utilisateurs 
+router.patch('/user', security.checkjWT, userController.updateUser); // UPDATE d'un user
+router.delete('/user', security.checkjWT,userController.deleteOne); // Suppression de son compte (jWT)
+
+// Route user/mode
+router.post('/user/mode', security.checkjWT, modeController.addMode); // Ajout d'un mode au profil utilisateur 
+router.delete('/user/mode', security.checkjWT, modeController.deleteMode); // Suppression d'un mode au profil utilisateur 
+
+// Route user/discipline
+router.post('/user/discipline', security.checkjWT, disciplineController.addDiscipline); // Ajout d'une discipline au profil utilisateur 
+router.delete('/user/discipline', security.checkjWT, disciplineController.deleteDiscipline); // Suppression d'une discipline au profil utilisateur 
+
+// Route user/place
+router.post('/user/place',security.checkjWT, placeController.addPlace); // Création et ajout d'un lieux visité au profil de l'utilisateur / UPDATE (jWT)
+router.delete('/user/place/:idPlace', security.checkjWT,  placeController.deletePlace); // Suppression (jWT)
+
+
 router.post('/user/message/conversation/:idConv', security.checkjWT,messageController.createMessage); // Creation d'un message (jWT)
 router.get('/user/conversation/:idConv', security.checkjWT,conversationController.getMessagesFromConv); // Recuperation des messages d'une conversation (jWT)
 
 
 
-router.post('/user/mode', security.checkjWT, modeController.addMode); // Ajout d'un mode au profil utilisateur 
-router.post('/user/discipline', security.checkjWT, disciplineController.addDiscipline); // Ajout d'une discipline au profil utilisateur 
-router.post('/user/place',security.checkjWT, placeController.addPlace); // Création et ajout d'un lieux visité au profil de l'utilisateur / UPDATE (jWT)
 
-router.delete('/user/mode', security.checkjWT, modeController.deleteMode); // Suppression d'un mode au profil utilisateur 
-router.delete('/user/discipline', security.checkjWT, disciplineController.deleteDiscipline); // Suppression d'une discipline au profil utilisateur 
-router.delete('/user/place/:idPlace', security.checkjWT,  placeController.deletePlace); // Suppression (jWT)
 
 router.get('/user/:id', userController.findOne); // Recuperation d'un utilisateur grâce a son id 
-router.delete('/user/:id', security.checkjWT,userController.deleteOne); // Suppression d'un utilisateur (jWT)
 router.get('/profil', security.checkjWT, userController.getProfile);
 
 // Route event

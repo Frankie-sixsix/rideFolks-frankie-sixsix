@@ -70,12 +70,20 @@ const userController = {
                         {
                             expiresIn: expireIn
                         });
+                    
+                    let infos = {
+                        last_name: pass.last_name,
+                        first_name: pass.first_name,
+                        id: pass.id,
+                        token: token
+                        }
 
                     console.log("token", token);
+                    // console.log(infos,'inf');
 
                     res.header('Authorization', 'Bearer' + token);
 
-                    return res.status(200).json(token);
+                    return res.status(200).json(infos);
                     // TODO : Faire le jwt ici
                 }
             }
