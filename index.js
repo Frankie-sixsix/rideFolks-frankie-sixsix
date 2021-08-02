@@ -48,7 +48,7 @@ io.on('connection', async(ws) => {
                 return ("This conversation does not exist")
             }
 
-            const verifIfUserIsInConv = await Conversation.verifConv(message.sender_id,id_conv);
+            const verifIfUserIsInConv = await Conversation.verifConv(message.sender_id,message.id_conv);
 
 
             if(!verifIfUserIsInConv){
