@@ -59,7 +59,7 @@ io.on('connection', async(ws) => {
             const mess = new Message(message);
         
             await mess.save(message.sender_id,message.id_conv);
-            return Conversation.getMessagesFromConversation(id_conv);
+            return Conversation.getMessagesFromConversation(message.id_conv);
 
       } else {
 
