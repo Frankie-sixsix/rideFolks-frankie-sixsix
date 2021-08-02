@@ -41,6 +41,10 @@ router.delete('/user/place/:idPlace', security.checkjWT,  placeController.delete
 
 router.get('/user/conversations', security.checkjWT, conversationController.findAll); // Route pour afficher toutes les conversations (jWT)
 
+// Route network
+router.post('/user/add/user/:idFriend', security.checkjWT,  networkController.addFriend); // Ajouter un ami (jWT)
+router.delete('/user/delete/user/:idFriend', security.checkjWT,  networkController.deleteFriend); // Supprimer un ami (jWT)
+router.get('/user/friends', security.checkjWT,  networkController.showFriendList); // Affiche la liste d'amis
 
 
 router.post('/user/message/conversation/:idConv', security.checkjWT,messageController.createMessage); // Creation d'un message (jWT)
@@ -50,23 +54,19 @@ router.get('/user/conversation/:idConv', security.checkjWT,conversationControlle
 
 router.post('/user/event/:idEvent', security.checkjWT,  eventController.participate); // Route pour participer à un evenement (jWT)
 
+router.get('/profil', security.checkjWT, userController.getProfile);
 
 router.get('/user/:id', userController.findOne); // Recuperation d'un utilisateur grâce a son id 
-router.get('/profil', security.checkjWT, userController.getProfile);
 
 // Route event
 router.get('/events', eventController.findAll); // Recuperation de touts les evenements 
 router.get('/event/:id', eventController.findOne); // Recuperation d'un evenement grâce a son id 
-router.post('/user/:id/event', security.checkjWT, eventController.addEvent); // Création d'un evenement / UPDATE (jWT)
+router.post('/user/event', security.checkjWT, eventController.addEvent); // Création d'un evenement / UPDATE (jWT)
 router.delete('/event/:id', eventController.deleteOne); // Suppression d'un evenement (jWT)
 
 
 
 
-// Route network
-router.post('/user/:id/user/:idFriend', security.checkjWT,  networkController.addFriend); // Ajouter un ami (jWT)
-router.delete('/user/:id/user/:idFriend', security.checkjWT,  networkController.deleteFriend); // Supprimer un ami (jWT)
-router.get('/user/:id/friend', security.checkjWT,  networkController.showFriendList); // Supprimer un ami (jWT)
 
 // Route conversation
 

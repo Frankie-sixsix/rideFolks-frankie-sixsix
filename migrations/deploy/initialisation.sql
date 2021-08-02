@@ -77,7 +77,7 @@ CREATE TABLE network (
 CREATE TABLE "message" (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "date" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    content TEXT,
+    content TEXT NOT NULL,
     sender_id INT REFERENCES "user"(id),
     conversation_id INT REFERENCES "conversation"(id)
 );

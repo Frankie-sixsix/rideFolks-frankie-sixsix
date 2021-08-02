@@ -45,30 +45,30 @@ io.on('connection', async(ws) => {
         const existConv = await Conversation.checkIfConvExist(message.id_conv);
 
             if(!existConv){
-                return ("This conversation does not exist")
-            }
-
-            const verifIfUserIsInConv = await Conversation.verifConv(message.sender_id,message.id_conv);
-
-
-            if(!verifIfUserIsInConv){
-                return ("You are not part of this conversation");
-            }
+                // ("This conversation does not exist");
+                
+                idConv = await Conversation.createConv(message.sender_id,message.participant,message.name);
+                message.id_conv = idConv;
+                // const mess = new Message(message);
         
+                // await mess.save(message.sender_id,message.id_conv);
+            }
+            else {
+              const verifIfUserIsInConv = await Conversation.verifConv(message.sender_id,message.id_conv);
+              if(!verifIfUserIsInConv){
+                  return ("You are not part of this conversation");
+              }
+
+            }
 
             const mess = new Message(message);
         
             await mess.save(message.sender_id,message.id_conv);
               // TEst pour rejoindre room
-            ws.join(message.id_conv);
-            // return Conversation.getMessagesFromConversation(message.id_conv);
+            // ws.join(message.id_conv);
+     
 
       } else {
-
-            // if(!message.name){
-            //     idConv = await Conversation.createConv(message.sender_id,message.participant);
-            // }
-            // else {
 
                 idConv = await Conversation.createConv(message.sender_id,message.participant,message.name);
                 const mess = new Message(message);
@@ -76,10 +76,7 @@ io.on('connection', async(ws) => {
                 await mess.save(message.sender_id,message.id_conv);
                 return idConv;
             }
-          
       
-    // eslint-disable-next-line no-plusplus
-    // message.id = ++id;
     io.emit('send_message_from_server', message);
   });
 });
