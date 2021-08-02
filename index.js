@@ -117,6 +117,7 @@ io.on('connection', async(ws) => {
  
 
 ws.on('room', room =>{
+  console.log('R00m:', room);
   io.to(room).emit('send_message_from_server', message)
 });
 
