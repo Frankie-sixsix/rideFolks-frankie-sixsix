@@ -54,7 +54,7 @@ class Conversation {
 
         try {
             const sqlQuerry = {
-                text: `SELECT date, name FROM "conversation"
+                text: `SELECT date, name, "conversation".id FROM "conversation"
                 JOIN "user_has_conversation" ON conversation.id = conversation_id 
                 WHERE user_id = $1`,
                 values: [id]
