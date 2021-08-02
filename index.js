@@ -60,7 +60,7 @@ io.on('connection', async(ws) => {
             await mess.save(message.sender_id,message.id_conv);
             
 
-          return idConv;
+          
 
             return 'Ok';
 
@@ -74,7 +74,9 @@ io.on('connection', async(ws) => {
                 const mess = new Message(message);
         
                 await mess.save(message.sender_id,message.id_conv);
+                return idConv;
             }
+          
       
     // eslint-disable-next-line no-plusplus
     // message.id = ++id;
