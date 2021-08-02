@@ -55,14 +55,11 @@ io.on('connection', async(ws) => {
                 return ("You are not part of this conversation");
             }
         
+
             const mess = new Message(message);
         
             await mess.save(message.sender_id,message.id_conv);
-            
-
-          
-
-            return 'Ok';
+            return Conversation.getMessagesFromConversation(id_conv);
 
       } else {
 
