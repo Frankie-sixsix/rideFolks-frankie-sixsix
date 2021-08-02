@@ -41,14 +41,14 @@ io.on('connection', async(ws) => {
     console.log("J'ai recu le message : send_message_from_client", message);
       
 
-      if(message.idConv){
-        const existConv = await Conversation.checkIfConvExist(idConv);
+      if(message.id_conv){
+        const existConv = await Conversation.checkIfConvExist(message.id_conv);
 
             if(!existConv){
                 return ("This conversation does not exist")
             }
 
-            const verifIfUserIsInConv = await Conversation.verifConv(id,idConv);
+            const verifIfUserIsInConv = await Conversation.verifConv(message.sender_id,idConv);
 
 
             if(!verifIfUserIsInConv){
@@ -57,21 +57,21 @@ io.on('connection', async(ws) => {
         
             const mess = new Message(message);
         
-            await mess.save(message.sender_id,message.idConv);
+            await mess.save(message.sender_id,message.id_conv);
+            
+
+          return idConv;
 
             return 'Ok';
 
       } else {
 
-        let idConv;
-            if(!name){
-                idConv = await Conversation.createConv(id,idParticipant);
+            if(!message.name){
+                idConv = await Conversation.createConv(message.sender_id,message.participant);
             }
             else {
-                idConv = await Conversation.createConv(id,idParticipant,name);
+                idConv = await Conversation.createConv(message.sender_id,message.participant,message.name);
             }
-
-          return idConv;
       }
     // eslint-disable-next-line no-plusplus
     // message.id = ++id;
