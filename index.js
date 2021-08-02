@@ -41,44 +41,84 @@ io.on('connection', async(ws) => {
     console.log("J'ai recu le message : send_message_from_client", message);
       
 
-      if(message.id_conv){
-        const existConv = await Conversation.checkIfConvExist(message.id_conv);
+  //     if(message.id_conv){
+  //       const existConv = await Conversation.checkIfConvExist(message.id_conv);
 
-            if(!existConv){
-                // ("This conversation does not exist");
+  //           if(!existConv){
+  //               // ("This conversation does not exist");
                 
-                idConv = await Conversation.createConv(message.sender_id,message.participant,message.name);
-                message.id_conv = idConv;
-                // const mess = new Message(message);
+  //               idConv = await Conversation.createConv(message.sender_id,message.participant,message.name);
+  //               message.id_conv = idConv;
+  //               // const mess = new Message(message);
         
-                // await mess.save(message.sender_id,message.id_conv);
-            }
-            else {
-              const verifIfUserIsInConv = await Conversation.verifConv(message.sender_id,message.id_conv);
-              if(!verifIfUserIsInConv){
-                  return ("You are not part of this conversation");
-              }
+  //               // await mess.save(message.sender_id,message.id_conv);
+  //           }
+  //           else {
+  //             const verifIfUserIsInConv = await Conversation.verifConv(message.sender_id,message.id_conv);
+  //             if(!verifIfUserIsInConv){
+  //                 return ("You are not part of this conversation");
+  //             }
 
-            }
+  //           }
 
-            const mess = new Message(message);
+  //           const mess = new Message(message);
         
-            await mess.save(message.sender_id,message.id_conv);
-              // TEst pour rejoindre room
-            // ws.join(message.id_conv);
+  //           await mess.save(message.sender_id,message.id_conv);
+  //             // TEst pour rejoindre room
+  //           // ws.join(message.id_conv);
      
 
-      } else {
+  //     } else {
 
-                idConv = await Conversation.createConv(message.sender_id,message.participant,message.name);
-                const mess = new Message(message);
+  //               idConv = await Conversation.createConv(message.sender_id,message.participant,message.name);
+  //               const mess = new Message(message);
         
-                await mess.save(message.sender_id,message.id_conv);
-                return idConv;
-            }
+  //               await mess.save(message.sender_id,message.id_conv);
+  //               return idConv;
+  //           }
       
-    io.emit('send_message_from_server', message);
-  });
+  //   io.emit('send_message_from_server', message);
+  // });
+
+
+
+    // Verifi si la conversation existe 
+    const existConv = await Conversation.checkIfConvExist(message.id_conv);
+      if(existConv){
+          // On verifie si l'utilisateur a bien accée a cette conversation
+          const verifIfUserIsInConv = await Conversation.verifConv(message.sender_id,message.id_conv);
+          if(!verifIfUserIsInConv){
+              return ("You are not part of this conversation");
+          }
+          // Si oui alors on enregistre le message dans la conv
+        const mess = new Message(message);    
+        await mess.save(message.sender_id,message.id_conv);
+
+      }
+           // Si non alors on crée une conversation PUIS on enregistre le message dans cette conversation
+            
+            idConv = await Conversation.createConv(message.sender_id,message.participant,message.name);
+            message.id_conv = idConv;
+            const mess = new Message(message);    
+            await mess.save(message.sender_id,message.id_conv);
+       
+          const verifIfUserIsInConv = await Conversation.verifConv(message.sender_id,message.id_conv);
+          if(!verifIfUserIsInConv){
+              return ("You are not part of this conversation");
+          }
+
+        
+
+        // const mess = new Message(message);
+    
+        // await mess.save(message.sender_id,message.id_conv);
+          // TEst pour rejoindre room
+        // ws.join(message.id_conv);
+ 
+
+  
+io.emit('send_message_from_server', message);
+});
 });
 
 
