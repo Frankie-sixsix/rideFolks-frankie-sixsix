@@ -48,7 +48,7 @@ io.on('connection', async(ws) => {
                 return ("This conversation does not exist")
             }
 
-            const verifIfUserIsInConv = await Conversation.verifConv(message.sender_id,idConv);
+            const verifIfUserIsInConv = await Conversation.verifConv(message.sender_id,id_conv);
 
 
             if(!verifIfUserIsInConv){
@@ -66,13 +66,16 @@ io.on('connection', async(ws) => {
 
       } else {
 
-            if(!message.name){
-                idConv = await Conversation.createConv(message.sender_id,message.participant);
-            }
-            else {
+            // if(!message.name){
+            //     idConv = await Conversation.createConv(message.sender_id,message.participant);
+            // }
+            // else {
                 idConv = await Conversation.createConv(message.sender_id,message.participant,message.name);
+                const mess = new Message(message);
+        
+                await mess.save(message.sender_id,message.id_conv);
             }
-      }
+      
     // eslint-disable-next-line no-plusplus
     // message.id = ++id;
     io.emit('send_message_from_server', message);
