@@ -5,23 +5,28 @@ const convController = {
     createConv: async (req,res)=>{
 
         const {id} = req.decoded;
-        const {name, participant} = req.body;
+        const {name, participant, idConv} = req.body;
         
 
         // console.log("id:", id, "name:", name);
 
         try {
-            let idConv;
+            let idConvv;
+
+            const check = await Conversation.checkIfConvExist(idConv);
+                if(check){
+                    return res.json('This conversation already exists');
+                }
             if(!name){
-                idConv = await Conversation.createConv(id,participant);
+                idConvv = await Conversation.createConv(id,participant);
             }
             else {
-                idConv = await Conversation.createConv(id,participant,name);
+                idConvv = await Conversation.createConv(id,participant,name);
             }
-            console.log(idConv,"idConv");
+            console.log(idConvv,"idConv");
                 const response = {
                     text: 'Conversation crée',
-                    idConv: idConv
+                    idConv: idConvv
                 }
             res.json(response);
         } catch (error){
