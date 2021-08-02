@@ -94,7 +94,7 @@ io.on('connection', async(ws) => {
         const mess = new Message(message);    
         await mess.save(message.sender_id,message.id_conv);
 
-      }
+      } else {
            // Si non alors on crée une conversation PUIS on enregistre le message dans cette conversation
             
             idConv = await Conversation.createConv(message.sender_id,message.participant,message.name);
@@ -107,7 +107,7 @@ io.on('connection', async(ws) => {
               return ("You are not part of this conversation");
           }
 
-        
+      }
 
         // const mess = new Message(message);
     
