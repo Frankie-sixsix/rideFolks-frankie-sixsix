@@ -37,11 +37,7 @@ const Message = require('./App/models/Message');
 
 io.on('connection', async(ws) => {
   console.log('>> socket.io - connected');
-  ws.on('room', room =>{
-    console.log('R00m:', room);
-    io.to(room).emit('send_message_from_server', message)
-  });
-  
+
   ws.on('send_message_from_client', async(message) => {
     console.log("J'ai recu le message : send_message_from_client", message);
       
