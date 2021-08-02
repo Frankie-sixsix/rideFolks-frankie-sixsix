@@ -65,7 +65,7 @@ router.get('/user/:id/friend', security.checkjWT,  networkController.showFriendL
 
 // Route conversation
 
-router.post('/user/conversations', security.checkjWT, conversationController.findAll); // Route pour afficher toutes les conversations (jWT)
+router.get('/user/conversations', security.checkjWT, conversationController.findAll); // Route pour afficher toutes les conversations (jWT)
 router.post('/user/conversation', security.checkjWT, conversationController.createConv); // Route pour créer une conversation (jWT)
 router.delete('/user/conversation/:id',security.checkjWT, conversationController.quitConv); // Route pour quitter une conversation
 router.get('/user/particpate/conversation/:id', security.checkjWT, conversationController.participateConv); // Route pour participer a une conversation
