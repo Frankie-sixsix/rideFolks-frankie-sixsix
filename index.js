@@ -30,16 +30,65 @@ const server = app.listen(port, () => {
 
 const io = new Server(server);
 
-// let id = 0;
-io.on('connection', (ws) => {
+const Conversation = require('./App/models/Conversation');
+const Message = require('./App/models/Message');
+
+
+
+io.on('connection', async(ws) => {
   console.log('>> socket.io - connected');
-  ws.on('send_message_from_client', (message) => {
+  ws.on('send_message_from_client', async(message) => {
     console.log("J'ai recu le message : send_message_from_client", message);
+      
+
+      if(message.idConv){
+        const existConv = await Conversation.checkIfConvExist(idConv);
+
+            if(!existConv){
+                return ("This conversation does not exist")
+            }
+
+            const verifIfUserIsInConv = await Conversation.verifConv(id,idConv);
+
+
+            if(!verifIfUserIsInConv){
+                return ("You are not part of this conversation");
+            }
+        
+            const mess = new Message(message);
+        
+            await mess.save(message.sender_id,message.idConv);
+
+            return 'Ok';
+
+      } else {
+
+        let idConv;
+            if(!name){
+                idConv = await Conversation.createConv(id,idParticipant);
+            }
+            else {
+                idConv = await Conversation.createConv(id,idParticipant,name);
+            }
+
+          return idConv;
+      }
     // eslint-disable-next-line no-plusplus
     // message.id = ++id;
     io.emit('send_message_from_server', message);
   });
 });
+
+
+// Structure du message pour renregistrer message
+
+  // Imprtle model Conversation
+  // Importe le 
+
+// message.sender_id 
+// message.content 
+// message.receiver_id (id de la room)
+
 
 
 

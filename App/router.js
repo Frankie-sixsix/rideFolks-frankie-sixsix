@@ -43,6 +43,7 @@ router.get('/user/conversation/:idConv', security.checkjWT,conversationControlle
 
 
 
+router.post('/user/event/:idEvent', security.checkjWT,  eventController.participate); // Route pour participer à un evenement (jWT)
 
 
 router.get('/user/:id', userController.findOne); // Recuperation d'un utilisateur grâce a son id 
@@ -54,7 +55,6 @@ router.get('/event/:id', eventController.findOne); // Recuperation d'un evenemen
 router.post('/user/:id/event', security.checkjWT, eventController.addEvent); // Création d'un evenement / UPDATE (jWT)
 router.delete('/event/:id', eventController.deleteOne); // Suppression d'un evenement (jWT)
 
-router.post('/user/:id/event/:idEvent', security.checkjWT,  eventController.participate); // Route pour participer à un evenement (jWT)
 
 
 

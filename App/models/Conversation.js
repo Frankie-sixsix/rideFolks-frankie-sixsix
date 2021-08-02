@@ -2,7 +2,7 @@ const client = require('../database');
 
 class Conversation {
 
-    static async createConv(id, name = null) {
+    static async createConv(id, idPArticipant, name = null) {
 
         try {
 
@@ -28,11 +28,19 @@ class Conversation {
             }
 
             // Je récupere le dernier message de la conversation avec l'idConv
+
+
             const sqlQuerry3 = {
-                text: 'SELECT '
+                text: 'INSERT INTO "user_has_conversation" (conversation_id, user_id) VALUES ($1,$2)',
+                values: [idConv, idPArticipant]
             }
 
+            idPArticipant
+
             await client.query(sqlQuerry2);
+            await client.query(sqlQuerry3);
+
+            return idConv;
 
 
         } catch (error) {

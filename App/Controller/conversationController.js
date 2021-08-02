@@ -5,18 +5,25 @@ const convController = {
     createConv: async (req,res)=>{
 
         const {id} = req.decoded;
-        const {name} = req.body
+        const {name, idParticipant} = req.body;
+        
 
         // console.log("id:", id, "name:", name);
 
         try {
+            let idConv;
             if(!name){
-                await Conversation.createConv(id);
+                idConv = await Conversation.createConv(id,idParticipant);
             }
             else {
-                await Conversation.createConv(id,name);
+                idConv = await Conversation.createConv(id,idParticipant,name);
             }
-            res.json('Conversation crée');
+            console.log(idConv,"idConv");
+                const response = {
+                    text: 'Conversation crée',
+                    idConv: idConv
+                }
+            res.json(response);
         } catch (error){
             console.log(error);
         }
