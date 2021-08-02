@@ -116,7 +116,11 @@ io.on('connection', async(ws) => {
         // ws.join(message.id_conv);
  
 
-  
+ws.on('room', room =>{
+  io.to(room).emit('send_message_from_server', message)
+});
+
+
 io.emit('send_message_from_server', message);
 });
 });
