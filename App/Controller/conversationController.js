@@ -5,7 +5,7 @@ const convController = {
     createConv: async (req,res)=>{
 
         const {id} = req.decoded;
-        const {name, idParticipant} = req.body;
+        const {name, participant} = req.body;
         
 
         // console.log("id:", id, "name:", name);
@@ -13,10 +13,10 @@ const convController = {
         try {
             let idConv;
             if(!name){
-                idConv = await Conversation.createConv(id,idParticipant);
+                idConv = await Conversation.createConv(id,participant);
             }
             else {
-                idConv = await Conversation.createConv(id,idParticipant,name);
+                idConv = await Conversation.createConv(id,participant,name);
             }
             console.log(idConv,"idConv");
                 const response = {
