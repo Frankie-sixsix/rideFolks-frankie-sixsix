@@ -39,12 +39,12 @@ let connectedUser = {};
 
 io.on('connection', async(ws) => {
   console.log('>> socket.io - connected');
-  console.log('>> ws', ws);
+  // console.log('>> ws', ws);
 
   ws.on('register', function(userId){
     ws.userId = userId;
     connectedUser[userId] = ws;
-    console.log('connecteduser:',connectedUser);
+    console.log('/_/_/connecteduser:',connectedUser);
   });
 
 
@@ -124,7 +124,8 @@ io.on('connection', async(ws) => {
 
       }
 
-      connectedUser[ws.userId].emit('send_message_from_client', mess );
+      
+      ws.emit('send_message_from_client', mess );
 
         // const mess = new Message(message);
     
@@ -139,7 +140,7 @@ io.on('connection', async(ws) => {
 // });
 
 
-io.emit('send_message_from_server', message);
+
 });
 });
 
