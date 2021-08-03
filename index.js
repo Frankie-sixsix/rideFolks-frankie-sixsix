@@ -126,7 +126,7 @@ io.on('connection', async(ws) => {
           }
 
         
-          ws.emit('send_message_from_client', mess );
+          ws.emit('send_message_from_client', message );
 
 
         } catch (error) {
