@@ -39,8 +39,17 @@ const convController = {
         const {id} = req.decoded;
 
         console.log("id in controller:", id);
+        // const infos = await Conversation.infoOnDiscussion(68);
+        // console.log(infos);
 
         const conversations = await Conversation.findAll(id);
+       
+            for(const conversation of conversations){
+                console.log(conversation);
+                const infos = await Conversation.infoOnDiscussion(conversation.id);
+                conversation.infos = infos;
+            }
+        console.log("conv",conversationss);
 
         // const date1 = conv[0];
         // console.log("date1a",date1);

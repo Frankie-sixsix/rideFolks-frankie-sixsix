@@ -73,19 +73,39 @@ class Conversation {
 
 
         try {
+            // const sqlQuerry = {
+            //     text: `
+            //     SELECT date, name, "conversation".id, "user".last_name,"user".first_name, profile_picture FROM "conversation"
+            //     JOIN "user_has_conversation" ON conversation.id = conversation_id 
+            //     JOIN "user" ON "user".id = "user_has_conversation".user_id
+            //     WHERE "user".id in (
+	        //         SELECT user_id FROM "user_has_conversation" WHERE "conversation_id" IN (
+		    //             SELECT conversation_id FROM "user_has_conversation" WHERE "user_id" = $1
+	        //         )
+            //     );
+            //     `,
+            //     values: [id]
+            // }SELECT date, name, "conversation".id, "user".last_name,"user".first_name, profile_picture FROM "conversation"
+                // JOIN "user_has_conversation" ON conversation.id = conversation_id 
+                // JOIN "user" ON "user".id = "user_has_conversation".user_id
+
+            // const sqlQuerry = {
+            //     text: `SELECT date,name, "conversation".id FROM "conversation"
+            //     JOIN "user_has_conversation" ON conversation.id = conversation_id 
+            //     WHERE user_id = $1`,
+            //     values:[id]
+            // }
+
+
             const sqlQuerry = {
-                text: `
-                SELECT date, name, "conversation".id, "user".last_name,"user".first_name, profile_picture FROM "conversation"
+                text: `SELECT "conversation".id FROM "conversation"
                 JOIN "user_has_conversation" ON conversation.id = conversation_id 
-                JOIN "user" ON "user".id = "user_has_conversation".user_id
-                WHERE "user".id in (
-	                SELECT user_id FROM "user_has_conversation" WHERE "conversation_id" IN (
-		                SELECT conversation_id FROM "user_has_conversation" WHERE "user_id" = $1
-	                )
-                );
-                `,
-                values: [id]
+                WHERE user_id = $1`,
+                values:[id]
             }
+
+
+
             // Select les dtaes from conversations where id = conversation_id de user_has_conversation where user_id = 1
 
             const { rows } = await client.query(sqlQuerry);
@@ -97,6 +117,25 @@ class Conversation {
             console.log(error);
         }
 
+    }
+    static async infoOnDiscussion(idConv){
+
+        try {
+            const sqlQuerry = {
+                text: `
+                SELECT date, name, "conversation".id, "user".last_name,"user".first_name, profile_picture FROM "conversation"
+                JOIN "user_has_conversation" ON conversation.id = conversation_id 
+                JOIN "user" ON "user".id = "user_has_conversation".user_id
+                    WHERE conversation.id = $1`,
+                values: [idConv]
+            }
+
+            const {rows} = await client.query(sqlQuerry);
+            return rows;
+
+        } catch (error){
+            console.log(error);
+        }
     }
 
     static async quitConv(id,convId) {
