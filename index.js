@@ -103,10 +103,10 @@ io.on('connection', async(ws) => {
             const mess = new Message(message);    
             await mess.save(message.sender_id,message.id_conv);
        
-          const verifIfUserIsInConv = await Conversation.verifConv(message.sender_id,message.id_conv);
-          if(!verifIfUserIsInConv){
-              return ("You are not part of this conversation");
-          }
+          // const verifIfUserIsInConv = await Conversation.verifConv(message.sender_id,message.id_conv);
+          // if(!verifIfUserIsInConv){
+          //     return ("You are not part of this conversation");
+          // }
 
       }
 
