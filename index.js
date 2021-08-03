@@ -37,6 +37,8 @@ const Message = require('./App/models/Message');
 
 io.on('connection', async(ws) => {
   console.log('>> socket.io - connected');
+  console.log('>> ws', ws);
+
 
   ws.on('send_message_from_client', async(message) => {
     console.log("J'ai recu le message : send_message_from_client", message);
@@ -83,7 +85,7 @@ io.on('connection', async(ws) => {
 
 
 
-    // Verifi si la conversation existe 
+    // Verifie si la conversation existe 
     const existConv = await Conversation.checkIfConvExist(message.id_conv);
       if(existConv){
           // On verifie si l'utilisateur a bien accée a cette conversation
@@ -94,6 +96,8 @@ io.on('connection', async(ws) => {
           // Si oui alors on enregistre le message dans la conv
         const mess = new Message(message);    
         await mess.save(message.sender_id,message.id_conv);
+
+
 
       } else {
            // Si non alors on crée une conversation PUIS on enregistre le message dans cette conversation
