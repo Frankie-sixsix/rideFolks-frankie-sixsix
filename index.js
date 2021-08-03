@@ -50,7 +50,7 @@ io.on('connection', async(ws) => {
   ws.on('create', function(room){
     ws.join(room);
     console.log('//ROOM:', room);
-  
+  });
 
 
 
@@ -131,7 +131,7 @@ io.on('connection', async(ws) => {
           }
 
           
-          io.to(message.id_conv).emit('send_message_from_API', message );
+          io.emit('send_message_from_API', message );
           
 
 
@@ -151,7 +151,7 @@ io.on('connection', async(ws) => {
 //   io.to(room).emit('send_message_from_server', message)
 // });
 
-});
+
 
 });
 });
