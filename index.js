@@ -123,7 +123,7 @@ io.on('connection', async(ws) => {
 
       }
 
-      connectedUser[userId].emit('send_message_from_client', mess );
+      connectedUser[ws.userId].emit('send_message_from_client', mess );
 
         // const mess = new Message(message);
     
