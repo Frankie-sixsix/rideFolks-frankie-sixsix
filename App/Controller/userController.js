@@ -229,6 +229,20 @@ const userController = {
             console.log(error);
         }
 
+    },
+
+    availabilityOn: async (req,res)=>{
+
+        const { id } = req.decoded;
+        await User.availabilityOn(id);
+        res.json('Availability ON');
+    },
+
+    availabilityOff: async (req,res)=>{
+
+        const { id } = req.decoded;
+        await User.availabilityOff(id);
+        res.json('Availability Off');
     }
 }
 

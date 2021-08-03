@@ -197,6 +197,36 @@ class User {
         }
     }
 
+    static async availabilityOn(id){
+
+        try {
+            const sqlQuerry = {
+                text:'UPDATE "user" SET "availability" = true WHERE "id" = $1',
+                values: [id]
+            }
+
+            await client.query(sqlQuerry);
+
+        } catch (error){
+            console.log(error);
+        }
+    }
+
+    static async availabilityOff(id){
+
+        try {
+            const sqlQuerry = {
+                text:'UPDATE "user" SET "availability" = false WHERE "id" = $1',
+                values: [id]
+            }
+            
+            await client.query(sqlQuerry);
+
+        } catch (error){
+            console.log(error);
+        }
+    }
+
 }
 
 

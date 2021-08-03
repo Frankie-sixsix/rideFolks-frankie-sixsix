@@ -52,11 +52,38 @@ class Conversation {
 
         // console.log("id",id);
 
+            // Recuper la photo de profil d'un utilisateur qui fait partie des conversations avec lequel l'user connecter fait partie
+
+
+            // Recupere les id qui font partie de la conversation:
+                // SELECT user_id FROM "user_has_conversation" WHERE "conversation_id" = 1;
+
+                    // Recupere les id de conversation quand le user_id est 25
+                        // SELECT conversation_id FROM "user_has_conversation" WHERE "user_id" = 25;
+
+                            // Recupere les id des user qui sont dans la conversation
+                                //SELECT user_id FROM "user_has_conversation" WHERE "conversation_id" IN (
+                                //SELECT conversation_id FROM "user_has_conversation" WHERE "user_id" = 25
+                                
+                                // Ancienne requete: 
+                                    // SELECT date, name, "conversation".id, "user".last_name,"user".first_name, profile_picture FROM "conversation"
+                                    // JOIN "user_has_conversation" ON conversation.id = conversation_id 
+                                    // JOIN "user" ON "user".id = "user_has_conversation".user_id
+                                    // WHERE conversation.id = $1
+
+
         try {
             const sqlQuerry = {
-                text: `SELECT date, name, "conversation".id FROM "conversation"
+                text: `
+                SELECT date, name, "conversation".id, "user".last_name,"user".first_name, profile_picture FROM "conversation"
                 JOIN "user_has_conversation" ON conversation.id = conversation_id 
-                WHERE user_id = $1`,
+                JOIN "user" ON "user".id = "user_has_conversation".user_id
+                WHERE "user".id in (
+	                SELECT user_id FROM "user_has_conversation" WHERE "conversation_id" IN (
+		                SELECT conversation_id FROM "user_has_conversation" WHERE "user_id" = $1
+	                )
+                );
+                `,
                 values: [id]
             }
             // Select les dtaes from conversations where id = conversation_id de user_has_conversation where user_id = 1
