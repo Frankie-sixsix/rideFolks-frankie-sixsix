@@ -44,6 +44,7 @@ io.on('connection', async(ws) => {
   ws.on('register', function(userId){
     ws.userId = userId;
     connectedUser[userId] = ws;
+    console.log('connecteduser:',connectedUser);
   });
 
 
