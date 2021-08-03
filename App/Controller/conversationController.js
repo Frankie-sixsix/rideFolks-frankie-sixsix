@@ -49,7 +49,7 @@ const convController = {
                 const infos = await Conversation.infoOnDiscussion(conversation.id);
                 conversation.infos = infos;
             }
-        console.log("conv",conversationss);
+        // console.log("conv",conversationss);
 
         // const date1 = conv[0];
         // console.log("date1a",date1);
