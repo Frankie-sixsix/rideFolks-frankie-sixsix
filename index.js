@@ -130,8 +130,8 @@ io.on('connection', async(ws) => {
 
           }
 
-          
-          io.in(message.id_conv).emit('send_message_from_API', message );
+          console.log('Array//', Array.from(io.sockets.adapter.rooms));
+          io.in("1").emit('send_message_from_API', message );
           
 
 
