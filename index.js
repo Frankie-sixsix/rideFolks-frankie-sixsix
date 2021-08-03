@@ -94,38 +94,44 @@ io.on('connection', async(ws) => {
   // });
 
 
+    try {
 
-    // Verifie si la conversation existe 
-    const existConv = await Conversation.checkIfConvExist(message.id_conv);
-      if(existConv){
-          // On verifie si l'utilisateur a bien accée a cette conversation
-          const verifIfUserIsInConv = await Conversation.verifConv(message.sender_id,message.id_conv);
-          if(!verifIfUserIsInConv){
-              return ("You are not part of this conversation");
-          }
-          // Si oui alors on enregistre le message dans la conv
-        const mess = new Message(message);    
-        await mess.save(message.sender_id,message.id_conv);
-
-
-
-      } else {
-           // Si non alors on crée une conversation PUIS on enregistre le message dans cette conversation
-            
-            idConv = await Conversation.createConv(message.sender_id,message.participant,message.name);
-            message.id_conv = idConv;
+        // Verifie si la conversation existe 
+        const existConv = await Conversation.checkIfConvExist(message.id_conv);
+          if(existConv){
+              // On verifie si l'utilisateur a bien accée a cette conversation
+              const verifIfUserIsInConv = await Conversation.verifConv(message.sender_id,message.id_conv);
+              if(!verifIfUserIsInConv){
+                  return ("You are not part of this conversation");
+              }
+              // Si oui alors on enregistre le message dans la conv
             const mess = new Message(message);    
             await mess.save(message.sender_id,message.id_conv);
-       
-          // const verifIfUserIsInConv = await Conversation.verifConv(message.sender_id,message.id_conv);
-          // if(!verifIfUserIsInConv){
-          //     return ("You are not part of this conversation");
-          // }
 
-      }
 
-      
-      ws.emit('send_message_from_client', mess );
+
+          } else {
+              // Si non alors on crée une conversation PUIS on enregistre le message dans cette conversation
+                
+                idConv = await Conversation.createConv(message.sender_id,message.participant,message.name);
+                message.id_conv = idConv;
+                const mess = new Message(message);    
+                await mess.save(message.sender_id,message.id_conv);
+          
+              // const verifIfUserIsInConv = await Conversation.verifConv(message.sender_id,message.id_conv);
+              // if(!verifIfUserIsInConv){
+              //     return ("You are not part of this conversation");
+              // }
+
+          }
+
+        
+          ws.emit('send_message_from_client', mess );
+
+
+        } catch (error) {
+          console.log(error);
+        }
 
         // const mess = new Message(message);
     
