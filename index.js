@@ -48,7 +48,7 @@ io.on('connection', async(ws) => {
   });
 
   ws.on('create', function(room){
-    socket.join(room);
+    ws.join(room);
     console.log('//ROOM:', room);
   });
 
