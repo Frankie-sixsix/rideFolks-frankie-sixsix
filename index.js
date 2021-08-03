@@ -47,6 +47,10 @@ io.on('connection', async(ws) => {
     console.log('/_/_/connecteduser:',connectedUser);
   });
 
+  ws.on('create', function(room){
+    socket.join(room);
+  });
+
 
 
 
@@ -125,8 +129,9 @@ io.on('connection', async(ws) => {
 
           }
 
-        
-          ws.emit('send_message_from_client', message );
+          
+          ws.in(message.id_conv).emit('send_message_from_client', message );
+          
 
 
         } catch (error) {
