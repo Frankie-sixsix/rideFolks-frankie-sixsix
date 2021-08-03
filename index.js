@@ -32,12 +32,21 @@ const io = new Server(server);
 
 const Conversation = require('./App/models/Conversation');
 const Message = require('./App/models/Message');
+const { socketController } = require('./App/Controller');
 
 
+let connectedUser = {};
 
 io.on('connection', async(ws) => {
   console.log('>> socket.io - connected');
   console.log('>> ws', ws);
+
+  ws.on('register', function(userId){
+    ws.userId = userId;
+    connectedUser[userId] = ws;
+  });
+
+
 
 
   ws.on('send_message_from_client', async(message) => {
@@ -113,6 +122,8 @@ io.on('connection', async(ws) => {
           // }
 
       }
+
+      connectedUser[userId].emit('send_message_from_client', mess );
 
         // const mess = new Message(message);
     
