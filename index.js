@@ -131,7 +131,7 @@ io.on('connection', async(ws) => {
           }
 
           
-          io.ws.in(message.id_conv).emit('send_message_from_client', message );
+          ws.in(message.id_conv).emit('send_message_from_client', message );
           
 
 
