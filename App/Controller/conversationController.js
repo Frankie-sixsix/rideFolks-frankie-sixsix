@@ -44,11 +44,11 @@ const convController = {
 
         const conversations = await Conversation.findAll(id);
        
-            for(const conversation of conversations){
-                console.log(conversation);
-                const infos = await Conversation.infoOnDiscussion(conversation.id);
-                conversation.infos = infos;
-            }
+            // for(const conversation of conversations){
+            //     console.log(conversation);
+            //     const infos = await Conversation.infoOnDiscussion(conversation.id);
+            //     conversation.infos = infos;
+            // }
         // console.log("conv",conversationss);
 
         // const date1 = conv[0];

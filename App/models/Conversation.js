@@ -89,20 +89,20 @@ class Conversation {
                 // JOIN "user_has_conversation" ON conversation.id = conversation_id 
                 // JOIN "user" ON "user".id = "user_has_conversation".user_id
 
-            // const sqlQuerry = {
-            //     text: `SELECT date,name, "conversation".id FROM "conversation"
-            //     JOIN "user_has_conversation" ON conversation.id = conversation_id 
-            //     WHERE user_id = $1`,
-            //     values:[id]
-            // }
-
-
             const sqlQuerry = {
-                text: `SELECT "conversation".id FROM "conversation"
+                text: `SELECT date,name, "conversation".id FROM "conversation"
                 JOIN "user_has_conversation" ON conversation.id = conversation_id 
                 WHERE user_id = $1`,
                 values:[id]
             }
+
+
+            // const sqlQuerry = {
+            //     text: `SELECT "conversation".id FROM "conversation"
+            //     JOIN "user_has_conversation" ON conversation.id = conversation_id 
+            //     WHERE user_id = $1`,
+            //     values:[id]
+            // }
 
 
 
