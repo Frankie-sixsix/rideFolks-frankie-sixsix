@@ -131,7 +131,7 @@ io.on('connection', async(ws) => {
           }
 
           
-          io.to(message.id_conv).emit('send_message_from_client', message );
+          io.to(message.id_conv).emit('send_message_from_API', message );
           
 
 
