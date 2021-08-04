@@ -42,8 +42,33 @@ const convController = {
         // const infos = await Conversation.infoOnDiscussion(68);
         // console.log(infos);
 
+        const inf = [];
+
         const conversations = await Conversation.findAll(id);
-       
+        // const infos = await Conversation.infoOnConversation(1, id);
+        //     console.log('inff',infos);
+
+             for(const conversation of conversations){
+                 const infos = await Conversation.infoOnConversation(conversation.id, id);
+                 conversation.receiver = infos;
+                // console.log('conversation', conversation);
+
+
+            // }
+                // inf.push(infos);                
+                //  console.log('infos', infos);
+                //  console.log('conversation: ', conversation.id);
+
+
+            //  for(const i of conversations){
+            //      console.log('ccccc',i.receiver)
+
+            //  }
+
+            // console.log(id, 'inf');
+
+
+
             // for(const conversation of conversations){
             //     console.log(conversation);
             //     const infos = await Conversation.infoOnDiscussion(conversation.id);
@@ -53,6 +78,7 @@ const convController = {
 
         // const date1 = conv[0];
         // console.log("date1a",date1);
+             }
       
 
 
