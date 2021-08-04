@@ -7,7 +7,7 @@ const modeController = {
         const { id } = req.decoded;
         const { label } = req.body;
 
-        // console.log("label", label);
+        console.log("label on post=", label);
         // console.log("id", id);
 
         const modeId = await Mode.getModeId(label);
@@ -36,7 +36,7 @@ const modeController = {
         const { label } = req.body;
 
         const modeId = await Mode.getModeId(label);
-        console.log("label=", label);
+        console.log("label on delete =", label);
         console.log(modeId,"modeid");
         if (!modeId) {
             res.json("This mode does not exist");
