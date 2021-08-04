@@ -30,6 +30,12 @@ router.get('/users', userController.findAll); // Recuperation de touts les utili
 router.patch('/user', security.checkjWT, userController.updateUser); // UPDATE d'un user
 router.delete('/user', security.checkjWT,userController.deleteOne); // Suppression de son compte (jWT)
 
+// Route user qui son disponnible 
+router.get('/users/ava');
+
+// Route pôur chnager availabity (switch) on et une off 
+router.get('/user/availability/on', security.checkjWT, userController.availabilityOn); // Route pour afficher toutes les conversations d'un utilisateur 
+router.get('/user/availability/off', security.checkjWT, userController.availabilityOff); // Route pour afficher toutes les conversations d'un utilisateur 
 
 // Route user/mode
 router.post('/user/mode', security.checkjWT, modeController.addMode); // Ajout d'un mode au profil utilisateur 
@@ -41,11 +47,17 @@ router.post('/user/discipline', security.checkjWT, disciplineController.addDisci
 router.delete('/user/discipline', security.checkjWT, disciplineController.deleteDiscipline); // Suppression d'une discipline au profil utilisateur 
 
 
-// Route user/conversation
-router.get('/user/conversations', security.checkjWT, conversationController.findAll); // Route pour afficher toutes les conversations (jWT)
-router.get('/user/conversation/:idConv', security.checkjWT,conversationController.getMessagesFromConv); // Recuperation des messages d'une conversation (jWT)
-router.post('/user/message/conversation/:idConv', security.checkjWT,messageController.createMessage); // Creation d'un message (jWT)
+// // Route user/conversation
+// router.get('/user/conversations', security.checkjWT, conversationController.findAll); // Route pour afficher toutes les conversations (jWT)
+// router.get('/user/conversation/:idConv', security.checkjWT,conversationController.getMessagesFromConv); // Recuperation des messages d'une conversation (jWT)
+// router.post('/user/message/conversation/:idConv', security.checkjWT,messageController.createMessage); // Creation d'un message (jWT)
 
+
+// Route user/conversation
+router.get('/user/conversations', security.checkjWT, conversationController.findAll); // Route pour afficher toutes les conversations d'un utilisateur 
+router.post('/user/conversation', security.checkjWT, conversationController.createConv); // Route pour créer une conversation (jWT)
+router.delete('/user/conversation/:id',security.checkjWT, conversationController.quitConv); // Route pour quitter une conversation
+router.get('/user/particpate/conversation/:id', security.checkjWT, conversationController.participateConv); // Route pour participer a une conversation
 
 
 // Route user/place
@@ -72,20 +84,12 @@ router.delete('/event/:id', eventController.deleteOne); // Suppression d'un even
 
 
 
-// Route conversation
-router.get('/user/conversations', security.checkjWT, conversationController.findAll); // Route pour afficher toutes les conversations d'un utilisateur 
-router.post('/user/conversation', security.checkjWT, conversationController.createConv); // Route pour créer une conversation (jWT)
-router.delete('/user/conversation/:id',security.checkjWT, conversationController.quitConv); // Route pour quitter une conversation
-router.get('/user/particpate/conversation/:id', security.checkjWT, conversationController.participateConv); // Route pour participer a une conversation
 
 
 // Route pour afficher profil user grace a son id 
 router.get('/user/:id', userController.findOne); // Recuperation d'un utilisateur grâce a son id 
 
 
-// Route pôur chnager availabity (switch) on et une off 
-router.get('/user/availability/on', security.checkjWT, userController.availabilityOn); // Route pour afficher toutes les conversations d'un utilisateur 
-router.get('/user/availability/off', security.checkjWT, userController.availabilityOff); // Route pour afficher toutes les conversations d'un utilisateur 
 
 
 module.exports = router;
