@@ -31,7 +31,8 @@ router.patch('/user', security.checkjWT, userController.updateUser); // UPDATE d
 router.delete('/user', security.checkjWT,userController.deleteOne); // Suppression de son compte (jWT)
 
 // Route user qui son disponnible 
-router.get('/users/ava');
+router.get('/users/available', security.checkjWT,userController.showAvailableUsers); 
+
 
 // Route pôur chnager availabity (switch) on et une off 
 router.get('/user/availability/on', security.checkjWT, userController.availabilityOn); // Route pour afficher toutes les conversations d'un utilisateur 
