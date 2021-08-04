@@ -48,10 +48,10 @@ router.post('/user/discipline', security.checkjWT, disciplineController.addDisci
 router.delete('/user/discipline', security.checkjWT, disciplineController.deleteDiscipline); // Suppression d'une discipline au profil utilisateur 
 
 
-// // Route user/conversation
+// Route user/conversation
 // router.get('/user/conversations', security.checkjWT, conversationController.findAll); // Route pour afficher toutes les conversations (jWT)
-// router.get('/user/conversation/:idConv', security.checkjWT,conversationController.getMessagesFromConv); // Recuperation des messages d'une conversation (jWT)
-// router.post('/user/message/conversation/:idConv', security.checkjWT,messageController.createMessage); // Creation d'un message (jWT)
+router.get('/user/conversation/:idConv', security.checkjWT,conversationController.getMessagesFromConv); // Recuperation des messages d'une conversation (jWT)
+router.post('/user/message/conversation/:idConv', security.checkjWT,messageController.createMessage); // Creation d'un message (jWT)
 
 
 // Route user/conversation
