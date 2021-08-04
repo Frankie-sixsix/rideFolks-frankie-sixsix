@@ -11,6 +11,7 @@ const modeController = {
         // console.log("id", id);
 
         const modeId = await Mode.getModeId(label);
+        // console.log('modeId"', modeId);
         if (!modeId) {
             res.json("This mode does not exist");
         }
@@ -35,7 +36,14 @@ const modeController = {
         const { label } = req.body;
 
         const modeId = await Mode.getModeId(label);
+        // console.log(modeId,"modeid");
+        if (!modeId) {
+            res.json("This mode does not exist");
+        }
+        else {
+
         const verifMode = await Mode.verifMode(id,modeId);
+        // console.log(verifMode,"verifMode");
             if(verifMode){
                 await Mode.deleteMode(id,modeId);
                 res.json('Mode deleted from your profile');
@@ -43,6 +51,7 @@ const modeController = {
             else {
                 res.json('This mode is not part of your profile');
             }
+        }
     },
 
 
