@@ -4,7 +4,7 @@ const eventController = {
 
     // Ajouter un evenement 
     addEvent: async (req,res)=>{
-        const {id} = req.params;
+        const {id} = req.decoded;
         const event = new Event(req.body);
 
         try {

@@ -197,6 +197,61 @@ class User {
         }
     }
 
+    static async availabilityOn(id){
+
+        try {
+            const sqlQuerry = {
+                text:'UPDATE "user" SET "availability" = true WHERE "id" = $1',
+                values: [id]
+            }
+
+            await client.query(sqlQuerry);
+
+        } catch (error){
+            console.log(error);
+        }
+    }
+
+    static async availabilityOff(id){
+
+        try {
+            const sqlQuerry = {
+                text:'UPDATE "user" SET "availability" = false WHERE "id" = $1',
+                values: [id]
+            }
+            
+            await client.query(sqlQuerry);
+
+        } catch (error){
+            console.log(error);
+        }
+    }
+
+    static async showAvailableUsers(id){
+
+        try {
+            const sqlQuerry = {
+
+                text: `
+                SELECT "user".* FROM "user" 
+                join "network" ON network.friend_user_id = "user".id
+                Where network.source_id = $1 AND "user".availability = true
+                `,        
+                values: [id]
+
+            }
+
+            // Selectionne les users qui sont amie avec user.id 25 ET QUI SONT DISPONNIBLE -TRUE)
+
+            const {rows} = await client.query(sqlQuerry);
+            return rows.map(row => new UserFront(row));
+            
+            
+        } catch(error){
+            console.log(error);
+        }
+    }
+
 }
 
 

@@ -193,3 +193,12 @@ methode save dans userController
         on reucpere le label 
 
         Separer la methode pour recupere lid du mode et en faire une methode a par 
+
+
+
+Verification des token (security chcck jwt)
+Affichage du profil avec ses amies , event, mode et disciplines 
+créer un conversation, participer a une conv 
+pouvoir ajouter un mode ou une discipline au profil (avec methodes de verif)
+pouvoir réer un message et enregister en bdd 
+recuper les messages d'une convrsations (avec methode de verif)

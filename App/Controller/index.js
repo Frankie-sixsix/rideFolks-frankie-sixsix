@@ -8,6 +8,7 @@ const conversationController = require('./conversationController');
 const modeController = require('./modeController');
 const disciplineController = require('./disciplineController');
 const messageController = require('./messageController');
+const socketController = require('./socketController');
 
 module.exports = {
     mainController,
@@ -19,4 +20,5 @@ module.exports = {
     modeController,
     disciplineController,
     messageController,
+    socketController
 }

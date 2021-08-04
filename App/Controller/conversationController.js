@@ -5,18 +5,30 @@ const convController = {
     createConv: async (req,res)=>{
 
         const {id} = req.decoded;
-        const {name} = req.body
+        const {name, participant, idConv} = req.body;
+        
 
         // console.log("id:", id, "name:", name);
 
         try {
+            let idConvv;
+
+            const check = await Conversation.checkIfConvExist(idConv);
+                if(check){
+                    return res.json('This conversation already exists');
+                }
             if(!name){
-                await Conversation.createConv(id);
+                idConvv = await Conversation.createConv(id,participant);
             }
             else {
-                await Conversation.createConv(id,name);
+                idConvv = await Conversation.createConv(id,participant,name);
             }
-            res.json('Conversation crée');
+            console.log(idConvv,"idConv");
+                const response = {
+                    text: 'Conversation crée',
+                    idConv: idConvv
+                }
+            res.json(response);
         } catch (error){
             console.log(error);
         }
@@ -27,11 +39,46 @@ const convController = {
         const {id} = req.decoded;
 
         console.log("id in controller:", id);
+        // const infos = await Conversation.infoOnDiscussion(68);
+        // console.log(infos);
+
+        const inf = [];
 
         const conversations = await Conversation.findAll(id);
+        // const infos = await Conversation.infoOnConversation(1, id);
+        //     console.log('inff',infos);
+
+             for(const conversation of conversations){
+                 const infos = await Conversation.infoOnConversation(conversation.id, id);
+                 conversation.receiver = infos;
+                // console.log('conversation', conversation);
+
+
+            // }
+                // inf.push(infos);                
+                //  console.log('infos', infos);
+                //  console.log('conversation: ', conversation.id);
+
+
+            //  for(const i of conversations){
+            //      console.log('ccccc',i.receiver)
+
+            //  }
+
+            // console.log(id, 'inf');
+
+
+
+            // for(const conversation of conversations){
+            //     console.log(conversation);
+            //     const infos = await Conversation.infoOnDiscussion(conversation.id);
+            //     conversation.infos = infos;
+            // }
+        // console.log("conv",conversationss);
 
         // const date1 = conv[0];
         // console.log("date1a",date1);
+             }
       
 
 
