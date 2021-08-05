@@ -86,9 +86,9 @@ io.on('connection', async (ws) => {
 
       }
 
-      console.log('Array//', Array.from(io.sockets.adapter.rooms));
+      // console.log('Array//', Array.from(io.sockets.adapter.rooms));
 
-
+      console.log('RoomZ=', roomZ);
       io.to(roomZ).emit('send_message_from_API', message);
 
 
