@@ -50,7 +50,7 @@ io.on('connection', async (ws) => {
   ws.on('create', function (room) {
     ws.join(room.toString());
     // roomZ = room;
-    const roster = io.sockets.clients(room);
+    const roster = io.sockets.adapter.rooms.get(room);
 
     console.log('R00ster =', roster);
     console.log('//ROOM:', room);
