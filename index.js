@@ -52,13 +52,8 @@ io.on('connection', async (ws) => {
   });
 
 
-
-
   ws.on('send_message_from_client', async (message) => {
     console.log("J'ai recu le message : send_message_from_client", message);
-
-
-
 
     try {
 
@@ -73,8 +68,6 @@ io.on('connection', async (ws) => {
         // Si oui alors on enregistre le message dans la conv
         const mess = new Message(message);
         await mess.save(message.sender_id, message.id_conv);
-
-
 
       } else {
         // Si non alors on crée une conversation PUIS on enregistre le message dans cette conversation
@@ -92,7 +85,9 @@ io.on('connection', async (ws) => {
       }
 
       console.log('Array//', Array.from(io.sockets.adapter.rooms));
-      io.in("1").emit('send_message_from_API', message);
+
+
+      io.to(message.id_conv).emit('send_message_from_API', message);
 
 
 
