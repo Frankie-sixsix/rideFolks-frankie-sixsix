@@ -90,6 +90,8 @@ io.on('connection', async (ws) => {
 
       console.log('RoomZ=', roomZ);
       io.to(roomZ).emit('send_message_from_API', message);
+      console.log('Message = ', message);
+
 
 
 
