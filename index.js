@@ -41,11 +41,11 @@ let roomZ;
 io.on('connection', async (ws) => {
   console.log('>> socket.io - connected');
 
-  ws.on('register', function (userId) {
-    ws.userId = userId;
-    connectedUser[userId] = ws;
-    console.log('/_/_/connecteduser:', connectedUser);
-  });
+  // ws.on('register', function (userId) {
+  //   ws.userId = userId;
+  //   connectedUser[userId] = ws;
+  //   console.log('/_/_/connecteduser:', connectedUser);
+  // });
 
   ws.on('create', function (room) {
     ws.join(room);
@@ -89,7 +89,7 @@ io.on('connection', async (ws) => {
       // console.log('Array//', Array.from(io.sockets.adapter.rooms));
 
       console.log('RoomZ=', roomZ);
-      io.to(roomZ).emit('send_message_from_API', message);
+      io.emit('send_message_from_API', message);
       console.log('Message = ', message);
 
 
