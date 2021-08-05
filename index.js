@@ -48,7 +48,7 @@ io.on('connection', async (ws) => {
   // });
 
   ws.on('create', function (room) {
-    ws.join(room);
+    ws.join(room.toString());
     // roomZ = room;
     console.log('//ROOM:', room);
   });
