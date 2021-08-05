@@ -89,7 +89,7 @@ io.on('connection', async (ws) => {
       // console.log('Array//', Array.from(io.sockets.adapter.rooms));
       roomZ = message.id_conv;
 
-      io.to(roomZ.toString()).emit('send_message_from_API', message);
+      ws.to(roomZ.toString()).emit('send_message_from_API', message);
       
       
       // io.sockets.in(roomZ.toString()).emit('send_message_from_API', message);
