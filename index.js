@@ -35,26 +35,18 @@ const Message = require('./App/models/Message');
 
 
 
-// let connectedUser = {};
+
 let roomZ;
 
 io.on('connection', async (ws) => {
   console.log('>> socket.io - connected');
 
-  // ws.on('register', function (userId) {
-  //   ws.userId = userId;
-  //   connectedUser[userId] = ws;
-  //   console.log('/_/_/connecteduser:', connectedUser);
-  // });
-
   ws.on('create', function (room) {
     ws.join(room.toString());
-    // roomZ = room;
-    const roster = io.sockets.adapter.rooms.get(room);
+    io.to(roomZ.toString()).emit('userJoin', 'yu');
+    
+    // const roster = io.sockets.adapter.rooms.get(room);
 
-console.log('WS=', ws);
-    console.log('R00ster =', roster);
-    console.log('//ROOM:', room);
   });
 
 
@@ -82,19 +74,12 @@ console.log('WS=', ws);
         message.id_conv = idConv;
         const mess = new Message(message);
         await mess.save(message.sender_id, message.id_conv);
-
-        // const verifIfUserIsInConv = await Conversation.verifConv(message.sender_id,message.id_conv);
-        // if(!verifIfUserIsInConv){
-        //     return ("You are not part of this conversation");
-        // }
-
       }
 
-      // console.log('Array//', Array.from(io.sockets.adapter.rooms));
       roomZ = message.id_conv;
 
-      io.ws.to(roomZ.toString()).emit('send_message_from_API', message);
-      
+      io.to(roomZ.toString()).emit('send_message_from_API', message);
+    
       
       // io.sockets.in(roomZ.toString()).emit('send_message_from_API', message);
       
