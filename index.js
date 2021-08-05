@@ -52,6 +52,7 @@ io.on('connection', async (ws) => {
     // roomZ = room;
     const roster = io.sockets.adapter.rooms.get(room);
 
+console.log('WS=', ws);
     console.log('R00ster =', roster);
     console.log('//ROOM:', room);
   });
