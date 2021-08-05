@@ -49,7 +49,7 @@ io.on('connection', async (ws) => {
 
   ws.on('create', function (room) {
     ws.join(room);
-    roomZ = room;
+    // roomZ = room;
     console.log('//ROOM:', room);
   });
 
@@ -91,7 +91,9 @@ io.on('connection', async (ws) => {
       console.log('RoomZ=', roomZ);
       // io.to(roomZ).emit('send_message_from_API', message);
 
-      io.sockets.in(roomZ).emit('send_message_from_API', message);
+      roomZ = message.id_conv;
+
+      io.sockets.in(roomZ.toString()).emit('send_message_from_API', message);
 
       console.log('Message = ', message);
 
