@@ -85,9 +85,10 @@ io.on('connection', async (ws) => {
       roomZ = message.id_conv;
 
       // io.to(roomZ.toString()).emit('send_message_from_API', message);
-      // io.emit('send_message_from_API', message);
 
-      io.in(message.id_conv).emit('send_message_from_API', message);
+      io.emit('send_message_from_API', message);
+
+      // io.in(message.id_conv).emit('send_message_from_API', message);
     
       
       // io.sockets.in(roomZ.toString()).emit('send_message_from_API', message);
