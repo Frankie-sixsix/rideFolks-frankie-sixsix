@@ -41,9 +41,15 @@ let roomZ;
 io.on('connection', async (ws) => {
   console.log('>> socket.io - connected');
 
-  ws.on('create', function (room) {
+  // ws.on('create', function (room) {
+  //   ws.join(room.toString());
+  //   io.to(room.toString()).emit('userJoin', 'yu');
+
+  ws.on('create', function (room, callback) {
     ws.join(room.toString());
-    io.to(room.toString()).emit('userJoin', 'yu');
+    callback('userJoin' + room);
+});
+
     
     // const roster = io.sockets.adapter.rooms.get(room);
 
