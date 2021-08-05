@@ -43,7 +43,7 @@ io.on('connection', async (ws) => {
 
   ws.on('create', function (room) {
     ws.join(room.toString());
-    io.to(roomZ.toString()).emit('userJoin', 'yu');
+    io.to(room.toString()).emit('userJoin', 'yu');
     
     // const roster = io.sockets.adapter.rooms.get(room);
 
