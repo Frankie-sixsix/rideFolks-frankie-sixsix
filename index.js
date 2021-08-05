@@ -50,6 +50,9 @@ io.on('connection', async (ws) => {
   ws.on('create', function (room) {
     ws.join(room.toString());
     // roomZ = room;
+    const roster = io.sockets.clients(room);
+
+    console.log('R00ster =', roster);
     console.log('//ROOM:', room);
   });
 
@@ -89,7 +92,7 @@ io.on('connection', async (ws) => {
       // console.log('Array//', Array.from(io.sockets.adapter.rooms));
       roomZ = message.id_conv;
 
-      ws.to(roomZ.toString()).emit('send_message_from_API', message);
+      io.ws.to(roomZ.toString()).emit('send_message_from_API', message);
       
       
       // io.sockets.in(roomZ.toString()).emit('send_message_from_API', message);
