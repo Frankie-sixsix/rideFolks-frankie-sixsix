@@ -10,7 +10,6 @@ const {
     modeController,
     disciplineController,
     messageController,
-    socketController
 } = require('./Controller/index');
 const security = require('../Middlewares/security');
 
@@ -95,18 +94,3 @@ router.get('/user/:id', userController.findOne); // Recuperation d'un utilisateu
 
 
 module.exports = router;
-
-
-
-
-// router.post('/user/talk/conversation/:idConv', security.checkjWT, socketController.test);
-// Route test socket.io
-// router.post('/socket', security.checkjWT,socketController.test);
-
-// router.post('/socket', security.checkjWT, (req,res)=>{
-    //     const {id} = req.decoded;
-    //     console.log(id,"socket");
-    //     res.sendFile(__dirname + '/static/index.html');
-    // })
-    
-    // Route pour se logger

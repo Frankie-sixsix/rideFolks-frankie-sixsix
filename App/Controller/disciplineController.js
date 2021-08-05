@@ -7,16 +7,12 @@ const disciplineController = {
         const { id } = req.decoded;
         const { name } = req.body;
 
-        // console.log("label", label);
-        // console.log("id", id);
-
         const disciplineId = await Discipline.getDisciplineId(name);
         if (!disciplineId) {
             res.json("This discipline does not exist");
         }
         else {
             const verifDiscipline = await Discipline.verifDiscipline(id, disciplineId);
-            // console.log(verifMode,"hh");
             if (!verifDiscipline) {
                 await Discipline.save(id, disciplineId);
                 res.json('Added disicpline');
@@ -29,20 +25,20 @@ const disciplineController = {
 
     },
 
-    deleteDiscipline: async (req,res)=>{
+    deleteDiscipline: async (req, res) => {
 
         const { id } = req.decoded;
         const { name } = req.body;
 
         const disciplineId = await Discipline.getDisciplineId(name);
-        const verifDiscipline = await Discipline.verifDiscipline(id,disciplineId);
-            if(verifDiscipline){
-                await Discipline.deleteDiscipline(id,disciplineId);
-                res.json('Discipline deleted from your profile');
-            }
-            else {
-                res.json('This discipline is not part of your profile');
-            }
+        const verifDiscipline = await Discipline.verifDiscipline(id, disciplineId);
+        if (verifDiscipline) {
+            await Discipline.deleteDiscipline(id, disciplineId);
+            res.json('Discipline deleted from your profile');
+        }
+        else {
+            res.json('This discipline is not part of your profile');
+        }
     },
 
 

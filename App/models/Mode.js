@@ -31,7 +31,6 @@ class Mode {
         }
 
         const { rows } = await client.query(sqlQuerry1);
-        // console.log(rows[0],"hh");
 
         if (rows[0] === undefined) {
             return false;
@@ -50,12 +49,11 @@ class Mode {
                 values: [userId, modeId]
             }
             const { rows } = await client.query(sqlQuerry);
-            // console.log(rows[0], "rh");
+
             if (rows[0]) {
                 return true;
             }
             else {
-                // console.log("no");
                 return false;
             }
 
@@ -64,32 +62,32 @@ class Mode {
         }
     }
 
-    static async deleteMode(userId,modeId){
+    static async deleteMode(userId, modeId) {
 
         try {
             const sqlQuerry = {
-                text:'DELETE FROM "user_has_mode" WHERE "user_id"= $1 AND "mode_id" = $2',
-                values: [userId,modeId]
+                text: 'DELETE FROM "user_has_mode" WHERE "user_id"= $1 AND "mode_id" = $2',
+                values: [userId, modeId]
             }
             await client.query(sqlQuerry);
 
-        } catch (error){
+        } catch (error) {
             console.log(error);
         }
     }
 
-    static async getMode(userId){
+    static async getMode(userId) {
 
         try {
             const sqlQuerry = {
-                text:`SELECT "label" FROM "mode"
+                text: `SELECT "label" FROM "mode"
                 JOIN "user_has_mode" ON "user_has_mode".mode_id = "mode".id
                 WHERE user_id = $1`,
                 values: [userId]
             }
-            const {rows} = await client.query(sqlQuerry);
+            const { rows } = await client.query(sqlQuerry);
             return rows;
-        } catch (error){
+        } catch (error) {
             console.log(error);
         }
     }

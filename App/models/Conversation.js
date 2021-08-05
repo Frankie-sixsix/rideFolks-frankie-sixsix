@@ -50,99 +50,16 @@ class Conversation {
 
     static async findAll(id) {
 
-        // console.log("id",id);
-
-            // Recuper la photo de profil d'un utilisateur qui fait partie des conversations avec lequel l'user connecter fait partie
-
-
-            // Recupere les id qui font partie de la conversation:
-                // SELECT user_id FROM "user_has_conversation" WHERE "conversation_id" = 1;
-
-                    // Recupere les id de conversation quand le user_id est 25
-                        // SELECT conversation_id FROM "user_has_conversation" WHERE "user_id" = 25;
-
-                            // Recupere les id des user qui sont dans la conversation
-                                //SELECT user_id FROM "user_has_conversation" WHERE "conversation_id" IN (
-                                //SELECT conversation_id FROM "user_has_conversation" WHERE "user_id" = 25
-                                
-                                // Ancienne requete: 
-                                    // SELECT date, name, "conversation".id, "user".last_name,"user".first_name, profile_picture FROM "conversation"
-                                    // JOIN "user_has_conversation" ON conversation.id = conversation_id 
-                                    // JOIN "user" ON "user".id = "user_has_conversation".user_id
-                                    // WHERE conversation.id = $1
-
-
         try {
-            // const sqlQuerry = {
-            //     text: `
-            //     SELECT date, name, "conversation".id, "user".last_name,"user".first_name, profile_picture FROM "conversation"
-            //     JOIN "user_has_conversation" ON conversation.id = conversation_id 
-            //     JOIN "user" ON "user".id = "user_has_conversation".user_id
-            //     WHERE "user".id in (
-	        //         SELECT user_id FROM "user_has_conversation" WHERE "conversation_id" IN (
-		    //             SELECT conversation_id FROM "user_has_conversation" WHERE "user_id" = $1
-	        //         )
-            //     );
-            //     `,
-            //     values: [id]
-            // }
-            
-            //SELECT date, name, "conversation".id, "user".last_name,"user".first_name, profile_picture FROM "conversation"
-                // JOIN "user_has_conversation" ON conversation.id = conversation_id 
-                // JOIN "user" ON "user".id = "user_has_conversation".user_id
 
-                // BONNE REQUETE
             const sqlQuerry = {
                 text: `SELECT date,name, "conversation".id FROM "conversation"
                 JOIN "user_has_conversation" ON conversation.id = conversation_id 
                 WHERE user_id = $1`,
-                values:[id]
+                values: [id]
             }
 
-
-            // const sqlQuerry = {
-            //     text: `SELECT "conversation".id FROM "conversation"
-            //     JOIN "user_has_conversation" ON conversation.id = conversation_id 
-            //     WHERE user_id = $1`,
-            //     values:[id]
-            // }
-
-
-
-            // select les id des conversations de l'utilisateur
-                // Puis faire une recher des gens qui sont dans la conv SAUF l'id de la peronne qui demande 
-
-                // const sqlQuerry = {
-                //     text: `SELECT  user_id FROM "user_has_conversation" WHERE "conversation_id" IN (
-                //         SELECT conversation_id FROM "user_has_conversation" WHERE "user_id" = $1)`,
-                //     values:[id]
-                // }
-    
-
-            // Select les dtaes from conversations where id = conversation_id de user_has_conversation where user_id = 1
-
-
-            // const sqlQuerry = {
-            //     text: `
-            //     SELECT date, name, "conversation".id, "user".last_name,"user".first_name, profile_picture FROM "conversation"
-            //      JOIN "user_has_conversation" ON conversation.id = conversation_id 
-            //      JOIN "user" ON "user".id = "user_has_conversation".user_id
-            //      WHERE user_id != $1`,
-            //      values:[id]
-            // }
-
-
-
-
-
-
-
-
-
-
             const { rows } = await client.query(sqlQuerry);
-            // console.log('rowsss', rows);
-
             return rows;
 
         } catch (error) {
@@ -150,27 +67,9 @@ class Conversation {
         }
 
     }
-    static async infoOnConversation(idConv, idUser){
+    static async infoOnConversation(idConv, idUser) {
 
         try {
-            // const sqlQuerry = {
-            //     text: `
-            //     SELECT date, name, "conversation".id, "user".last_name,"user".first_name, profile_picture FROM "conversation"
-            //     JOIN "user_has_conversation" ON conversation.id = conversation_id 
-            //     JOIN "user" ON "user".id = "user_has_conversation".user_id
-            //         WHERE conversation.id = $1`,
-            //     values: [idConv]
-            // }
-
-            // const sqlQuerry = {
-            //     text: `
-            //     SELECT last_name, first_name FROM "user"
-            //     JOIN "conversation" ON conversation.user_id = "user".id
-            //     WHERE "conversation".id = $1 AND "user".id" != $2 "
-            //     `,
-            //     values: [idConv, idUser]
-            // }
-
 
             const sqlQuerry = {
                 text: `
@@ -178,24 +77,24 @@ class Conversation {
                     JOIN "user_has_conversation" ON user_id = "user".id
                     WHERE conversation_id = $1 AND "user".id != $2
                 `,
-                values :[idConv, idUser]
+                values: [idConv, idUser]
             }
 
 
-            const {rows} = await client.query(sqlQuerry);
+            const { rows } = await client.query(sqlQuerry);
             return rows;
 
-        } catch (error){
+        } catch (error) {
             console.log(error);
         }
     }
 
-    static async quitConv(id,convId) {
+    static async quitConv(id, convId) {
 
         try {
             const sqlQuerry = {
                 text: 'DELETE FROM "user_has_conversation" WHERE "user_id" = $1 AND "conversation_id"=$2 ',
-                values: [id,convId]
+                values: [id, convId]
             }
 
             await client.query(sqlQuerry);
@@ -205,32 +104,32 @@ class Conversation {
         }
     }
 
-    static async verifConv(id,convId) {
+    static async verifConv(id, convId) {
 
         try {
             const sqlQuerry = {
                 text: 'SELECT * FROM "user_has_conversation" WHERE "user_id"=$1 AND "conversation_id"=$2',
-                values: [id,convId]
+                values: [id, convId]
             }
 
-            const {rows} = await client.query(sqlQuerry);
-                if(!rows[0]){
-                    return false;  // Passer en false 
-                }
-                else {
-                    return rows;
-                }
+            const { rows } = await client.query(sqlQuerry);
+            if (!rows[0]) {
+                return false;
+            }
+            else {
+                return rows;
+            }
 
-        } catch (error){
+        } catch (error) {
             console.log(error);
         }
     }
 
-    static async participate(id,idConv) {
+    static async participate(id, idConv) {
 
         try {
             const sqlQuerry = {
-                text:'INSERT INTO "user_has_conversation" (conversation_id, user_id) VALUES ($1,$2)',
+                text: 'INSERT INTO "user_has_conversation" (conversation_id, user_id) VALUES ($1,$2)',
                 values: [idConv, id]
             }
             await client.query(sqlQuerry);
@@ -240,39 +139,39 @@ class Conversation {
         }
     }
 
-    static async checkIfConvExist(idConv){
+    static async checkIfConvExist(idConv) {
 
         try {
             const sqlQuerry = {
-                text:'SELECT * FROM "conversation" WHERE id = $1',
+                text: 'SELECT * FROM "conversation" WHERE id = $1',
                 values: [idConv]
 
             }
-            const {rows} = await client.query(sqlQuerry);
-                if(rows[0]){
-                    return true;
-                } else {
-                    return false;
-                }
+            const { rows } = await client.query(sqlQuerry);
+            if (rows[0]) {
+                return true;
+            } else {
+                return false;
+            }
 
-        } catch (error){
+        } catch (error) {
             console.log(error);
         }
     }
 
-    static async getMessagesFromConversation(idConv){
+    static async getMessagesFromConversation(idConv) {
 
         try {
             const sqlQuerry = {
-                text:`
+                text: `
                 SELECT "content", last_name, first_name, date, "user".id FROM "message"
                 JOIN "user" ON "message".sender_id = "user".id
                 WHERE conversation_id = $1 ORDER BY date`,
                 values: [idConv]
             }
 
-             const {rows} = await client.query(sqlQuerry);
-             return rows;
+            const { rows } = await client.query(sqlQuerry);
+            return rows;
         } catch (error) {
             console.log(error);
         }

@@ -30,23 +30,22 @@ const modeController = {
 
     },
 
-    deleteMode: async (req,res)=>{
+    deleteMode: async (req, res) => {
 
         const { id } = req.decoded;
         const { label } = req.body;
 
         const modeId = await Mode.getModeId(label);
-        console.log("label on delete =", label);
-        console.log(modeId,"modeid");
+
         if (!modeId) {
             res.json("This mode does not exist");
         }
         else {
 
-        const verifMode = await Mode.verifMode(id,modeId);
-        console.log(verifMode,"verifMode");
-            if(verifMode){
-                await Mode.deleteMode(id,modeId);
+            const verifMode = await Mode.verifMode(id, modeId);
+            console.log(verifMode, "verifMode");
+            if (verifMode) {
+                await Mode.deleteMode(id, modeId);
                 res.json('Mode deleted from your profile');
             }
             else {

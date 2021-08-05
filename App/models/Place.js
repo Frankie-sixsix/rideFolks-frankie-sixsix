@@ -2,19 +2,17 @@ const client = require('../database');
 
 class Place {
 
-    constructor(obj={}) {
-        for (const propName in obj){
+    constructor(obj = {}) {
+        for (const propName in obj) {
             this[propName] = obj[propName];
         }
     }
 
     async save(id) {
-        
-        // Update
-        if(this.id){
 
-            // console.log(this.id);
-           
+        // Update
+        if (this.id) {
+
             const sqlQuerry = {
                 text: `
                     UPDATE "place" 
@@ -23,12 +21,12 @@ class Place {
                     `,
                 values: [
                     this.address,
-                    this.id ]
+                    this.id]
             }
             await client.query(sqlQuerry);
             console.log('Lieu modifié');
 
-        
+
         }
         // Save
         else {
@@ -40,7 +38,7 @@ class Place {
                     ]
                 }
 
-                const {rows} = await client.query(sqlQuerry);
+                const { rows } = await client.query(sqlQuerry);
                 this.id = rows[0].id;
 
                 //2eme requete pour faire une entrée dans user has place
@@ -50,18 +48,18 @@ class Place {
                 }
                 await client.query(sqlQuerry2);
 
-        } catch (error) {
-            console.log(error);
-            throw new Error(error.details);
+            } catch (error) {
+                console.log(error);
+                throw new Error(error.details);
+            }
         }
     }
-    }
 
-    // Passer en non static ! /!\
-    static async deleteOne(idPlace,id) {
+
+    static async deleteOne(idPlace, id) {
 
         try {
-            
+
             const sqlQuerry = {
                 text: 'DELETE FROM place WHERE id= $1',
                 values: [idPlace]
@@ -69,14 +67,14 @@ class Place {
 
             const sqlQuerry2 = {
                 text: 'DELETE FROM user_has_place WHERE place_id= $1 AND "user_id"=$2',
-                values: [idPlace,id]
+                values: [idPlace, id]
             }
 
 
             await client.query(sqlQuerry);
             await client.query(sqlQuerry2);
 
-            
+
         } catch (error) {
             console.log(error);
         }
@@ -88,29 +86,29 @@ class Place {
                 text: 'SELECT * FROM "place" WHERE id=$1',
                 values: [id]
             }
-            const {rows} = await client.query(sqlQuerry);
+            const { rows } = await client.query(sqlQuerry);
             if (rows[0]) {
                 return new Place(rows[0]);
             }
             return null;
 
-        } catch (error){
+        } catch (error) {
             console.log(error);
         }
     }
 
-    static async getPlace(userId){
+    static async getPlace(userId) {
 
         try {
             const sqlQuerry = {
-                text:`SELECT "address" FROM "place"
+                text: `SELECT "address" FROM "place"
                 JOIN "user_has_place" ON "user_has_place".place_id = "place".id
                 WHERE user_id = $1`,
                 values: [userId]
             }
-            const {rows} = await client.query(sqlQuerry);
+            const { rows } = await client.query(sqlQuerry);
             return rows;
-        } catch (error){
+        } catch (error) {
             console.log(error);
         }
     }

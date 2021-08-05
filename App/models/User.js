@@ -2,19 +2,19 @@ const client = require('../database');
 const UserFront = require('./UserFront');
 
 class User {
-    
-        // Boucle qui sers a crée un objet (le this) avec les meme proprietées qu'il recoit (du form)
-        // Pour enregistrer en base de données 
-        constructor(obj={}) {
-            for (const propName in obj){
-                this[propName] = obj[propName];
-            }
+
+    // Boucle qui sers a crée un objet (le this) avec les meme proprietées qu'il recoit (du form)
+    // Pour enregistrer en base de données 
+    constructor(obj = {}) {
+        for (const propName in obj) {
+            this[propName] = obj[propName];
         }
+    }
 
     // Methode static async pour voir toutes les utilisateurs 
     static async findAll() {
         try {
-            const {rows} = await client.query('SELECT * FROM "user"');
+            const { rows } = await client.query('SELECT * FROM "user"');
             return rows.map(row => new UserFront(row));
 
         } catch (error) {
@@ -29,13 +29,13 @@ class User {
                 text: 'SELECT * FROM "user" WHERE id=$1',
                 values: [id]
             }
-            const {rows} = await client.query(sqlQuerry);
+            const { rows } = await client.query(sqlQuerry);
             if (rows[0]) {
-                return new UserFront(rows[0]);                
+                return new UserFront(rows[0]);
             }
-            
 
-        } catch (error){
+
+        } catch (error) {
             console.log(error);
         }
     }
@@ -44,27 +44,26 @@ class User {
     async save() {
         try {
 
-            
-                const sqlQuerry = {
-                    text: 'INSERT INTO "user"(last_name,first_name,email,location,password,profile_picture) VALUES($1,$2,$3,$4,$5,$6) RETURNING id',
-                    values: [
-                        this.last_name,
-                        this.first_name,
-                        this.email,
-                        this.location,
-                        this.password,
-                        this.profile_picture   
-                    ]
-                }
 
-                const {rows} = await client.query(sqlQuerry);
-                this.id = rows[0].id;
-        
-        
-    }catch (error) {
+            const sqlQuerry = {
+                text: 'INSERT INTO "user"(last_name,first_name,email,location,password,profile_picture) VALUES($1,$2,$3,$4,$5,$6) RETURNING id',
+                values: [
+                    this.last_name,
+                    this.first_name,
+                    this.email,
+                    this.location,
+                    this.password,
+                    this.profile_picture
+                ]
+            }
+
+            const { rows } = await client.query(sqlQuerry);
+            this.id = rows[0].id;
+
+
+        } catch (error) {
             console.log(error);
-            // throw new Error(error.details);
-    }
+        }
     }
 
     static async deleteOne(id) {
@@ -77,7 +76,7 @@ class User {
             }
 
             await client.query(sqlQuerry);
-            
+
         } catch (error) {
             console.log(error);
         }
@@ -87,10 +86,10 @@ class User {
         try {
             const sqlQuerry = {
                 text: 'SELECT * FROM "user" WHERE email = $1',
-                values:[email]
+                values: [email]
             }
-            const {rows} = await client.query(sqlQuerry);
-            if (rows[0]){
+            const { rows } = await client.query(sqlQuerry);
+            if (rows[0]) {
                 return {};
             }
         } catch (error) {
@@ -98,14 +97,14 @@ class User {
         }
     }
 
-    static async getPassword (email) {
+    static async getPassword(email) {
         try {
             const sqlQuerry = {
                 text: 'SELECT password, id, last_name, first_name FROM "user" WHERE email = $1',
-                values:[email]
+                values: [email]
             }
-            const {rows} = await client.query(sqlQuerry);
-            if (rows[0]){
+            const { rows } = await client.query(sqlQuerry);
+            if (rows[0]) {
                 return rows[0];
             }
         } catch (error) {
@@ -122,8 +121,8 @@ class User {
                 WHERE "user".id = $1`,
                 values: [id]
             }
-            const {rows} = await client.query(sqlQuerry);
-            if (rows[0]){
+            const { rows } = await client.query(sqlQuerry);
+            if (rows[0]) {
                 return rows[0];
             }
         } catch (error) {
@@ -131,14 +130,14 @@ class User {
         }
     }
 
-    async update(id){
+    async update(id) {
 
-        
+
 
         try {
 
-        
-           
+
+
             const sqlQuerry = {
                 text: `UPDATE "user" 
                     SET last_name = $1,
@@ -161,14 +160,14 @@ class User {
             await client.query(sqlQuerry);
             console.log('Utilisateur modifié');
 
-    
-        } catch (error){
+
+        } catch (error) {
             console.log(error);
         }
-    
+
     }
 
-    static async showEventsList(id){
+    static async showEventsList(id) {
 
         try {
 
@@ -187,47 +186,47 @@ class User {
                 WHERE owner_id = $1`,
                 values: [id]
             }
-            
-            const {rows} = await client.query(sqlQuerry);
+
+            const { rows } = await client.query(sqlQuerry);
             return rows;
 
-        } catch (error){
+        } catch (error) {
 
             console.log(error);
         }
     }
 
-    static async availabilityOn(id){
+    static async availabilityOn(id) {
 
         try {
             const sqlQuerry = {
-                text:'UPDATE "user" SET "availability" = true WHERE "id" = $1',
+                text: 'UPDATE "user" SET "availability" = true WHERE "id" = $1',
                 values: [id]
             }
 
             await client.query(sqlQuerry);
 
-        } catch (error){
+        } catch (error) {
             console.log(error);
         }
     }
 
-    static async availabilityOff(id){
+    static async availabilityOff(id) {
 
         try {
             const sqlQuerry = {
-                text:'UPDATE "user" SET "availability" = false WHERE "id" = $1',
+                text: 'UPDATE "user" SET "availability" = false WHERE "id" = $1',
                 values: [id]
             }
-            
+
             await client.query(sqlQuerry);
 
-        } catch (error){
+        } catch (error) {
             console.log(error);
         }
     }
 
-    static async showAvailableUsers(id){
+    static async showAvailableUsers(id) {
 
         try {
             const sqlQuerry = {
@@ -236,18 +235,18 @@ class User {
                 SELECT "user".* FROM "user" 
                 join "network" ON network.friend_user_id = "user".id
                 Where network.source_id = $1 AND "user".availability = true
-                `,        
+                `,
                 values: [id]
 
             }
 
             // Selectionne les users qui sont amie avec user.id 25 ET QUI SONT DISPONNIBLE -TRUE)
 
-            const {rows} = await client.query(sqlQuerry);
+            const { rows } = await client.query(sqlQuerry);
             return rows.map(row => new UserFront(row));
-            
-            
-        } catch(error){
+
+
+        } catch (error) {
             console.log(error);
         }
     }

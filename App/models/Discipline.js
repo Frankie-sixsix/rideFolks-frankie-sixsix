@@ -32,7 +32,6 @@ class Discipline {
         }
 
         const { rows } = await client.query(sqlQuerry1);
-        // console.log(rows[0],"hh");
 
         if (rows[0] === undefined) {
             return false;
@@ -51,12 +50,11 @@ class Discipline {
                 values: [userId, disciplineId]
             }
             const { rows } = await client.query(sqlQuerry);
-            // console.log(rows[0], "rh");
+
             if (rows[0]) {
                 return true;
             }
             else {
-                // console.log("no");
                 return false;
             }
 
@@ -65,32 +63,32 @@ class Discipline {
         }
     }
 
-    static async deleteDiscipline(userId,disciplineId){
+    static async deleteDiscipline(userId, disciplineId) {
 
         try {
             const sqlQuerry = {
-                text:'DELETE FROM "user_has_discipline" WHERE "user_id"= $1 AND "discipline_id" = $2',
-                values: [userId,disciplineId]
+                text: 'DELETE FROM "user_has_discipline" WHERE "user_id"= $1 AND "discipline_id" = $2',
+                values: [userId, disciplineId]
             }
             await client.query(sqlQuerry);
 
-        } catch (error){
+        } catch (error) {
             console.log(error);
         }
     }
 
-    static async getDiscipline(userId){
+    static async getDiscipline(userId) {
 
         try {
             const sqlQuerry = {
-                text:`SELECT "name" FROM "discipline"
+                text: `SELECT "name" FROM "discipline"
                 JOIN "user_has_discipline" ON "user_has_discipline".discipline_id = "discipline".id
                 WHERE user_id = $1`,
                 values: [userId]
             }
-            const {rows} = await client.query(sqlQuerry);
+            const { rows } = await client.query(sqlQuerry);
             return rows;
-        } catch (error){
+        } catch (error) {
             console.log(error);
         }
     }

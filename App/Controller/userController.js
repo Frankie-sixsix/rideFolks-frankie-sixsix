@@ -15,17 +15,14 @@ const userController = {
 
 
         const user = new User(req.body);
-
-        // console.log("user:",user);
-        // console.log("mailo",user.mail);
-        // console.log("Password baby" , user.password);
         const email = await User.verifyEmail(user.email);
 
         if (email === undefined) {
+
             const cryptedPassword = bcrypt.hashSync(user.password, 10);
-            // console.log(cryptedPassword);
             user.password = cryptedPassword;
-            await user.save(); // Regarder pour le await ?
+
+            await user.save();
             res.json("Inscription réussi");
 
         } else {
@@ -38,28 +35,24 @@ const userController = {
 
     authentifiacation: async (req, res) => {
 
-        // console.log(req.body.password);
-        // console.log(req.body.email);
+
         const SECRET_KEY = process.env.SECRET_KEY;
 
 
         const verifyEmail = await User.verifyEmail(req.body.email);
-        // console.log("verifyEmail", verifyEmail);
 
         if (verifyEmail) {
             const pass = await User.getPassword(req.body.email);
-            // console.log("pass",pass);
 
             if (pass) {
-                // console.log(pass.password, "oo");
+
                 const isPasswordvalid = bcrypt.compareSync(req.body.password, pass.password);
-                // console.log(isPasswordvalid);
+
 
                 if (!isPasswordvalid) {
                     return res.json("Mot de passe incorect");
                 } else {
 
-                    // res.json("Connection..ok !");
                     const expireIn = 24 * 60 * 60;
                     let token = jwt.sign({
                         last_name: pass.last_name,
@@ -70,21 +63,19 @@ const userController = {
                         {
                             expiresIn: expireIn
                         });
-                    
+
                     let infos = {
                         last_name: pass.last_name,
                         first_name: pass.first_name,
                         id: pass.id,
                         token: token
-                        }
+                    }
 
                     console.log("token", token);
-                    // console.log(infos,'inf');
 
                     res.header('Authorization', 'Bearer' + token);
 
                     return res.status(200).json(infos);
-                    // TODO : Faire le jwt ici
                 }
             }
         }
@@ -106,7 +97,7 @@ const userController = {
         const { id } = req.params;
 
         const user = await User.findOne(id);
-        // console.log(user);
+
         if (user === undefined) {
             return res.json("Utilisateur introuvable");
         }
@@ -128,11 +119,11 @@ const userController = {
             }
 
             const place = await Place.getPlace(id);
-            const places =[];
-                for(const p of place){
-                    places.push(p.address);
-                }
-          
+            const places = [];
+            for (const p of place) {
+                places.push(p.address);
+            }
+
 
             user.friend = friend;
             user.event = event;
@@ -168,7 +159,7 @@ const userController = {
     getProfile: async (req, res) => {
 
         const { id } = req.decoded;
-        // console.log(id,"idd");
+
         const user = await User.findOne(id);
         const friend = await Network.showFriendList(id);
         const event = await User.showEventsList(id);
@@ -177,7 +168,6 @@ const userController = {
         const mode = await Mode.getMode(id);
         const modes = [];
         for (const m of mode) {
-            // console.log("yy",m.label);
             modes.push(m.label);
         }
 
@@ -188,29 +178,17 @@ const userController = {
         }
 
         const place = await Place.getPlace(id);
-        const places =[];
-            for(const p of place){
-                places.push(p.address);
-            }
-      
-      
+        const places = [];
+        for (const p of place) {
+            places.push(p.address);
+        }
 
-        
-        // console.log(disciplines);
-        
-        // console.log(event);
-        // console.log(mode[0].label);
-        
-        // console.log("mm",modes);
         user.friend = friend;
         user.event = event;
         user.mode = modes;
         user.discipline = disciplines;
         user.place = places;
-        // console.log(user);
-        // user.friend = 'ok';
-        // console.log("userFriend",user.friend);
-        // TODO : afficher ses modes et ses disciplines dans user
+
         res.json(user);
 
     },
@@ -219,7 +197,6 @@ const userController = {
 
         const user = new User(req.body);
         const { id } = req.decoded;
-        // console.log("yey", id);
 
         try {
             await user.update(id);
@@ -231,25 +208,24 @@ const userController = {
 
     },
 
-    availabilityOn: async (req,res)=>{
+    availabilityOn: async (req, res) => {
 
         const { id } = req.decoded;
         await User.availabilityOn(id);
         res.json('Availability ON');
     },
 
-    availabilityOff: async (req,res)=>{
+    availabilityOff: async (req, res) => {
 
         const { id } = req.decoded;
         await User.availabilityOff(id);
         res.json('Availability Off');
     },
 
-    showAvailableUsers: async (req,res)=>{
+    showAvailableUsers: async (req, res) => {
 
-        const {id} = req.decoded;
+        const { id } = req.decoded;
         const users = await User.showAvailableUsers(id);
-        // console.log(users);
         res.json(users);
     }
 }
