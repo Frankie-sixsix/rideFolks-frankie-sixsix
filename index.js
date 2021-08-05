@@ -43,7 +43,7 @@ io.on('connection', async (ws) => {
 
   ws.on('create', function (room) {
     ws.join(room.toString());
-    io.to(room.toString()).emit('userJoin', 'yu');
+    // io.in(room.toString()).emit('userJoin', 'yu');
 
 //   ws.on('create', function (room, callback) {
 //     ws.join(room.toString());
