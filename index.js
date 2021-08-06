@@ -68,6 +68,16 @@ io.on('connection', async(ws) => {
     
     
     try {
+
+      // je recoit la id_conv dans message.id_conv
+    //-- Puis je verifie si la conv existe (si elle existe je recupere son id)
+    
+      // Si oui je verifie si l'utilisateur fait partie de la conversation 
+          // si oui alors je save le message en base de données dans la conversation message.id_conv
+    //-- Si la conv n'existe pas alors je crée une conversation, je reccupere son id et je sauvegarde le message dans cette id_conv
+
+
+
       
       // Verifie si la conversation existe 
       const existConv = await Conversation.checkIfConvExist(message.id_conv);
@@ -77,9 +87,10 @@ io.on('connection', async(ws) => {
               if(!verifIfUserIsInConv){
                 return ("You are not part of this conversation");
               }
+
               // Si oui alors on enregistre le message dans la conv
-              // const mess = new Message(message);    
-              // await mess.save(message.sender_id,message.id_conv);
+              const mess = new Message(message);    
+              await mess.save(message.sender_id,message.id_conv);
               
               
               
@@ -92,13 +103,13 @@ io.on('connection', async(ws) => {
               // if(!verifIfUserIsInConv){
                 //     return ("You are not part of this conversation");
                 // }
+                console.log("IdConv", idConv);
+                // message.id_conv = idConv;
+                const mess = new Message(message);    
+                await mess.save(message.sender_id,message.id_conv);
                 
               }
               
-              console.log("IdConv", idConv);
-              // message.id_conv = idConv;
-              const mess = new Message(message);    
-              await mess.save(message.sender_id,message.id_conv);
 
 
               // console.log('Array//', Array.from(io.sockets.adapter.rooms));
@@ -115,7 +126,12 @@ io.on('connection', async(ws) => {
           });
           
           
-  
+  // je recoit la id_conv dans message.id_conv
+    //-- Puis je verifie si la conv existe (si elle existe je recupere son id)
+
+      // Si oui je verifie si l'utilisateur fait partie de la conversation 
+          // si oui alors je save le message en base de données dans la conversation message.id_conv
+    //-- Si la conv n'existe pas alors je crée une conversation, je reccupere son id et je sauvegarde le message dans cette id_conv
 
 
 
