@@ -6,7 +6,7 @@ const router = require('./App/router');
 const app = express();
 
 // Require socket.io
-const { Server } = require("socket.io");
+// const { Server } = require("socket.io");
 
 app.use(express.static('./App/static'));
 
@@ -27,7 +27,13 @@ const server = app.listen(port, () => {
 // Reglage socket.io
 
 
-const io = new Server(server);
+// const io = new Server(server);
+
+const io = require('socket.io')(server, {
+  cors: {
+    origin: '*',
+  }
+});
 
 const Conversation = require('./App/models/Conversation');
 const Message = require('./App/models/Message');
