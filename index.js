@@ -44,13 +44,13 @@ let connectedUser = {};
 let idConv;
 
 io.on('connection', async(ws) => {
-  console.log('>> socket.io - connected');
+  // console.log('>> socket.io - connected');
   // console.log('>> ws', ws);
 
   ws.on('register', function(userId){
     ws.userId = userId;
     connectedUser[userId] = ws;
-    console.log('/_/_/connecteduser:',connectedUser);
+    // console.log('/_/_/connecteduser:',connectedUser);
   });
 
   ws.on('create', function(room){
