@@ -40,34 +40,34 @@ const Message = require('./App/models/Message');
 
 
 
-let connectedUser = {};
-let idConv;
+// let connectedUser = {};
+// let idConv;
 
-io.on('connection', async(ws) => {
-  // console.log('>> socket.io - connected');
-  // console.log('>> ws', ws);
+// io.on('connection', async(ws) => {
+//   // console.log('>> socket.io - connected');
+//   // console.log('>> ws', ws);
 
-  ws.on('register', function(userId){
-    ws.userId = userId;
-    connectedUser[userId] = ws;
-    // console.log('/_/_/connecteduser:',connectedUser);
-  });
+//   ws.on('register', function(userId){
+//     ws.userId = userId;
+//     connectedUser[userId] = ws;
+//     // console.log('/_/_/connecteduser:',connectedUser);
+//   });
 
-  ws.on('create', function(room){
-    ws.join(room);
-    console.log('//ROOM:', room);
-  });
-
-
+//   ws.on('create', function(room){
+//     ws.join(room);
+//     console.log('//ROOM:', room);
+//   });
 
 
-  ws.on('send_message_from_client', async(message) => {
-    console.log("J'ai recu le message : send_message_from_client", message);
+
+
+  // ws.on('send_message_from_client', async(message) => {
+  //   console.log("J'ai recu le message : send_message_from_client", message);
       
 
     
     
-    try {
+  //   try {
 
       // je recoit la id_conv dans message.id_conv
     //-- Puis je verifie si la conv existe (si elle existe je recupere son id)
@@ -80,6 +80,69 @@ io.on('connection', async(ws) => {
 
       
       // Verifie si la conversation existe 
+      // const existConv = await Conversation.checkIfConvExist(message.id_conv);
+      // if(existConv){
+      //   // On verifie si l'utilisateur a bien accée a cette conversation
+      //   const verifIfUserIsInConv = await Conversation.verifConv(message.sender_id,message.id_conv);
+      //         if(!verifIfUserIsInConv){
+      //           return ("You are not part of this conversation");
+      //         }
+
+      //         // Si oui alors on enregistre le message dans la conv
+      //         const mess = new Message(message);    
+      //         await mess.save(message.sender_id,message.id_conv);
+              
+              
+              
+      //       } else {
+      //         // Si non alors on crée une conversation PUIS on enregistre le message dans cette conversation
+              
+      //         idConv = await Conversation.createConv(message.sender_id,message.participant,message.name);
+              
+      //         // const verifIfUserIsInConv = await Conversation.verifConv(message.sender_id,message.id_conv);
+      //         // if(!verifIfUserIsInConv){
+      //           //     return ("You are not part of this conversation");
+      //           // }
+      //           console.log("IdConv", idConv);
+      //           // message.id_conv = idConv;
+      //           const mess = new Message(message);    
+      //           await mess.save(message.sender_id,message.id_conv);
+                
+      //         }
+              
+
+
+      //         // console.log('Array//', Array.from(io.sockets.adapter.rooms));
+      //         io.emit('send_message_from_API', message );
+              
+              
+              
+      //       } catch (error) {
+      //         console.log(error);
+      //       }
+            
+              
+      //       });
+      //     });
+          
+          
+
+
+  // Nouveau socket.io
+
+
+  io.on('connection', (socket) => {
+    console.log(`Connected: ${socket.id}`);
+    socket.on('disconnect', () =>
+       console.log(`Disconnected: ${socket.id}`));
+    socket.on('join', (room) => {
+       console.log(`Socket ${socket.id} joining ${room}`);
+       socket.join(room);
+    });
+    socket.on('chat', (data) => {
+
+
+          //Verifie si la conversation existe 
       const existConv = await Conversation.checkIfConvExist(message.id_conv);
       if(existConv){
         // On verifie si l'utilisateur a bien accée a cette conversation
@@ -111,21 +174,18 @@ io.on('connection', async(ws) => {
               }
               
 
+       const { message, room } = data;
+       console.log(`msg: ${message}, room: ${room}`);
+       io.to(room).emit('chat', message);
+    });
+ });
 
-              // console.log('Array//', Array.from(io.sockets.adapter.rooms));
-              io.emit('send_message_from_API', message );
-              
-              
-              
-            } catch (error) {
-              console.log(error);
-            }
-            
-              
-            });
-          });
-          
-          
+
+
+
+
+
+
   // je recoit la id_conv dans message.id_conv
     //-- Puis je verifie si la conv existe (si elle existe je recupere son id)
 
