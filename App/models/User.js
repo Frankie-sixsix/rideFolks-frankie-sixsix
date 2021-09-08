@@ -46,14 +46,15 @@ class User {
 
 
             const sqlQuerry = {
-                text: 'INSERT INTO "user"(last_name,first_name,email,location,password,profile_picture) VALUES($1,$2,$3,$4,$5,$6) RETURNING id',
+                text: 'INSERT INTO "user"(last_name,first_name,email,location,password,profile_picture,city) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING id',
                 values: [
                     this.last_name,
                     this.first_name,
                     this.email,
                     this.location,
                     this.password,
-                    this.profile_picture
+                    this.profile_picture,
+                    this.city
                 ]
             }
 

@@ -16,6 +16,7 @@ const userController = {
 
         const user = new User(req.body);
         const email = await User.verifyEmail(user.email);
+        console.log("USER=", user);
 
         if (email === undefined) {
 
