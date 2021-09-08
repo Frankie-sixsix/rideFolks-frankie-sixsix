@@ -42,6 +42,11 @@ router.get('/user/availability/off', security.checkjWT, userController.availabil
 router.post('/user/mode', security.checkjWT, modeController.addMode); // Ajout d'un mode au profil utilisateur 
 router.delete('/user/mode', security.checkjWT, modeController.deleteMode); // Suppression d'un mode au profil utilisateur 
 
+// Route user/conversation
+router.get('/user/conversations', security.checkjWT, conversationController.findAll); // Route pour afficher toutes les conversations d'un utilisateur 
+router.post('/user/conversation', security.checkjWT, conversationController.createConv); // Route pour créer une conversation (jWT)
+router.delete('/user/conversation/:id',security.checkjWT, conversationController.quitConv); // Route pour quitter une conversation
+router.get('/user/particpate/conversation/:id', security.checkjWT, conversationController.participateConv); // Route pour participer a une conversation
 
 // Route user/discipline
 router.post('/user/discipline', security.checkjWT, disciplineController.addDiscipline); // Ajout d'une discipline au profil utilisateur 
@@ -54,11 +59,6 @@ router.get('/user/conversation/:idConv', security.checkjWT,conversationControlle
 router.post('/user/message/conversation/:idConv', security.checkjWT,messageController.createMessage); // Creation d'un message (jWT)
 
 
-// Route user/conversation
-router.get('/user/conversations', security.checkjWT, conversationController.findAll); // Route pour afficher toutes les conversations d'un utilisateur 
-router.post('/user/conversation', security.checkjWT, conversationController.createConv); // Route pour créer une conversation (jWT)
-router.delete('/user/conversation/:id',security.checkjWT, conversationController.quitConv); // Route pour quitter une conversation
-router.get('/user/particpate/conversation/:id', security.checkjWT, conversationController.participateConv); // Route pour participer a une conversation
 
 
 // Route user/place
