@@ -2,9 +2,49 @@ const client = require('../database');
 
 class Conversation {
 
+    static async checkIdConversation (id, idPArticipant){
+        try{
+            //TEST 
+            const sqlQuerryCheck = {
+                text: `SELECT conversation_id FROM user_has_conversation WHERE user_id = $1 and conversation_id in(
+                    SELECT conversation_id FROM user_has_conversation WHERE user_id = $2);`,
+                values: [id, idPArticipant]
+            }
+            const { rows } = await client.query(sqlQuerryCheck);
+            // console.log('rows = ', rows[0]?.conversation_id);
+            return rows[0]?.conversation_id;
+            
+            //TEST
+        } catch (error){
+            console.log(error);
+        }
+    }
     static async createConv(id, idPArticipant, name = null) {
 
         try {
+            //TEST 
+            // const sqlQuerryCheck1 = {
+            //     text: 'select conversation_id from user_has_conversation where user_id = $1',
+            //     values: [id]
+            // }
+            // const idCheck1 = await client.query(sqlQuerryCheck1);
+            // console.log('IDcheck1=', idCheck1);
+
+            // const sqlQuerryCheck2 = {
+            //     text: 'select conversation_id from user_has_conversation where user_id = $1',
+            //     values: [idPArticipant]
+            // }
+            // const idCheck2 = await client.query(sqlQuerryCheck2);
+            // console.log('IDcheck2=', idCheck2);
+
+
+            //     if(idCheck1 === idCheck2){
+            //         return idCheck1;
+            //     }
+
+
+            //TEST
+
 
             // Insert dans la tables conversations, en recuperant l'id de l'insert
             const sqlQuerry = {

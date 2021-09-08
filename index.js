@@ -129,7 +129,7 @@ const Message = require('./App/models/Message');
 
 
   // Nouveau socket.io
-
+let idConv;
 
   io.on('connection', (socket) => {
     console.log(`Connected: ${socket.id}`);
@@ -139,39 +139,48 @@ const Message = require('./App/models/Message');
        console.log(`Socket ${socket.id} joining ${room}`);
        socket.join(room);
     });
-    socket.on('chat', (data) => {
+    socket.on('chat', async (data) => {
 
 
+      console.log('DATA =', data);
+      const idConv = await Conversation.createConv(data.idSender, data.idReceiver);
+      const mess = new Message(data.message);
+        if(!data.room){
+          await mess.save(data.idSender, idConv);
+        }
+        else {
+          await mess.save(data.idSender, data.room);
+        }
           //Verifie si la conversation existe 
-      const existConv = await Conversation.checkIfConvExist(message.id_conv);
-      if(existConv){
-        // On verifie si l'utilisateur a bien accée a cette conversation
-        const verifIfUserIsInConv = await Conversation.verifConv(message.sender_id,message.id_conv);
-              if(!verifIfUserIsInConv){
-                return ("You are not part of this conversation");
-              }
+      // const existConv = await Conversation.checkIfConvExist(data.room);
+      // if(!existConv){
+      //   // On verifie si l'utilisateur a bien accée a cette conversation
+      //   const verifIfUserIsInConv = await Conversation.verifConv(data.idSender,data.room);
+      //         if(!verifIfUserIsInConv){
+      //           return ("You are not part of this conversation");
+      //         }
 
-              // Si oui alors on enregistre le message dans la conv
-              const mess = new Message(message);    
-              await mess.save(message.sender_id,message.id_conv);
+      //         // Si oui alors on enregistre le message dans la conv
+      //         const mess = new Message(data.message);    
+      //         await mess.save(data.idSender,data.room);
               
               
               
-            } else {
-              // Si non alors on crée une conversation PUIS on enregistre le message dans cette conversation
+      //       } else {
+      //         // Si non alors on crée une conversation PUIS on enregistre le message dans cette conversation
               
-              idConv = await Conversation.createConv(message.sender_id,message.participant,message.name);
+      //         idConv = await Conversation.createConv(data.idSender,data.idReceiver);
               
-              // const verifIfUserIsInConv = await Conversation.verifConv(message.sender_id,message.id_conv);
-              // if(!verifIfUserIsInConv){
-                //     return ("You are not part of this conversation");
-                // }
-                console.log("IdConv", idConv);
-                // message.id_conv = idConv;
-                const mess = new Message(message);    
-                await mess.save(message.sender_id,message.id_conv);
+      //         // const verifIfUserIsInConv = await Conversation.verifConv(message.sender_id,message.id_conv);
+      //         // if(!verifIfUserIsInConv){
+      //           //     return ("You are not part of this conversation");
+      //           // }
+      //           console.log("IdConv", idConv);
+      //           // message.id_conv = idConv;
+      //           const mess = new Message(data.message);    
+      //           await mess.save(data.idSender,idConv);
                 
-              }
+      //         }
               
 
        const { message, room } = data;
@@ -293,3 +302,39 @@ const Message = require('./App/models/Message');
 //   });
 // });
 
+
+
+
+
+
+
+// //Verifie si la conversation existe 
+// const existConv = await Conversation.checkIfConvExist(data.room);
+// if(!existConv){
+//   // On verifie si l'utilisateur a bien accée a cette conversation
+//   const verifIfUserIsInConv = await Conversation.verifConv(data.idSender,data.room);
+//         if(!verifIfUserIsInConv){
+//           return ("You are not part of this conversation");
+//         }
+
+//         // Si oui alors on enregistre le message dans la conv
+//         const mess = new Message(data.message);    
+//         await mess.save(data.idSender,data.room);
+        
+        
+        
+//       } else {
+//         // Si non alors on crée une conversation PUIS on enregistre le message dans cette conversation
+        
+//         idConv = await Conversation.createConv(data.idSender,data.idReceiver);
+        
+//         // const verifIfUserIsInConv = await Conversation.verifConv(message.sender_id,message.id_conv);
+//         // if(!verifIfUserIsInConv){
+//           //     return ("You are not part of this conversation");
+//           // }
+//           console.log("IdConv", idConv);
+//           // message.id_conv = idConv;
+//           const mess = new Message(data.message);    
+//           await mess.save(data.idSender,idConv);
+          
+//         }

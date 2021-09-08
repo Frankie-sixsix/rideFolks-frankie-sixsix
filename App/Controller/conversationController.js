@@ -2,39 +2,74 @@ const Conversation = require('../models/Conversation');
 
 const convController = {
 
+    test: async (req,res)=>{
+        const idCheck = await Conversation.checkIdConversation(25,37);
+            if(idCheck){
+                console.log('Ca existe deja')
+                console.log('id =', idCheck);
+            } else {
+                console.log('Ca existe pas');
+            }
+
+    },
     createConv: async (req, res) => {
 
         // Je reccupere l'id de l'utilisateur connecté ainsi que nom de la conversation (si la conversation en a un) ansi que l'id du particpant à la conversation
-        const { id } = req.decoded;
-        const { name, participant, idConv } = req.body;
+
+        // const { id } = req.decoded;
+        // const { name, participant, idConv } = req.body;
+        let id = 25;
+        let participant = 37;
 
 
-        // console.log("id:", id, "name:", name);
-
+        
+        
         try {
-            // J'initie une var vide qui contiendra l'id de la conversation qui va etre crée
+            // J'initie une var vide qui contiendra l'id de la conversation qui va etre crée, ou celle qui existe deja 
             let idConvv;
+            let response;
+
+            //Je verifie si l'user A et l'user B ont deja parlé
+            const idConversationCheck = await Conversation.checkIdConversation(id,participant);
+
+                // Si oui alors je reccupere l'id de leurs conversations que je stock dans ma variable idConv ou je vais enregistrer les messages
+                    if(idConversationCheck){
+                        idConvv = idConversationCheck;
+                        response = {
+                        text: 'Conversation déja existante',
+                        idConv: idConvv
+                    }
+                    }
+                    else {
+                        idConvv = await Conversation.createConv(id, participant, name);
+                        response = {
+                            text: 'Conversation crée',
+                            idConv: idConvv
+                        }
+                    }
+                
+
 
             // Je verifie en bdd si la conversation existe deja
-            const check = await Conversation.checkIfConvExist(idConv);
+            // const check = await Conversation.checkIfConvExist(idConv);
 
             // Si oui alors je ne la recrée pas de nouveau
-            if (check) {
-                return res.json('This conversation already exists');
-            }
+            // if (check) {
+            //     return res.json('This conversation already exists');
+            // }
             // Si non alors je la crée et je stock l'id de creation de la conversation dans ma var idConvv
-            if (!name) {
-                idConvv = await Conversation.createConv(id, participant);
-            }
-            else {
-                idConvv = await Conversation.createConv(id, participant, name);
-            }
+            // if (!name) {
+            //     idConvv = await Conversation.createConv(id, participant);
+            // }
+            // else {
+            //     idConvv = await Conversation.createConv(id, participant, name);
+            // }
 
             // Je renvoie une reponse au front en lui disant que la conversation à bien été crée et je lui donne l'id de la conv
-            const response = {
-                text: 'Conversation crée',
-                idConv: idConvv
-            }
+            // const response = {
+            //     text: 'Conversation crée',
+            //     idConv: idConvv
+            // }
             res.json(response);
         } catch (error) {
             console.log(error);
