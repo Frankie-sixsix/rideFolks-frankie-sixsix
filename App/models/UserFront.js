@@ -12,7 +12,8 @@ class UserFront {
             this.language=obj.language,
             this.description=obj.description,
             this.profile_picture=obj.profile_picture,
-            this.availability=obj.availability
+            this.availability=obj.availability,
+            this.city=obj.city
             
 
         }
