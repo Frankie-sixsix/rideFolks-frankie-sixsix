@@ -143,7 +143,7 @@ const Message = require('./App/models/Message');
 
 
       console.log('DATA =', data);
-      const idConv = await Conversation.createConv(data.idSender, data.idReceiver);
+      const idConv = await Conversation.test(data.idSender, data.idReceiver);
       const mess = new Message(data.message);
         if(!data.room){
           await mess.save(data.message, data.idSender, idConv);
