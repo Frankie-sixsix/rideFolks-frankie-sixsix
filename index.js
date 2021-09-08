@@ -146,10 +146,10 @@ let idConv;
       const idConv = await Conversation.createConv(data.idSender, data.idReceiver);
       const mess = new Message(data.message);
         if(!data.room){
-          await mess.save(data.idSender, idConv);
+          await mess.save(data.message, data.idSender, idConv);
         }
         else {
-          await mess.save(data.idSender, data.room);
+          await mess.save(data.message,data.idSender, data.room);
         }
           //Verifie si la conversation existe 
       // const existConv = await Conversation.checkIfConvExist(data.room);
