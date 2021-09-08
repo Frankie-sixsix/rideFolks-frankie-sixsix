@@ -16,10 +16,9 @@ const convController = {
 
         // Je reccupere l'id de l'utilisateur connecté ainsi que nom de la conversation (si la conversation en a un) ansi que l'id du particpant à la conversation
 
-        // const { id } = req.decoded;
-        // const { name, participant, idConv } = req.body;
-        let id = 25;
-        let participant = 37;
+        const { id } = req.decoded;
+        const { name, participant, idConv } = req.body;
+      
 
 
         
