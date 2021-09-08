@@ -1,6 +1,20 @@
 const client = require('../database');
 
 class Conversation {
+    static async test (id, participant){
+
+        const idConversationCheck = await Conversation.checkIdConversation(id,participant);
+        if(idConversationCheck){
+            idConvv = idConversationCheck;
+            return idConvv;
+        }
+        else {
+            idConvv = await Conversation.createConv(id, participant);
+            
+        }
+    
+
+    }
 
     static async checkIdConversation (id, idPArticipant){
         try{
@@ -19,7 +33,7 @@ class Conversation {
             console.log(error);
         }
     }
-    static async createConv(id, idPArticipant, name = null) {
+    static async createConv(id, idPArticipant, name = "Conversation") {
 
         try {
             //TEST 
@@ -47,12 +61,12 @@ class Conversation {
 
 
             // Insert dans la tables conversations, en recuperant l'id de l'insert
-            const sqlQuerry = {
+            const sqlQuerry1 = {
                 text: 'INSERT INTO "conversation" (name) VALUES ($1) RETURNING id',
                 values: [name]
             }
 
-            const { rows } = await client.query(sqlQuerry);
+            const { rows } = await client.query(sqlQuerry1);
 
             // On stock l'id de l'insert dans une const 
             const idConv = rows[0].id;
@@ -75,7 +89,7 @@ class Conversation {
                 values: [idConv, idPArticipant]
             }
 
-            idPArticipant
+           
 
             await client.query(sqlQuerry2);
             await client.query(sqlQuerry3);
@@ -216,6 +230,7 @@ class Conversation {
             console.log(error);
         }
     }
+
 
 
 

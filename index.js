@@ -129,7 +129,7 @@ const Message = require('./App/models/Message');
 
 
   // Nouveau socket.io
-let idConv;
+
 
   io.on('connection', (socket) => {
     console.log(`Connected: ${socket.id}`);
