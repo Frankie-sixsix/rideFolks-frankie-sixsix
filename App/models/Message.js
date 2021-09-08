@@ -8,14 +8,14 @@ class Message {
         }
     }
 
-    async save(userId, idConv) {
+    async save(userId, idConv, message) {
 
         try {
 
             // Enlever la possibilité d'envoyé un message vide ? 
             const sqlQuerry = {
                 text: 'INSERT INTO "message"(content,sender_id,conversation_id) VALUES ($1,$2,$3)',
-                values: [this.content, this.sender_id, this.id_conv]
+                values: [message, userId, idConv]
             }
             await client.query(sqlQuerry);
 
