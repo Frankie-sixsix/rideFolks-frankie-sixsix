@@ -8,7 +8,7 @@ class Message {
         }
     }
 
-    async save(userId, idConv, message) {
+    async save(message, userId, idConv) {
 
         try {
 
