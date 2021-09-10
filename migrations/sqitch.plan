@@ -4,3 +4,4 @@
 initialisation 2021-07-16T09:55:25Z Frankie <frankielkl33@hotmail.fr> # Initialisation des tables
 CheckEventsDate 2021-07-25T11:42:16Z Frankie <frankielkl33@hotmail.fr> # Ajout d'un CHECK pour que la date de l'event ne soit pas inferieur à la date de création
 mode_and_discipline 2021-07-26T14:26:54Z Frankie <frankielkl33@hotmail.fr> # Ajout des modes et disciplines
+AddCityToProfile 2021-09-10T08:24:33Z Frankie <frankielkl33@hotmail.fr> # Ajoute une colonne city au profil user
