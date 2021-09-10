@@ -185,7 +185,7 @@ const Message = require('./App/models/Message');
 
        const { message, room } = data;
        console.log(`msg: ${message}, room: ${room}`);
-       io.to(room).emit('chat', message);
+       io.to(room).emit('chat', data);
     });
  });
 
