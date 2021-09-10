@@ -47,28 +47,6 @@ const convController = {
                         }
                     }
                 
-
-
-            // Je verifie en bdd si la conversation existe deja
-            // const check = await Conversation.checkIfConvExist(idConv);
-
-            // Si oui alors je ne la recrée pas de nouveau
-            // if (check) {
-            //     return res.json('This conversation already exists');
-            // }
-            // Si non alors je la crée et je stock l'id de creation de la conversation dans ma var idConvv
-            // if (!name) {
-            //     idConvv = await Conversation.createConv(id, participant);
-            // }
-            // else {
-            //     idConvv = await Conversation.createConv(id, participant, name);
-            // }
-
-            // Je renvoie une reponse au front en lui disant que la conversation à bien été crée et je lui donne l'id de la conv
-            // const response = {
-            //     text: 'Conversation crée',
-            //     idConv: idConvv
-            // }
             res.json(response);
         } catch (error) {
             console.log(error);
@@ -165,4 +143,3 @@ const convController = {
 
 module.exports = convController;
 
-//conversation 1

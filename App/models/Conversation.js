@@ -1,25 +1,25 @@
 const client = require('../database');
 
 class Conversation {
-    static async test (id, participant){
+    static async test(id, participant) {
 
         let idConvv;
-        
-        const idConversationCheck = await Conversation.checkIdConversation(id,participant);
-        if(idConversationCheck){
+
+        const idConversationCheck = await Conversation.checkIdConversation(id, participant);
+        if (idConversationCheck) {
             idConvv = idConversationCheck;
             return idConvv;
         }
         else {
             idConvv = await Conversation.createConv(id, participant);
-            
+
         }
-    
+
 
     }
 
-    static async checkIdConversation (id, idPArticipant){
-        try{
+    static async checkIdConversation(id, idPArticipant) {
+        try {
             //TEST 
             const sqlQuerryCheck = {
                 text: `SELECT conversation_id FROM user_has_conversation WHERE user_id = $1 and conversation_id in(
@@ -29,39 +29,15 @@ class Conversation {
             const { rows } = await client.query(sqlQuerryCheck);
             // console.log('rows = ', rows[0]?.conversation_id);
             return rows[0]?.conversation_id;
-            
+
             //TEST
-        } catch (error){
+        } catch (error) {
             console.log(error);
         }
     }
     static async createConv(id, idPArticipant, name = "Conversation") {
 
         try {
-            //TEST 
-            // const sqlQuerryCheck1 = {
-            //     text: 'select conversation_id from user_has_conversation where user_id = $1',
-            //     values: [id]
-            // }
-            // const idCheck1 = await client.query(sqlQuerryCheck1);
-            // console.log('IDcheck1=', idCheck1);
-
-            // const sqlQuerryCheck2 = {
-            //     text: 'select conversation_id from user_has_conversation where user_id = $1',
-            //     values: [idPArticipant]
-            // }
-            // const idCheck2 = await client.query(sqlQuerryCheck2);
-            // console.log('IDcheck2=', idCheck2);
-
-
-            //     if(idCheck1 === idCheck2){
-            //         return idCheck1;
-            //     }
-
-
-            //TEST
-
-
             // Insert dans la tables conversations, en recuperant l'id de l'insert
             const sqlQuerry1 = {
                 text: 'INSERT INTO "conversation" (name) VALUES ($1) RETURNING id',
@@ -73,8 +49,6 @@ class Conversation {
             // On stock l'id de l'insert dans une const 
             const idConv = rows[0].id;
 
-            // console.log("idConv:", idConv);
-            // console.log("Id user:",id);
 
 
             // Insert dans la table de liaison avec l'id de la conversation aisni que l'id de l'utilisateur 
@@ -91,7 +65,7 @@ class Conversation {
                 values: [idConv, idPArticipant]
             }
 
-           
+
 
             await client.query(sqlQuerry2);
             await client.query(sqlQuerry3);
