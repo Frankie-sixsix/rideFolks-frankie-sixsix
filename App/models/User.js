@@ -147,7 +147,8 @@ class User {
                     language = $4,
                     description = $5,
                     profile_picture = $6,
-                    WHERE id = $7
+                    city = $7
+                    WHERE id = $8
                     `,
                 values: [
                     this.last_name,
@@ -156,6 +157,7 @@ class User {
                     this.language,
                     this.description,
                     this.profile_picture,
+                    this.city,
                     id]
             }
             await client.query(sqlQuerry);
