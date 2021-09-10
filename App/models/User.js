@@ -162,7 +162,7 @@ class User {
             }
             await client.query(sqlQuerry);
             console.log('Utilisateur modifié');
-            console.log('Requete = ', sqlQuerry);
+            
 
 
 

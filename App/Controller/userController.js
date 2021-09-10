@@ -199,6 +199,8 @@ const userController = {
         const user = new User(req.body);
         const { id } = req.decoded;
 
+        console.log('USER =', user);
+
         try {
             await user.update(id);
             res.json('Utilisateur modifié');
