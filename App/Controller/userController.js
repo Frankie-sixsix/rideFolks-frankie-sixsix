@@ -199,6 +199,10 @@ const userController = {
         const user = new User(req.body);
         const { id } = req.decoded;
 
+        console.log('ID =', id);
+        
+
+
         console.log('USER =', user);
 
         try {
