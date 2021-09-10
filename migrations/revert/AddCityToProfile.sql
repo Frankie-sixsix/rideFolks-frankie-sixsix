@@ -3,5 +3,7 @@
 BEGIN;
 
 -- XXX Add DDLs here.
+ALTER TABLE "user"   
+DROP "city";
 
 COMMIT;
