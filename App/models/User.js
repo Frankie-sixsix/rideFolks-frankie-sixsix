@@ -245,7 +245,7 @@ class User {
 
             }
 
-            // Selectionne les users qui sont amie avec user.id 25 ET QUI SONT DISPONNIBLE -TRUE)
+            // Selectionne les users qui sont ami avec user.id 25 ET QUI SONT DISPONNIBLE -TRUE)
 
             const { rows } = await client.query(sqlQuerry);
             return rows.map(row => new UserFront(row));

@@ -35,8 +35,8 @@ router.get('/users/available', security.checkjWT,userController.showAvailableUse
 
 
 // Route pôur chnager availabity (switch) on et une off 
-router.get('/user/availability/on', security.checkjWT, userController.availabilityOn); // Route pour afficher toutes les conversations d'un utilisateur 
-router.get('/user/availability/off', security.checkjWT, userController.availabilityOff); // Route pour afficher toutes les conversations d'un utilisateur 
+router.get('/user/availability/on', security.checkjWT, userController.availabilityOn); // Route pour afficher les riders disponnible 
+router.get('/user/availability/off', security.checkjWT, userController.availabilityOff); // Route pour afficher les riders indisponnible  
 
 // Route user/mode
 router.post('/user/mode', security.checkjWT, modeController.addMode); // Ajout d'un mode au profil utilisateur 
