@@ -146,8 +146,9 @@ class User {
                     location = $3,
                     language = $4,
                     description = $5,
-                    profile_picture = $6
-                    WHERE id = $7
+                    profile_picture = $6,
+                    city = $7,
+                    WHERE id = $8
                     `,
                 values: [
                     this.last_name,
@@ -156,10 +157,13 @@ class User {
                     this.language,
                     this.description,
                     this.profile_picture,
+                    this.city,
                     id]
             }
             await client.query(sqlQuerry);
             console.log('Utilisateur modifié');
+            console.log('Requete = ', sqlQuerry);
+
 
 
         } catch (error) {
